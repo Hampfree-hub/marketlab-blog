@@ -75,15 +75,15 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		width: 100%;
 		height: 100%;
 		background: linear-gradient(135deg, 
-			#B8E6B8 0%, 
-			#A8D8A8 15%, 
-			#7FD47F 35%, 
-			#6BA86B 55%, 
-			#5A8A5A 75%, 
-			#4A6B4A 100%);
+			#A8E6A8 0%, 
+			#8FD88F 15%, 
+			#6BC86B 35%, 
+			#4A9A4A 55%, 
+			#3A7A3A 75%, 
+			#2A5A2A 100%);
 		background-size: 200% 200%;
 		animation: gradientWave 15s ease infinite;
-		opacity: 0.85;
+		opacity: 0.9;
 	}
 
 	/* Анимация градиента (волны) */
@@ -143,28 +143,31 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 	.btn-primary {
 		background: var(--gold);
-		color: #5A4A3A; /* Тёмный коричневый для хорошего контраста на пастельном золотом */
+		color: #4A3A2A; /* Тёмный коричневый для контраста */
 		border-color: var(--gold);
-		font-weight: 500;
+		font-weight: 600;
+		box-shadow: 0 2px 8px rgba(240, 216, 144, 0.3);
 	}
 
 	.btn-primary:hover {
 		background: var(--gold-orange);
 		border-color: var(--gold-orange);
-		color: #4A3A2A; /* Ещё темнее при hover */
-		transform: translateY(-2px);
-		box-shadow: var(--box-shadow-hover);
+		color: #3A2A1A; /* Ещё темнее при hover */
+		transform: translateY(-3px);
+		box-shadow: 0 4px 16px rgba(232, 200, 112, 0.4), 0 8px 24px rgba(232, 200, 112, 0.3);
 	}
 
 	.btn-secondary {
 		background: transparent;
 		color: white;
 		border-color: white;
+		box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
 	}
 
 	.btn-secondary:hover {
-		background: rgba(255, 255, 255, 0.1);
-		transform: translateY(-2px);
+		background: rgba(255, 255, 255, 0.15);
+		transform: translateY(-3px);
+		box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
 	}
 
 	.btn-outline {
@@ -176,7 +179,8 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	.btn-outline:hover {
 		background: var(--accent);
 		color: white;
-		transform: translateY(-2px);
+		transform: translateY(-3px);
+		box-shadow: var(--box-shadow-hover);
 	}
 
 	/* Секции */
@@ -205,16 +209,16 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		text-align: center;
 	}
 
-	/* Тёмная тема для hero (пастельная) */
+	/* Тёмная тема для hero */
 	@media (prefers-color-scheme: dark) {
 		.hero-gradient {
 			background: linear-gradient(135deg, 
-				#4A6B4A 0%, 
-				#5A8A5A 20%, 
-				#6BA86B 40%, 
-				#7FD47F 60%, 
-				#A8D8A8 80%, 
-				#B8E6B8 100%);
+				#2A5A2A 0%, 
+				#3A7A3A 20%, 
+				#4A9A4A 40%, 
+				#6BC86B 60%, 
+				#8FD88F 80%, 
+				#A8E6A8 100%);
 		}
 	}
 

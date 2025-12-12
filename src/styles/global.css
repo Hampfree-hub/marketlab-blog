@@ -4,57 +4,57 @@
 */
 
 :root {
-	/* Пастельные зелёные цвета (мягкие, гармоничные) */
-	--green-light: #B8E6B8;      /* Мягкий светло-зелёный */
-	--green-lime: #7FD47F;        /* Пастельный лайм */
-	--green-forest: #6BA86B;      /* Приглушённый лесной */
-	--green-dark: #5A8A5A;        /* Мягкий тёмно-зелёный */
-	--green-very-dark: #4A6B4A;   /* Приглушённый очень тёмный */
+	/* Зелёные цвета (сбалансированные - не слишком яркие, не слишком блеклые) */
+	--green-light: #A8E6A8;      /* Светло-зелёный */
+	--green-lime: #6BC86B;        /* Лайм */
+	--green-forest: #4A9A4A;      /* Лесной */
+	--green-dark: #3A7A3A;        /* Тёмно-зелёный */
+	--green-very-dark: #2A5A2A;   /* Очень тёмный */
 	
-	/* Пастельный золотой (мягкий, не яркий) */
-	--gold: #E8D5A3;              /* Мягкий золотой */
-	--gold-orange: #D4B896;       /* Пастельный золотисто-оранжевый */
-	--gold-dark: #C4A882;         /* Приглушённый тёмно-золотой */
+	/* Золотой (сбалансированный) */
+	--gold: #F0D890;              /* Золотой */
+	--gold-orange: #E8C870;       /* Золотисто-оранжевый */
+	--gold-dark: #D4B860;         /* Тёмно-золотой */
 	
-	/* Бежевый (пастельный) */
-	--beige: #F5F1E8;             /* Мягкий бежевый */
-	--beige-light: #FAF8F3;       /* Светло-бежевый */
+	/* Бежевый */
+	--beige: #F5F0E8;             /* Бежевый */
+	--beige-light: #FAF5ED;       /* Светло-бежевый */
 	
-	/* Серый (мягкий) */
-	--gray-dark: #4A4A4A;         /* Мягкий тёмно-серый */
-	--gray-very-dark: #3A3A3A;    /* Приглушённый очень тёмный */
-	--gray-medium: #6A6A6A;       /* Мягкий средне-серый */
-	--gray-light: #E8E8E8;        /* Светло-серый */
-	--gray-text: #8A8A8A;         /* Мягкий серый для текста */
+	/* Серый */
+	--gray-dark: #3A3A3A;         /* Тёмно-серый */
+	--gray-very-dark: #2A2A2A;    /* Очень тёмный */
+	--gray-medium: #5A5A5A;       /* Средне-серый */
+	--gray-light: #E0E0E0;        /* Светло-серый */
+	--gray-text: #7A7A7A;         /* Серый для текста */
 	
-	/* Градиенты (пастельные) */
-	--gradient-green: linear-gradient(135deg, #B8E6B8 0%, #7FD47F 50%, #6BA86B 100%);
-	--gradient-green-dark: linear-gradient(135deg, #4A6B4A 0%, #5A8A5A 50%, #6BA86B 100%);
+	/* Градиенты */
+	--gradient-green: linear-gradient(135deg, #A8E6A8 0%, #6BC86B 50%, #4A9A4A 100%);
+	--gradient-green-dark: linear-gradient(135deg, #2A5A2A 0%, #3A7A3A 50%, #4A9A4A 100%);
 	
-	/* Светлая тема (пастельная) */
-	--bg-primary: #FEFEFE;         /* Почти белый (мягкий) */
-	--bg-secondary: #F5F1E8;      /* Мягкий бежевый */
-	--text-primary: #3A3A3A;       /* Мягкий тёмный (не чёрный) */
-	--text-secondary: #6A6A6A;     /* Мягкий серый */
-	--accent: #6BA86B;             /* Приглушённый зелёный */
-	--accent-light: #7FD47F;      /* Пастельный лайм */
+	/* Светлая тема */
+	--bg-primary: #FFFFFF;         /* Белый */
+	--bg-secondary: #F5F0E8;      /* Бежевый */
+	--text-primary: #2A2A2A;       /* Тёмный (но не чёрный) */
+	--text-secondary: #5A5A5A;     /* Серый */
+	--accent: #4A9A4A;             /* Зелёный */
+	--accent-light: #6BC86B;      /* Светло-зелёный */
 	
-	/* Тени (мягкие, пастельные) */
-	--box-shadow: 0 2px 8px rgba(107, 168, 107, 0.08), 0 8px 24px rgba(107, 168, 107, 0.12);
-	--box-shadow-hover: 0 4px 16px rgba(107, 168, 107, 0.15), 0 16px 32px rgba(107, 168, 107, 0.2);
+	/* Тени (усиленные для лучшей видимости) */
+	--box-shadow: 0 4px 12px rgba(74, 154, 74, 0.15), 0 8px 24px rgba(74, 154, 74, 0.2);
+	--box-shadow-hover: 0 6px 20px rgba(74, 154, 74, 0.25), 0 12px 32px rgba(74, 154, 74, 0.3);
 }
 
-/* Тёмная тема (пастельная) */
+/* Тёмная тема */
 @media (prefers-color-scheme: dark) {
 	:root {
-		--bg-primary: #2A2A2A;         /* Мягкий тёмный (не чёрный) */
-		--bg-secondary: #3A3A3A;      /* Приглушённый тёмно-серый */
-		--text-primary: #E8E8E8;       /* Мягкий светлый */
-		--text-secondary: #B8B8B8;     /* Пастельный серый */
-		--accent: #7FD47F;             /* Пастельный лайм */
-		--accent-light: #B8E6B8;      /* Мягкий светло-зелёный */
-		--box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
-		--box-shadow-hover: 0 4px 16px rgba(127, 212, 127, 0.15), 0 16px 32px rgba(127, 212, 127, 0.2);
+		--bg-primary: #1A1A1A;         /* Тёмный */
+		--bg-secondary: #2A2A2A;      /* Тёмно-серый */
+		--text-primary: #E0E0E0;       /* Светлый */
+		--text-secondary: #B0B0B0;     /* Серый */
+		--accent: #6BC86B;             /* Зелёный */
+		--accent-light: #A8E6A8;      /* Светло-зелёный */
+		--box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4);
+		--box-shadow-hover: 0 6px 20px rgba(107, 200, 107, 0.2), 0 12px 32px rgba(107, 200, 107, 0.3);
 	}
 }
 
