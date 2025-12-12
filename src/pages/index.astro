@@ -1,262 +1,35 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import SubscribeForm from '../components/SubscribeForm.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+// Временная страница для maintenance mode
+import { SITE_TITLE } from '../consts';
 ---
 
 <!doctype html>
 <html lang="ru">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Блог временно недоступен - {SITE_TITLE}</title>
+		<meta name="description" content="Блог на техническом обслуживании" />
 	</head>
 	<body>
-		<Header />
-		
-		<!-- Hero Section с градиентом (как на скриншоте) -->
-		<section class="hero">
-			<div class="hero-gradient"></div>
-			<div class="hero-content">
-				<h1>MarketLab Academy</h1>
-				<p class="hero-subtitle">Блог о трейдинге, криптовалюте и автоматизации торговли</p>
-				<div class="hero-buttons">
-					<a href="/blog" class="btn btn-primary">Читать блог</a>
-					<a href="/about" class="btn btn-secondary">О проекте</a>
+		<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #2A5A2A 0%, #3A7A3A 50%, #4A9A4A 100%); margin: 0; padding: 2em; font-family: 'Lato', sans-serif;">
+			<div style="text-align: center; color: white; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); border-radius: 20px; padding: 3.5em 2.5em; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.25); max-width: 600px;">
+				<div style="font-size: 5em; margin-bottom: 1em; animation: rotate 3s linear infinite; color: #F0D890;">
+					<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto;">
+						<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.78 1.31a2 2 0 0 0 .73 2.73l.15.08a2 2 0 0 1 1 1.73v.56a2 2 0 0 1-1 1.73l-.15.08a2 2 0 0 0-.73 2.73l.78 1.31a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.78-1.31a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.73v-.56a2 2 0 0 1 1-1.73l.15-.08a2 2 0 0 0 .73-2.73l-.78-1.31a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2-0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>
+					</svg>
 				</div>
+				<h1 style="font-size: 2.8em; margin: 0 0 0.6em 0; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);">Блог временно недоступен</h1>
+				<p style="font-size: 1.3em; margin: 0.6em 0; opacity: 0.95;">Мы проводим техническое обслуживание</p>
+				<p style="font-size: 1.1em; opacity: 0.8; margin-top: 1.2em;">Скоро вернёмся!</p>
 			</div>
-		</section>
-
-		<main>
-			<!-- О блоге -->
-			<section class="about">
-				<h2>О MarketLab Academy</h2>
-				<p>
-					MarketLab Academy — это образовательная платформа, посвящённая трейдингу, криптовалютам и алгоритмической разработке.
-					Мы делимся знаниями, опытом и практическими решениями для тех, кто хочет развиваться в этой области.
-				</p>
-				<p>
-					Здесь вы найдёте статьи о стратегиях, техническом анализе, разработке торговых ботов и многом другом.
-				</p>
-			</section>
-
-			<!-- Последние статьи -->
-			<section class="latest-posts">
-				<h2>Последние статьи</h2>
-				<p>Скоро здесь появятся первые статьи блога.</p>
-				<a href="/blog" class="btn btn-outline">Все статьи →</a>
-			</section>
-
-			<!-- Форма подписки -->
-			<SubscribeForm />
-		</main>
-
-		<Footer />
+		</div>
+		<style>
+			@keyframes rotate {
+				from { transform: rotate(0deg); }
+				to { transform: rotate(360deg); }
+			}
+		</style>
 	</body>
 </html>
 
-<style>
-	/* Hero Section с градиентом (как на скриншоте) */
-	.hero {
-		position: relative;
-		width: 100%;
-		min-height: 400px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		overflow: hidden;
-		margin-bottom: 4em;
-	}
-
-	.hero-gradient {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(135deg, 
-			#2A5A2A 0%, 
-			#3A7A3A 15%, 
-			#4A9A4A 35%, 
-			#6BC86B 55%, 
-			#8FD88F 75%, 
-			#A8E6A8 100%);
-		background-size: 200% 200%;
-		animation: gradientWave 15s ease infinite;
-		opacity: 0.95;
-	}
-
-	/* Анимация градиента (волны) */
-	@keyframes gradientWave {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
-	}
-
-	.hero-content {
-		position: relative;
-		z-index: 1;
-		text-align: center;
-		color: white;
-		padding: 2em;
-		max-width: 800px;
-	}
-
-	.hero h1 {
-		font-size: 3.5em;
-		margin: 0 0 0.5em 0;
-		color: white;
-		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-		font-weight: 500;
-	}
-
-	.hero-subtitle {
-		font-size: 1.5em;
-		margin: 0 0 2em 0;
-		color: rgba(255, 255, 255, 0.95);
-		text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-	}
-
-	.hero-buttons {
-		display: flex;
-		gap: 1em;
-		justify-content: center;
-		flex-wrap: wrap;
-	}
-
-	/* Кнопки */
-	.btn {
-		padding: 0.75em 2em;
-		border-radius: 8px;
-		text-decoration: none;
-		font-weight: 500;
-		transition: all 0.3s ease;
-		display: inline-block;
-		border: 2px solid transparent;
-	}
-
-	.btn-primary {
-		background: var(--gold);
-		color: #4A3A2A; /* Тёмный коричневый для контраста */
-		border-color: var(--gold);
-		font-weight: 600;
-		box-shadow: 0 2px 8px rgba(240, 216, 144, 0.3);
-	}
-
-	.btn-primary:hover {
-		background: var(--gold-orange);
-		border-color: var(--gold-orange);
-		color: #3A2A1A; /* Ещё темнее при hover */
-		transform: translateY(-2px);
-		box-shadow: 0 3px 10px rgba(232, 200, 112, 0.25), 0 6px 16px rgba(232, 200, 112, 0.2);
-	}
-
-	.btn-secondary {
-		background: transparent;
-		color: white;
-		border-color: white;
-		box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
-	}
-
-	.btn-secondary:hover {
-		background: rgba(255, 255, 255, 0.15);
-		transform: translateY(-2px);
-		box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
-	}
-
-	.btn-outline {
-		background: transparent;
-		color: var(--accent);
-		border-color: var(--accent);
-	}
-
-	.btn-outline:hover {
-		background: var(--accent);
-		color: white;
-		transform: translateY(-2px);
-		box-shadow: 0 3px 10px rgba(74, 154, 74, 0.2), 0 6px 16px rgba(74, 154, 74, 0.15);
-	}
-
-	/* Секции - менее отвлекающие блоки */
-	.about,
-	.latest-posts {
-		margin-bottom: 3em;
-		padding: 2em;
-		background: var(--bg-secondary);
-		border-radius: 12px;
-		box-shadow: var(--box-shadow);
-		transition: box-shadow 0.3s ease;
-	}
-
-	.about:hover,
-	.latest-posts:hover {
-		box-shadow: var(--box-shadow-hover);
-	}
-
-	.about h2,
-	.latest-posts h2 {
-		color: var(--accent);
-		margin-bottom: 1.5em;
-		font-size: 2em;
-		font-weight: 600;
-		line-height: 1.3;
-	}
-
-	.about p,
-	.latest-posts p {
-		margin-bottom: 1.5em;
-		padding: 0;
-		line-height: 1.8;
-		color: var(--text-primary);
-		font-size: 1.05em;
-	}
-
-	.latest-posts {
-		text-align: center;
-	}
-
-	/* Тёмная тема для hero */
-	@media (prefers-color-scheme: dark) {
-		.hero-gradient {
-			background: linear-gradient(135deg, 
-				#2A5A2A 0%, 
-				#3A7A3A 20%, 
-				#4A9A4A 40%, 
-				#6BC86B 60%, 
-				#8FD88F 80%, 
-				#A8E6A8 100%);
-		}
-	}
-
-	/* Мобильная версия */
-	@media (max-width: 720px) {
-		.hero h1 {
-			font-size: 2.5em;
-		}
-
-		.hero-subtitle {
-			font-size: 1.2em;
-		}
-
-		.hero-buttons {
-			flex-direction: column;
-			align-items: stretch;
-		}
-
-		.btn {
-			width: 100%;
-			text-align: center;
-		}
-
-		.about,
-		.latest-posts {
-			padding: 1.5em;
-		}
-	}
-</style>
