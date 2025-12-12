@@ -9,7 +9,8 @@ import type { MiddlewareHandler } from 'astro';
 export const onRequest: MiddlewareHandler = async (context, next) => {
 	// Check for maintenance mode (only in production)
 	// Локально (dev) всегда видим блог, онлайн (production) работает Maintenance Mode
-	const maintenanceMode = import.meta.env.PROD && import.meta.env.MAINTENANCE_MODE === 'true';
+	// Включить: установить PUBLIC_MAINTENANCE=true в GitHub Pages environment variables
+	const maintenanceMode = import.meta.env.PROD && import.meta.env.PUBLIC_MAINTENANCE === 'true';
 	
 	if (maintenanceMode && !context.url.pathname.startsWith('/maintenance')) {
 		// Redirect to maintenance page
