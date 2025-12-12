@@ -3,7 +3,7 @@
 ---
 
 <div class="disclaimer">
-	<p class="disclaimer-title">⚠️ <strong>Disclaimer</strong></p>
+	<p class="disclaimer-title"><strong>Disclaimer</strong></p>
 	<p>
 		Этот блог носит исключительно информационный характер. 
 		Не является финансовой рекомендацией или инвестиционным советом.
@@ -18,7 +18,7 @@
 	</p>
 	<p class="disclaimer-humor">
 		P.S. Если бы я точно знал, что делать — 
-		я бы уже был миллионером. Но я просто делюсь опытом 😊
+		я бы уже был миллионером. Но я просто делюсь опытом.
 	</p>
 	<p class="disclaimer-footer">
 		Все решения принимаются вами самостоятельно на свой страх и риск.
@@ -27,14 +27,15 @@
 
 <style>
 	.disclaimer {
-		margin: 2em 0;
-		padding: 1.5em;
+		margin: 3em 0;
+		padding: 2em 2.5em;
 		background: var(--bg-secondary);
 		border-left: 4px solid var(--accent);
-		border-radius: 8px;
-		font-size: 0.9em;
-		line-height: 1.6;
-		color: var(--text-secondary);
+		border-radius: 12px;
+		font-size: 0.95em;
+		line-height: 1.8;
+		color: var(--text-primary);
+		box-shadow: var(--box-shadow);
 	}
 
 	.disclaimer-title {
@@ -44,19 +45,24 @@
 	}
 
 	.disclaimer p {
-		margin: 0.5em 0;
+		margin: 1em 0;
+		padding: 0;
 	}
 
 	.disclaimer-humor {
-		margin-top: 1em;
+		margin-top: 1.5em;
+		padding-top: 1.5em;
+		border-top: 1px solid rgba(74, 154, 74, 0.2);
 		font-style: italic;
-		opacity: 0.8;
+		opacity: 0.85;
+		color: var(--text-secondary);
 	}
 
 	.disclaimer-footer {
-		margin-top: 1em;
+		margin-top: 1.5em;
 		font-size: 0.95em;
-		font-weight: 500;
+		font-weight: 600;
+		color: var(--text-primary);
 	}
 
 	@media (prefers-color-scheme: dark) {

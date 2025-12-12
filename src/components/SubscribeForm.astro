@@ -25,22 +25,29 @@
 
 <style>
 	.subscribe-form {
-		margin: 2em 0;
-		padding: 1.5em;
+		margin: 3em 0;
+		padding: 2.5em 2em;
 		background: var(--bg-secondary);
-		border-radius: 12px;
+		border-radius: 16px;
 		text-align: center;
-		transition: box-shadow 0.3s ease;
-	}
-
-	.subscribe-form:hover {
+		transition: all 0.3s ease;
+		border: 1px solid rgba(74, 154, 74, 0.1);
 		box-shadow: var(--box-shadow);
 	}
 
+	.subscribe-form:hover {
+		box-shadow: var(--box-shadow-hover);
+		transform: translateY(-2px);
+		border-color: rgba(74, 154, 74, 0.2);
+	}
+
 	.subscribe-text {
-		margin: 0 0 1em 0;
+		margin: 0 0 1.5em 0;
 		color: var(--text-primary);
-		font-size: 1em;
+		font-size: 1.1em;
+		font-weight: 500;
+		line-height: 1.6;
+		padding: 0;
 	}
 
 	.subscribe-input-group {
@@ -90,10 +97,12 @@
 	}
 
 	.subscribe-note {
-		margin: 0.75em 0 0 0;
-		font-size: 0.85em;
+		margin: 1em 0 0 0;
+		font-size: 0.9em;
 		color: var(--text-secondary);
-		opacity: 0.7;
+		opacity: 0.8;
+		line-height: 1.6;
+		padding: 0;
 	}
 
 	@media (max-width: 720px) {
