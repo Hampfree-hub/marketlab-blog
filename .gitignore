@@ -25,3 +25,13 @@ pnpm-debug.log*
 
 # AI assistant rules (local only)
 .cursorrules*
+
+# Token files (NEVER commit!)
+*_TOKEN.md
+*_PUSH.md
+*_SECRETS.md
+SETUP_GITHUB_TOKEN.md
+UPDATE_GITHUB_TOKEN.md
+FIX_PUSH.md
+CREATE_NEW_TOKEN.md
+UNBLOCK_SECRETS.md
