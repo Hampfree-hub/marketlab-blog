@@ -10,7 +10,8 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
 	// Check for maintenance mode (only in production)
 	// Локально (dev) всегда видим блог, онлайн (production) работает Maintenance Mode
 	// Включить: установить PUBLIC_MAINTENANCE=true в GitHub Pages environment variables
-	const maintenanceMode = import.meta.env.PROD && import.meta.env.PUBLIC_MAINTENANCE === 'true';
+	// ВРЕМЕННО ВКЛЮЧЕНО: maintenanceMode всегда true в production
+	const maintenanceMode = import.meta.env.PROD; // Временно включено - показывать maintenance всегда в production
 	
 	if (maintenanceMode && !context.url.pathname.startsWith('/maintenance')) {
 		// Redirect to maintenance page
