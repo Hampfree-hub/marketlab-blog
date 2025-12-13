@@ -32,7 +32,7 @@
 	--gradient-green-dark: linear-gradient(135deg, #2A5A2A 0%, #3A7A3A 50%, #4A9A4A 100%);
 	
 	/* Светлая тема */
-	--bg-primary: #FFFFFF;         /* Белый */
+	--bg-primary: #F8F8F8;         /* Едва серый (мягкий фон для всех страниц) */
 	--bg-secondary: #F5F0E8;      /* Бежевый */
 	--text-primary: #2A2A2A;       /* Тёмный (но не чёрный) */
 	--text-secondary: #5A5A5A;     /* Серый */
@@ -47,8 +47,8 @@
 /* Тёмная тема */
 @media (prefers-color-scheme: dark) {
 	:root {
-		--bg-primary: #1A1A1A;         /* Тёмный */
-		--bg-secondary: #2A2A2A;      /* Тёмно-серый */
+		--bg-primary: #1A1A1A;         /* Тёмный фон (как сейчас) */
+		--bg-secondary: #2F2F2F;      /* Тёмно-серый для футера (светлее чем было #2A2A2A) */
 		--text-primary: #E0E0E0;       /* Светлый */
 		--text-secondary: #B0B0B0;     /* Серый */
 		--accent: #6BC86B;             /* Зелёный */
@@ -56,6 +56,14 @@
 		--box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4);
 		--box-shadow-hover: 0 6px 20px rgba(107, 200, 107, 0.2), 0 12px 32px rgba(107, 200, 107, 0.3);
 	}
+}
+
+/* Базовый размер шрифта (фиксированный, как у Bybit) */
+html {
+	font-size: 16px; /* Фиксированный размер */
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
 }
 
 /* Шрифт: Lato (приятный для чтения, мультиязычный) */
@@ -68,8 +76,8 @@ body {
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: var(--text-primary);
-	font-size: 18px;
-	line-height: 1.7;
+	font-size: 16px; /* Фиксированный размер (как у Bybit) */
+	line-height: 1.6; /* Оптимальное соотношение */
 	font-weight: 400; /* Regular - не тонкий, не жирный */
 	transition: background-color 0.3s ease, color 0.3s ease;
 }

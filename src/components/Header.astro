@@ -1,11 +1,19 @@
 ---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+
+// BASE_URL уже содержит '/marketlab-academy', добавляем '/' перед logo.svg
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+	? import.meta.env.BASE_URL 
+	: import.meta.env.BASE_URL + '/';
+const logoPath = `${baseUrl}logo.svg?v=5`;
 ---
 
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2><a href="/" class="logo-link">
+			<img src={logoPath} alt="MarketLab Academy" class="logo-img" />
+		</a></h2>
 		<div class="internal-links">
 			<HeaderLink href="/blog">Блог</HeaderLink>
 			<div class="dropdown">
@@ -32,26 +40,14 @@ import HeaderLink from './HeaderLink.astro';
 				<button class="lang-button" aria-label="Español">ES</button>
 			</div>
 			<div class="social-links">
-				<a href="https://dzen.ru/hampfree_algo_trading" target="_blank" rel="noopener noreferrer" title="Дзен">
-					<span class="sr-only">Дзен</span>
-					<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-						<path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm-1 4v8h2V6h-2zm4 0v8h2V6h-2z"/>
-					</svg>
+				<a href="https://dzen.ru/hampfree_algo_trading" target="_blank" rel="noopener noreferrer" class="social-button" data-label="Дзен">
+					<span class="social-tooltip">Дзен</span>
 				</a>
-				<a href="https://vk.com/hampfree_market_lab" target="_blank" rel="noopener noreferrer" title="VK">
-					<span class="sr-only">VK</span>
-					<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-						<path d="M12.785 16.241s.335-.039.505-.238c.098-.14.098-.401.098-.401s-.014-2.116.905-2.427c.923-.312 2.108 1.483 3.36 2.137.972.507 1.71.396 1.71.396l3.373-.05s1.765-.11.93-1.5c-.069-.11-.49-1.03-2.51-2.914-2.123-2.01-1.838-1.675.714-5.133 1.545-2.14 2.163-3.444 1.97-4.004-.183-.528-1.31-.39-1.31-.39l-3.76.024s-.279-.04-.485.085c-.21.13-.343.43-.343.43s-.616 1.648-1.433 3.05c-1.73 2.83-2.424 2.98-2.71 2.81-.65-.39-.488-1.57-.488-2.41 0-2.62.39-3.71-.763-3.99-.38-.09-.66-.15-1.63-.16-1.25-.01-2.31.01-2.91.3-.4.2-.7.64-.52.66.23.03.75.14 1.02.51.35.47.34 1.52.34 1.52s.2 2.93-.47 3.29c-.46.29-1.09-.3-2.44-2.99-.69-1.38-1.22-2.9-1.22-2.9s-.1-.3-.28-.46c-.22-.18-.53-.24-.53-.24l-3.58.02s-.54.02-.74.24c-.18.2-.01.62-.01.62s2.78 6.52 5.92 9.81c2.88 2.98 6.17 2.78 6.17 2.78h1.52s.45-.05.68-.28c.21-.2.21-.46.21-.46s-.03-1.58.67-1.81c.68-.24 1.55 1.64 2.47 2.37.68.57 1.19.75 1.19.75s.4.19.68.05c.27-.14.19-.54.19-.54s-.14-1.01.2-1.16c.2-.1.47.07.99.7.7.8 1.64 1.99 1.64 1.99s.43.6 1.01.46c.57-.14 3.05-1.78 3.43-3.4.2-.85.2-1.27.2-1.27s.01-.4.23-.55c.23-.15.53-.1.53-.1l3.4.02s1.82-.11.96-1.48c-.09-.11-1.6-1.87-3.64-3.15z"/>
-					</svg>
+				<a href="https://vk.com/hampfree_market_lab" target="_blank" rel="noopener noreferrer" class="social-button" data-label="VK">
+					<span class="social-tooltip">VK</span>
 				</a>
-				<a href="https://finbazar.ru/profile/Hampfree" target="_blank" rel="noopener noreferrer" title="Bazar">
-					<span class="sr-only">Bazar</span>
-					<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-						<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-						<circle cx="12" cy="7" r="1.5" fill="currentColor"/>
-						<circle cx="12" cy="12" r="1.5" fill="currentColor"/>
-						<circle cx="12" cy="17" r="1.5" fill="currentColor"/>
-					</svg>
+				<a href="https://finbazar.ru/profile/Hampfree" target="_blank" rel="noopener noreferrer" class="social-button" data-label="Bazar">
+					<span class="social-tooltip">Bazar</span>
 				</a>
 			</div>
 		</div>
@@ -71,21 +67,46 @@ import HeaderLink from './HeaderLink.astro';
 		font-size: 1em;
 	}
 
-	h2 a,
-	h2 a.active {
+	.logo-link {
 		text-decoration: none;
-		color: var(--text-primary);
-		transition: color 0.2s ease;
+		display: flex;
+		align-items: center;
+	}
+
+	.logo-img {
+		width: 40px;
+		height: 40px;
+		min-width: 40px;
+		min-height: 40px;
+		border: none !important;
+		border-radius: 0;
+		outline: none !important;
+		box-shadow: none !important;
+		transition: transform 0.2s ease, filter 0.2s ease;
+		display: block;
+		object-fit: contain;
+		flex-shrink: 0;
+		background: transparent;
 	}
 	
-	h2 a:hover {
-		color: var(--accent);
+	.logo-link:focus .logo-img,
+	.logo-img:focus {
+		outline: none !important;
+		box-shadow: none !important;
+		border: none !important;
+	}
+
+	.logo-link:hover .logo-img {
+		transform: scale(1.05);
+		filter: brightness(1.1);
 	}
 	
 	nav {
 		display: flex;
-		align-items: center;
+		align-items: center; /* Выравнивание по центру по вертикали */
 		justify-content: space-between;
+		gap: 1.5em;
+		flex-wrap: wrap;
 	}
 	nav a {
 		padding: 1em 0.5em;
@@ -109,6 +130,9 @@ import HeaderLink from './HeaderLink.astro';
 		display: flex;
 		align-items: center;
 		gap: 0.5em;
+		flex-wrap: wrap;
+		flex: 1;
+		min-width: 0;
 	}
 
 	/* Dropdown меню */
@@ -149,7 +173,9 @@ import HeaderLink from './HeaderLink.astro';
 		left: 0;
 		background: var(--bg-primary);
 		border-radius: 8px;
-		box-shadow: var(--box-shadow-hover);
+		box-shadow: 
+			0 4px 12px rgba(0, 0, 0, 0.15),
+			0 8px 24px rgba(0, 0, 0, 0.2);
 		min-width: 180px;
 		opacity: 0;
 		visibility: hidden;
@@ -171,11 +197,21 @@ import HeaderLink from './HeaderLink.astro';
 		color: var(--text-primary);
 		text-decoration: none;
 		border-bottom: 1px solid var(--bg-secondary);
-		transition: background-color 0.2s ease;
+		transition: all 0.2s ease;
+		transform: translateY(0);
 	}
 
+	/* Скругление углов для первого элемента */
+	.dropdown-menu a:first-child {
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+	}
+
+	/* Скругление углов для последнего элемента */
 	.dropdown-menu a:last-child {
 		border-bottom: none;
+		border-bottom-left-radius: 8px;
+		border-bottom-right-radius: 8px;
 	}
 
 	.dropdown-menu a:hover {
@@ -187,7 +223,8 @@ import HeaderLink from './HeaderLink.astro';
 	.header-right {
 		display: flex;
 		align-items: center;
-		gap: 1em;
+		gap: 0.75em;
+		flex-shrink: 0;
 	}
 
 	.language-switcher {
@@ -238,28 +275,111 @@ import HeaderLink from './HeaderLink.astro';
 		align-items: center;
 	}
 	
-	.social-links a {
-		color: var(--text-secondary);
-		transition: color 0.2s ease;
-		padding: 0.25em;
-		display: flex;
-		align-items: center;
+	.social-button {
+		width: 24px;
+		height: 24px;
+		min-width: 24px;
+		min-height: 24px;
+		max-width: 24px;
+		max-height: 24px;
+		aspect-ratio: 1;
+		border-radius: 6px;
+		display: block;
 		position: relative;
+		transition: all 0.3s ease;
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		text-decoration: none;
+		flex-shrink: 0;
+		box-sizing: border-box;
+		padding: 0;
+		margin: 0;
 	}
 	
-	.social-links a:not(:last-child)::after {
+	/* Минималистичные квадратные пузырьки без символов */
+	.social-button[href*="dzen"] {
+		background: rgba(0, 0, 0, 0.4);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+	
+	.social-button[href*="vk"] {
+		background: rgba(70, 128, 194, 0.4);
+		border: 1px solid rgba(70, 128, 194, 0.3);
+	}
+	
+	.social-button[href*="finbazar"] {
+		background: rgba(152, 251, 152, 0.4);
+		border: 1px solid rgba(152, 251, 152, 0.3);
+	}
+	
+	/* Тёмная тема */
+	@media (prefers-color-scheme: dark) {
+		.social-button[href*="dzen"] {
+			background: rgba(255, 255, 255, 0.15);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+		}
+		
+		.social-button[href*="vk"] {
+			background: rgba(70, 128, 194, 0.5);
+			border: 1px solid rgba(70, 128, 194, 0.4);
+		}
+		
+		.social-button[href*="finbazar"] {
+			background: rgba(152, 251, 152, 0.5);
+			border: 1px solid rgba(152, 251, 152, 0.4);
+		}
+	}
+	
+	/* Подпись при наведении */
+	.social-tooltip {
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%) translateY(8px);
+		background: var(--bg-primary);
+		color: var(--text-primary);
+		padding: 0.35em 0.6em;
+		border-radius: 6px;
+		font-size: 0.7em;
+		white-space: nowrap;
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.2s ease;
+		pointer-events: none;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		z-index: 1000;
+	}
+	
+	.social-tooltip::before {
 		content: '';
 		position: absolute;
-		right: -0.5em;
-		top: 50%;
-		transform: translateY(-50%);
-		width: 1px;
-		height: 12px;
-		background: rgba(122, 122, 122, 0.15);
+		bottom: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		border: 4px solid transparent;
+		border-bottom-color: var(--bg-primary);
 	}
 	
-	.social-links a:hover {
-		color: var(--accent);
+	.social-button:hover .social-tooltip {
+		opacity: 1;
+		visibility: visible;
+		transform: translateX(-50%) translateY(4px);
+	}
+	
+	/* Hover эффект - меняется интенсивность цвета */
+	.social-button[href*="dzen"]:hover {
+		background: rgba(0, 0, 0, 0.7);
+		transform: scale(1.05);
+	}
+	
+	.social-button[href*="vk"]:hover {
+		background: rgba(70, 128, 194, 0.7);
+		transform: scale(1.05);
+	}
+	
+	.social-button[href*="finbazar"]:hover {
+		background: rgba(152, 251, 152, 0.7);
+		transform: scale(1.05);
 	}
 
 	.sr-only {
@@ -274,30 +394,192 @@ import HeaderLink from './HeaderLink.astro';
 		border-width: 0;
 	}
 	
-	@media (max-width: 720px) {
-		.social-links {
-			display: none;
+	/* Промежуточные экраны (таблет) */
+	@media (max-width: 1024px) {
+		nav {
+			gap: 1em;
+		}
+		
+		.internal-links {
+			gap: 0.4em;
+		}
+		
+		nav a, .dropdown-button {
+			padding: 0.875em 0.5em;
+			font-size: 0.95em;
+		}
+		
+		.header-right {
+			gap: 0.75em;
+		}
+	}
+
+	/* Мобильные и узкие экраны - просто уменьшаем размеры (как у Bybit) */
+	@media (max-width: 900px) {
+		header {
+			padding: 0 1em;
+		}
+		
+		/* nav остаётся горизонтальным, просто уменьшаем gap */
+		nav {
+			gap: 1em;
+		}
+		
+		.logo-img {
+			width: 36px;
+			height: 36px;
+			min-width: 36px;
+			min-height: 36px;
+		}
+		
+		/* Навигация - просто меньше размеры */
+		.internal-links {
+			gap: 0.4em;
+		}
+		
+		nav a, .dropdown-button {
+			padding: 0.875em 0.5em;
+			font-size: 0.95em;
+		}
+		
+		.header-right {
+			gap: 0.75em;
+		}
+
+		.lang-button {
+			padding: 0.25em 0.4em;
+			font-size: 0.7em;
+		}
+		
+		.social-button {
+			width: 22px;
+			height: 22px;
+			min-width: 22px;
+			min-height: 22px;
+			max-width: 22px;
+			max-height: 22px;
+		}
+	}
+	
+	/* Очень узкие экраны - тогда только вертикализация */
+	@media (max-width: 600px) {
+		/* nav становится вертикальным (все элементы лесенкой) */
+		nav {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 1em;
+		}
+		
+		.logo-link {
+			margin-bottom: 0.5em;
+		}
+		
+		/* Навигация вертикально (лесенкой) */
+		.internal-links {
+			flex-direction: column;
+			align-items: flex-start;
+			width: 100%;
+			gap: 0.5em;
+		}
+		
+		nav a, .dropdown-button {
+			width: 100%;
+			text-align: left;
+			padding: 0.75em 0;
+		}
+		
+		/* Языки и соцсети - вертикально друг за другом */
+		.header-right {
+			flex-direction: column;
+			align-items: flex-start;
+			width: 100%;
+			gap: 0.75em;
 		}
 
 		.language-switcher {
+			flex-direction: column;
+			width: 100%;
+			gap: 0.5em;
+		}
+		
+		.lang-button {
+			width: 100%;
+			text-align: left;
+			padding: 0.5em 0.75em;
+		}
+		
+		.lang-button:not(:last-child)::after {
 			display: none;
 		}
-
-		.dropdown-menu {
-			position: static;
+		
+		/* Соцсети вертикально */
+		.social-links {
+			flex-direction: column;
+			width: 100%;
+			gap: 0.5em;
+		}
+		
+		.social-button {
+			align-self: flex-start;
+		}
+	}
+		
+		/* Показываем меню только при hover/focus на родителе */
+		.dropdown:hover .dropdown-menu,
+		.dropdown:focus-within .dropdown-menu {
 			opacity: 1;
 			visibility: visible;
-			transform: none;
-			box-shadow: none;
-			margin-top: 0;
+			transform: translateY(0);
 		}
-
+		
 		.dropdown-button {
-			display: none;
+			display: flex;
 		}
-
+		
+		.header-right {
+			display: flex;
+		}
+	}
+	
+	/* Очень узкие экраны */
+	@media (max-width: 480px) {
+		header {
+			padding: 0 0.75em;
+		}
+		
+		nav {
+			gap: 0.5em;
+		}
+		
 		.internal-links {
-			flex-wrap: wrap;
+			gap: 0.4em;
+		}
+		
+		nav a, .dropdown-button {
+			padding: 0.65em 0;
+			font-size: 0.9em;
+		}
+		
+		.logo-img {
+			width: 32px;
+			height: 32px;
+			min-width: 32px;
+			min-height: 32px;
+			border: none !important;
+			outline: none !important;
+			box-shadow: none !important;
+		}
+		
+		.header-right {
+			gap: 0.5em;
+		}
+		
+		.lang-button {
+			padding: 0.4em 0.6em;
+		}
+		
+		.social-links {
+			gap: 0.4em;
 		}
 	}
 </style>

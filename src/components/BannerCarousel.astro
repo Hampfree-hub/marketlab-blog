@@ -1,0 +1,113 @@
+---
+// Простая карусель баннеров (можно отключить через env переменную)
+const showBanners = import.meta.env.PUBLIC_SHOW_BANNERS !== 'false';
+---
+
+{showBanners && (
+	<div class="banner-carousel">
+		<div class="banner-wrapper">
+			<div class="banner-item">
+				<a href="/blog/" class="banner-link">
+					<span>Новые материалы по трейдингу и криптовалютам</span>
+				</a>
+			</div>
+		</div>
+		<button class="banner-close" aria-label="Скрыть баннеры" title="Скрыть баннеры">
+			<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+				<path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+			</svg>
+		</button>
+	</div>
+)}
+
+<style>
+	.banner-carousel {
+		position: relative;
+		background: var(--bg-secondary);
+		border-bottom: 1px solid rgba(74, 154, 74, 0.1);
+		padding: 0.75em 1em;
+		margin-bottom: 2em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.banner-wrapper {
+		max-width: 1200px;
+		width: 100%;
+	}
+
+	.banner-item {
+		text-align: center;
+	}
+
+	.banner-link {
+		color: var(--text-secondary);
+		text-decoration: none;
+		font-size: 0.9em;
+		transition: color 0.2s ease;
+	}
+
+	.banner-link:hover {
+		color: var(--accent);
+	}
+
+	.banner-close {
+		position: absolute;
+		right: 1em;
+		top: 50%;
+		transform: translateY(-50%);
+		background: transparent;
+		border: none;
+		color: var(--text-secondary);
+		cursor: pointer;
+		padding: 0.25em;
+		border-radius: 4px;
+		transition: color 0.2s ease, background-color 0.2s ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.banner-close:hover {
+		color: var(--accent);
+		background: var(--bg-primary);
+	}
+
+	/* Скрытие при нажатии */
+	.banner-carousel.hidden {
+		display: none;
+	}
+
+	@media (max-width: 720px) {
+		.banner-carousel {
+			padding: 0.5em 2.5em 0.5em 1em;
+		}
+
+		.banner-link {
+			font-size: 0.85em;
+		}
+	}
+</style>
+
+<script>
+	// Простое скрытие баннера при клике на крестик
+	document.addEventListener('DOMContentLoaded', () => {
+		const banner = document.querySelector('.banner-carousel');
+		const closeBtn = document.querySelector('.banner-close');
+		
+		if (closeBtn && banner) {
+			closeBtn.addEventListener('click', () => {
+				banner.classList.add('hidden');
+				// Сохраняем в localStorage чтобы не показывать до перезагрузки
+				localStorage.setItem('bannerHidden', 'true');
+			});
+		}
+
+		// Проверяем localStorage при загрузке
+		if (localStorage.getItem('bannerHidden') === 'true') {
+			if (banner) banner.classList.add('hidden');
+		}
+	});
+</script>
+
