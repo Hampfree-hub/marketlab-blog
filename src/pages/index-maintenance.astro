@@ -1,0 +1,38 @@
+---
+// Временная страница для maintenance mode
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Блог временно недоступен - {SITE_TITLE}</title>
+		<meta name="description" content="Блог на техническом обслуживании" />
+	</head>
+	<body>
+		<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #2A5A2A 0%, #3A7A3A 50%, #4A9A4A 100%); margin: 0; padding: 2em; font-family: 'Lato', sans-serif;">
+			<div style="text-align: center; color: white; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); border-radius: 20px; padding: 3.5em 2.5em; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.25); max-width: 600px;">
+				<div style="font-size: 5em; margin-bottom: 1em; animation: rotate 3s linear infinite; color: #F0D890;">
+					<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto;">
+						<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.78 1.31a2 2 0 0 0 .73 2.73l.15.08a2 2 0 0 1 1 1.73v.56a2 2 0 0 1-1 1.73l-.15.08a2 2 0 0 0-.73 2.73l.78 1.31a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.78-1.31a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.73v-.56a2 2 0 0 1 1-1.73l.15-.08a2 2 0 0 0 .73-2.73l-.78-1.31a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2-0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>
+					</svg>
+				</div>
+				<h1 style="font-size: 2.8em; margin: 0 0 0.6em 0; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);">Блог временно недоступен</h1>
+				<p style="font-size: 1.3em; margin: 0.6em 0; opacity: 0.95;">Мы проводим техническое обслуживание</p>
+				<p style="font-size: 1.1em; opacity: 0.8; margin-top: 1.2em;">Скоро вернёмся!</p>
+			</div>
+		</div>
+		<style>
+			@keyframes rotate {
+				from { transform: rotate(0deg); }
+				to { transform: rotate(360deg); }
+			}
+		</style>
+	</body>
+</html>
+
+
+
+

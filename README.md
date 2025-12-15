@@ -1,62 +1,94 @@
-# Astro Starter Kit: Blog
+# MarketLab Academy Blog
 
-```sh
-npm create astro@latest -- --template blog
+Личный блог о трейдинге, криптовалютах и автоматизации.
+
+---
+
+## 🚀 Быстрый старт
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Открыть: `http://localhost:4321/`
 
-Features:
+---
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+## 📁 Структура проекта
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
+```
+HampfreeBlog/
 ├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+│   ├── components/     # Astro компоненты
+│   ├── pages/          # Страницы блога
+│   ├── content/        # Контент (MDX)
+│   │   └── blog/       # Статьи блога
+│   └── styles/         # Глобальные стили
+├── public/             # Статические файлы
+└── .github/            # GitHub Actions (деплой)
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 🛠️ Команды
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+- `npm run dev` — dev сервер
+- `npm run build` — сборка проекта
+- `npm run preview` — предпросмотр production сборки
 
-Any static assets, like images, can be placed in the `public/` directory.
+---
 
-## 🧞 Commands
+## 📝 Добавление статей
 
-All commands are run from the root of the project, from a terminal:
+Статьи добавляются в `src/content/blog/` в формате Markdown (`.md`) или MDX (`.mdx`).
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+**Формат frontmatter:**
+```yaml
+---
+title: 'Название статьи'
+publishDate: 'ДД.ММ.ГГГГ'
+banner: './assets/banner.png'
+heroImage: './assets/preview.png'
+tags: ['tag1', 'tag2']
+description: "Краткое описание"
+readingTime: 5
+---
+```
 
-## 👀 Want to learn more?
+---
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 🔒 Безопасность
 
-## Credit
+**Pre-commit hook** автоматически проверяет каждый коммит на:
+- Секреты (токены, пароли, API ключи)
+- Запрещённые файлы (планы, стратегии, внутренняя документация)
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+**См. подробнее:** `SETUP_SECURITY_HOOK.md`
+
+---
+
+## 📚 Технологии
+
+- **Astro** — статический генератор сайтов
+- **MDX** — Markdown с JSX
+- **TypeScript** — типизация
+- **GitHub Pages** — хостинг
+
+---
+
+## 📄 Лицензия
+
+MIT License
+
+---
+
+## 🔗 Ссылки
+
+- Блог: [marketlab-academy.github.io](https://marketlab-academy.github.io)
+- GitHub: [github.com/Hampfree-hub/marketlab-academy](https://github.com/Hampfree-hub/marketlab-academy)
+
+---
+
+**Версия:** 0.0.1  
+**Последнее обновление:** 2025-12-15

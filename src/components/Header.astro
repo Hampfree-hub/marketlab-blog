@@ -16,22 +16,7 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		</a></h2>
 		<div class="internal-links">
 			<HeaderLink href="/blog">Блог</HeaderLink>
-			<div class="dropdown">
-				<button class="dropdown-button" aria-expanded="false" aria-haspopup="true">
-					Категории
-					<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-						<path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-				</button>
-				<div class="dropdown-menu">
-					<a href="/blog?category=trading">Трейдинг</a>
-					<a href="/blog?category=crypto">Криптовалюта</a>
-					<a href="/blog?category=automation">Автоматизация</a>
-					<a href="/blog?category=strategies">Стратегии</a>
-				</div>
-			</div>
 			<HeaderLink href="/about">О проекте</HeaderLink>
-			<HeaderLink href="/rss.xml">RSS</HeaderLink>
 		</div>
 		<div class="header-right">
 			<div class="language-switcher">
@@ -185,7 +170,22 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		margin-top: 0.5em;
 	}
 
+	/* Показывать меню при hover (desktop) */
 	.dropdown:hover .dropdown-menu {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+
+	/* Показывать меню при focus (accessibility и touch devices) */
+	.dropdown:focus-within .dropdown-menu {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+
+	/* На touch devices показывать при tap на кнопку */
+	.dropdown-button:focus ~ .dropdown-menu {
 		opacity: 1;
 		visibility: visible;
 		transform: translateY(0);
@@ -414,7 +414,7 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		}
 	}
 
-	/* Мобильные и узкие экраны - просто уменьшаем размеры (как у Bybit) */
+	/* Промежуточный размер: элементы внутри вертикально, но nav остаётся горизонтальным */
 	@media (max-width: 900px) {
 		header {
 			padding: 0 1em;
@@ -524,16 +524,18 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		}
 	}
 		
-		/* Показываем меню только при hover/focus на родителе */
-		.dropdown:hover .dropdown-menu,
+		/* На мобильных: показываем меню при focus на кнопке (tap) */
+		.dropdown-button:focus ~ .dropdown-menu,
 		.dropdown:focus-within .dropdown-menu {
 			opacity: 1;
 			visibility: visible;
 			transform: translateY(0);
 		}
 		
+		/* Делаем кнопку кликабельной на touch devices */
 		.dropdown-button {
 			display: flex;
+			touch-action: manipulation;
 		}
 		
 		.header-right {

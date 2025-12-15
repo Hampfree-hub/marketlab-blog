@@ -6,19 +6,8 @@
 	<p class="disclaimer-title"><strong>Disclaimer</strong></p>
 	<p>
 		Этот блог носит исключительно информационный характер. 
-		Не является финансовой рекомендацией или инвестиционным советом.
-	</p>
-	<p>
-		Торговля криптовалютами и другими финансовыми инструментами 
-		сопряжена с высокими рисками. Можете потерять все средства.
-	</p>
-	<p>
-		Автор не несёт ответственности за любые финансовые потери, 
-		возникшие в результате использования информации из блога.
-	</p>
-	<p class="disclaimer-humor">
-		P.S. Информация основана на личном опыте и анализе рынка. 
-		Каждый трейдер принимает решения самостоятельно.
+		Не является финансовой рекомендацией или инвестиционным советом. 
+		Торговля криптовалютами сопряжена с высокими рисками.
 	</p>
 	<p class="disclaimer-footer">
 		Все решения принимаются вами самостоятельно на свой страх и риск.
@@ -30,12 +19,13 @@
 		margin: 3em 0;
 		padding: 2em 2.5em;
 		background: var(--bg-secondary);
-		border-left: 4px solid var(--accent);
 		border-radius: 12px;
-		font-size: 0.95em;
-		line-height: 1.8;
+		border: 2px solid rgba(74, 154, 74, 0.2); /* Тонкая зелёная рамка с прозрачностью */
+		font-size: 0.9em;
+		line-height: 1.7;
 		color: var(--text-primary);
 		box-shadow: var(--box-shadow);
+		text-align: center;
 	}
 
 	.disclaimer-title {
@@ -45,22 +35,12 @@
 	}
 
 	.disclaimer p {
-		margin: 1em 0;
+		margin: 0.75em 0;
 		padding: 0;
 	}
 
-	.disclaimer-humor {
-		margin-top: 1.5em;
-		padding-top: 1.5em;
-		border-top: 1px solid rgba(74, 154, 74, 0.2);
-		font-style: italic;
-		opacity: 0.85;
-		color: var(--text-secondary);
-	}
-
 	.disclaimer-footer {
-		margin-top: 1.5em;
-		font-size: 0.95em;
+		margin-top: 1em;
 		font-weight: 600;
 		color: var(--text-primary);
 	}
@@ -68,7 +48,7 @@
 	@media (prefers-color-scheme: dark) {
 		.disclaimer {
 			background: var(--bg-secondary);
-			border-left-color: var(--accent-light);
+			border-color: rgba(107, 200, 107, 0.3); /* Чуть ярче рамка для тёмной темы */
 		}
 	}
 </style>
