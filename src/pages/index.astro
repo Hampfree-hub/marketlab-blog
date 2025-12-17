@@ -47,20 +47,27 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	.cta-button {
 		display: inline-block;
 		padding: 1em 2em;
-		background: var(--green-forest);
-		color: white;
+		background-color: var(--green-primary, var(--green-forest));
+		color: var(--text-white, white) !important;
 		text-decoration: none;
-		border-radius: 8px;
+		border-radius: 999px;
 		font-weight: 600;
-		transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+		letter-spacing: 0.02em;
+		transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+		box-shadow: 0 2px 8px rgba(45, 95, 79, 0.15);
+		opacity: 0.97;
+		position: relative;
+		backface-visibility: hidden;
+		-webkit-font-smoothing: antialiased;
 	}
 
 	.cta-button:hover {
-		background: var(--accent);
-		filter: brightness(1.15);
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(107, 200, 107, 0.3);
+		background-color: var(--green-light, var(--green-bright, var(--accent)));
+		color: var(--text-white, white) !important;
+		opacity: 1;
+		transform: translateY(-1px);
+		box-shadow: 0 4px 12px rgba(45, 95, 79, 0.2);
+		text-decoration: none;
 	}
 
 	@media (max-width: 720px) {
