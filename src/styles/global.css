@@ -10,7 +10,7 @@
 	   ============================================ */
 	
 	/* Зелёные — тёплые, живые (не похоронные!) */
-	--green-primary: #2D5F4F;        /* Основной зелёный (тёплый, не мрачный) */
+	--green-primary: #3A7A5A;        /* Основной зелёный (ярче для видимости на сером) */
 	--green-light: #4A9A4A;         /* Светло-зелёный (свежий, живой) */
 	--green-bright: #6BC86B;         /* Яркий зелёный (для акцентов) */
 	
@@ -68,23 +68,58 @@
 	--accent: #4A9A4A;             /* Зелёный */
 	--accent-light: #6BC86B;      /* Светло-зелёный */
 	
-	/* Тени (усиленные для лучшей видимости) */
-	--box-shadow: 0 4px 12px rgba(74, 154, 74, 0.15), 0 8px 24px rgba(74, 154, 74, 0.2);
-	--box-shadow-hover: 0 6px 20px rgba(74, 154, 74, 0.25), 0 12px 32px rgba(74, 154, 74, 0.3);
+	/* Тени для светлой темы - нейтральные серые (не зелёные, чтобы не было "похоронного" вида) */
+	--box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.12);
+	--box-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(0, 0, 0, 0.16);
+	
+	/* Единый формат анимации для всего блога */
+	--transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Тёмная тема */
+/* Тёмная тема - автоматическое переключение */
 @media (prefers-color-scheme: dark) {
-	:root {
+	:root:not(.light-theme) {
 		--bg-primary: #1A1A1A;         /* Тёмный фон (как сейчас) */
 		--bg-secondary: #2F2F2F;      /* Тёмно-серый для футера (светлее чем было #2A2A2A) */
 		--text-primary: #E0E0E0;       /* Светлый */
 		--text-secondary: #B0B0B0;     /* Серый */
+		/* Зелёные для тёмной темы - ярче для лучшей видимости */
+		--green-primary: #4A9A4A;      /* Ярче для тёмного фона */
+		--green-light: #6BC86B;        /* Ещё ярче для hover */
 		--accent: #6BC86B;             /* Зелёный */
 		--accent-light: #A8E6A8;      /* Светло-зелёный */
 		--box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4);
 		--box-shadow-hover: 0 6px 20px rgba(107, 200, 107, 0.2), 0 12px 32px rgba(107, 200, 107, 0.3);
 	}
+}
+
+/* Ручное переключение темы - тёмная */
+.dark-theme {
+	--bg-primary: #1A1A1A;
+	--bg-secondary: #2F2F2F;
+	--text-primary: #E0E0E0;
+	--text-secondary: #B0B0B0;
+	--green-primary: #4A9A4A;
+	--green-light: #6BC86B;
+	--accent: #6BC86B;
+	--accent-light: #A8E6A8;
+	--box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4);
+	--box-shadow-hover: 0 6px 20px rgba(107, 200, 107, 0.2), 0 12px 32px rgba(107, 200, 107, 0.3);
+}
+
+/* Ручное переключение темы - светлая */
+.light-theme {
+	--bg-primary: #F8F8F8;
+	--bg-secondary: #F5F0E8;
+	--text-primary: #2A2A2A;
+	--text-secondary: #5A5A5A;
+	--green-primary: #3A7A5A;
+	--green-light: #4A9A4A;
+	--accent: #4A9A4A;
+	--accent-light: #6BC86B;
+	/* Нейтральные серые тени для светлой темы (не зелёные) */
+	--box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.12);
+	--box-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(0, 0, 0, 0.16);
 }
 
 /* Базовый размер шрифта (фиксированный, как у Bybit) */
@@ -108,7 +143,8 @@ body {
 	font-size: 16px; /* Фиксированный размер (как у Bybit) */
 	line-height: 1.6; /* Оптимальное соотношение */
 	font-weight: 400; /* Regular - не тонкий, не жирный */
-	transition: background-color 0.3s ease, color 0.3s ease;
+	transition: background-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+	            color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 main {
@@ -128,7 +164,7 @@ h6 {
 	color: var(--text-primary);
 	line-height: 1.2;
 	font-weight: 500; /* Medium - не жирный */
-	transition: color 0.3s ease;
+	transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 h1 {
@@ -157,13 +193,14 @@ b {
 }
 
 a {
-	color: var(--accent);
+	color: var(--green-primary, var(--accent));
 	text-decoration: none;
-	transition: color 0.2s ease, border-color 0.2s ease;
+	transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+	            border-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 a:hover {
-	color: var(--accent-light);
+	color: var(--green-light, var(--accent-light));
 	text-decoration: underline;
 }
 
@@ -198,7 +235,8 @@ img {
 	max-width: 100%;
 	height: auto;
 	border-radius: 8px;
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	transition: transform var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+	            box-shadow var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 img:hover {
@@ -225,7 +263,7 @@ pre > code {
 }
 
 blockquote {
-	border-left: 4px solid var(--accent);
+	border-left: 4px solid var(--green-primary, var(--accent));
 	padding: 0 0 0 20px;
 	margin: 0;
 	font-size: 1.333em;
