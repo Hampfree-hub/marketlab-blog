@@ -41,6 +41,8 @@ const today = new Date();
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 		margin-top: 4em;
+		transition: background-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	}
 
 	.footer-content {
@@ -52,13 +54,27 @@ const today = new Date();
 		text-align: center;
 		margin-bottom: 2em;
 		padding-bottom: 2em;
-		border-bottom: 1px solid var(--bg-primary);
+			/* Менее контрастная разделительная полоска с плавным переходом */
+		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+		transition: border-bottom-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+	}
+	
+	/* Тёмная тема - более мягкая полоска */
+	@media (prefers-color-scheme: dark) {
+		:root:not(.light-theme) .footer-copyright {
+			border-bottom-color: rgba(255, 255, 255, 0.08);
+		}
+	}
+	
+	.dark-theme .footer-copyright {
+		border-bottom-color: rgba(255, 255, 255, 0.08);
 	}
 
 	.footer-copyright p {
 		margin: 0;
 		color: var(--text-secondary);
 		font-size: 0.9em;
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	}
 
 	.footer-links {
@@ -71,8 +87,10 @@ const today = new Date();
 	.footer-section h3 {
 		margin: 0 0 1em 0;
 		font-size: 1em;
-		color: var(--accent);
-		font-weight: 700;
+		color: var(--green-primary, var(--accent));
+		font-weight: 600;
+		font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	}
 
 	.footer-section a {
@@ -80,12 +98,13 @@ const today = new Date();
 		margin: 0.5em 0;
 		color: var(--text-secondary);
 		text-decoration: none;
-		transition: color 0.2s ease;
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 		font-size: 0.9em;
+		font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	}
 
 	.footer-section a:hover {
-		color: var(--accent);
+		color: var(--green-light, var(--accent));
 	}
 
 	@media (max-width: 720px) {

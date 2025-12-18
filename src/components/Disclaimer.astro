@@ -16,11 +16,8 @@
 		Автор не несёт ответственности за любые финансовые потери, 
 		возникшие в результате использования информации из блога.
 	</p>
-	<p class="disclaimer-humor">
-		P.S. Информация основана на личном опыте и анализе рынка. 
-		Каждый трейдер принимает решения самостоятельно.
-	</p>
 	<p class="disclaimer-footer">
+		Информация основана на личном опыте и анализе рынка. 
 		Все решения принимаются вами самостоятельно на свой страх и риск.
 	</p>
 </div>
@@ -30,18 +27,25 @@
 		margin: 3em 0;
 		padding: 2em 2.5em;
 		background: var(--bg-secondary);
-		border-left: 4px solid var(--accent);
+		border-left: 4px solid var(--green-primary, var(--accent));
+		/* Цвет полоски: --green-primary (#3A7A5A светлая / #4A9A4A тёмная) - гармонирует с палитрой, не слишком яркий */
 		border-radius: 12px;
 		font-size: 0.95em;
 		line-height: 1.8;
 		color: var(--text-primary);
 		box-shadow: var(--box-shadow);
+		font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		transition: box-shadow var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            background-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            border-left-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	}
 
 	.disclaimer-title {
 		margin: 0 0 0.5em 0;
-		color: var(--accent);
-		font-weight: 700;
+		color: var(--green-primary, var(--accent));
+		font-weight: 600;
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	}
 
 	.disclaimer p {
@@ -49,27 +53,26 @@
 		padding: 0;
 	}
 
-	.disclaimer-humor {
-		margin-top: 1.5em;
-		padding-top: 1.5em;
-		border-top: 1px solid rgba(74, 154, 74, 0.2);
-		font-style: italic;
-		opacity: 0.85;
-		color: var(--text-secondary);
-	}
 
 	.disclaimer-footer {
 		margin-top: 1.5em;
 		font-size: 0.95em;
 		font-weight: 600;
 		color: var(--text-primary);
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	}
 
+	/* Тёмная тема (автоматическая и ручная) - используем --green-primary для согласованности */
 	@media (prefers-color-scheme: dark) {
-		.disclaimer {
+		:root:not(.light-theme) .disclaimer {
 			background: var(--bg-secondary);
-			border-left-color: var(--accent-light);
+			border-left-color: var(--green-primary, var(--accent));
 		}
+	}
+	
+	.dark-theme .disclaimer {
+		background: var(--bg-secondary);
+		border-left-color: var(--green-primary, var(--accent));
 	}
 </style>
 

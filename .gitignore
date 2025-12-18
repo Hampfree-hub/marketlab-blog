@@ -54,3 +54,8 @@ SECURITY_CHECK*.md
 SECURITY_EXPLAINED*.md
 SECURITY_SIMPLE_EXPLAINED.md
 SECURITY_WORK_PLAN.md
+
+# Figma documentation (temporary, not for repository)
+# Cursor is not designed for visual design work
+FIGMA_*.md
+MCP_FIGMA_*.md
