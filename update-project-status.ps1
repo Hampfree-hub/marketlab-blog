@@ -13,7 +13,7 @@ param(
 # Настройки
 $username = "Hampfree-hub"
 $projectNumber = 1
-$repo = "Hampfree-hub/HampfreeBlog"
+$repo = "Hampfree-hub/marketlab-academy"
 
 # Получаем токен из приватного файла
 $tokenFile = "D:\Projects\HampfreeBlog-Private\.github-token"
@@ -155,3 +155,4 @@ try {
     Write-Host "❌ Ошибка при обновлении статуса: $_" -ForegroundColor Red
     exit 1
 }
+
