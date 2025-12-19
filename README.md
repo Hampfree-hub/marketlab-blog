@@ -1,67 +1,224 @@
-# Astro Starter Kit: Blog
+# 🕹️ Market Lab Academy — Архив 2010-2018
 
-```sh
-npm create astro@latest -- --template blog
+**Восстановленная лаборатория трейдинга в ретро-стиле**
+
+---
+
+## 🚀 Быстрый старт
+
+### Установка зависимостей:
+```bash
+npm install
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+### Запуск dev-сервера:
+```bash
+npm run dev
+```
 
-Features:
+Откройте http://localhost:4321 в браузере.
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+### Сборка для продакшена:
+```bash
+npm run build
+```
 
-## 🚀 Project Structure
+### Превью продакшен-сборки:
+```bash
+npm run preview
+```
 
-Inside of your Astro project, you'll see the following folders and files:
+---
 
-```text
-├── public/
+## 📁 Структура проекта
+
+```
+├── public/              # Статические файлы
 ├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+│   ├── components/      # Astro компоненты
+│   │   ├── CryptoArticleBanner.astro  # Баннер статьи (8-бит)
+│   │   ├── ArchiveLore.astro          # Лор архива
+│   │   ├── StartMenu.astro            # Меню "Пуск" (Windows 98)
+│   │   └── WindowsExplorer.astro      # Проводник (Windows 98)
+│   ├── content/         # Контент блога (Markdown/MDX)
+│   ├── layouts/         # Layout компоненты
+│   ├── pages/           # Страницы сайта
+│   │   ├── nes8bit-demo.astro         # Игривое 8-бит демо
+│   │   ├── nes8bit-serious-demo.astro # Серьёзное 8-бит демо (70/30)
+│   │   ├── archive-home.astro         # Главная с лором
+│   │   └── windows98-demo.astro       # Windows 98 демо
+│   ├── styles/          # CSS стили
+│   │   ├── nes8bit.css                # 8-бит стили
+│   │   ├── windows98.css               # Windows 98 стили
+│   │   └── global.css                  # Глобальные стили
+│   └── consts/          # Константы
+├── astro.config.mjs     # Конфигурация Astro
+├── package.json         # Зависимости
+└── tsconfig.json        # TypeScript конфигурация
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 🎨 Темы оформления
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+### 1. 8-Bit NES/Dendy (основная тема)
+- **Философия:** 70% серьёзное / 30% забавное
+- **Стили:** `src/styles/nes8bit.css`
+- **Демо:** http://localhost:4321/nes8bit-serious-demo
+- **Концепция:** Архив Market Lab Academy 2010-2018
 
-Any static assets, like images, can be placed in the `public/` directory.
+### 2. Windows 98 (альтернативная тема)
+- **Стили:** `src/styles/windows98.css`
+- **Демо:** http://localhost:4321/windows98-demo
+- **Компоненты:** Меню "Пуск", Проводник, Игры
 
-## 🧞 Commands
+---
 
-All commands are run from the root of the project, from a terminal:
+## 📋 Демо-страницы
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### 8-бит тема:
+- **Игривое демо:** http://localhost:4321/nes8bit-demo
+- **Серьёзное демо (70/30):** http://localhost:4321/nes8bit-serious-demo ⭐
+- **Главная с лором:** http://localhost:4321/archive-home ⭐
 
-## 👀 Want to learn more?
+### Windows 98 тема:
+- **Демо:** http://localhost:4321/windows98-demo
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
 
-## Credit
+## 🎯 Компоненты
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+### CryptoArticleBanner.astro
+Баннер статьи в 8-бит стиле с балансом 70/30.
 
+**Использование:**
+```astro
+import CryptoArticleBanner from '../components/CryptoArticleBanner.astro';
 
+<CryptoArticleBanner
+	title="RVI Divergence Signal | BTC/USDT"
+	subtitle="Market Lab Archive #2847"
+	archiveNumber="2847"
+	category="rvi"
+	profit="+12.4% в 4 часа"
+	successRate="73% за 30 дней"
+/>
+```
 
+### ArchiveLore.astro
+Компонент с лором архива Market Lab.
 
+**Использование:**
+```astro
+import ArchiveLore from '../components/ArchiveLore.astro';
+
+<ArchiveLore
+	integrity="95%"
+	restorationDate="декабрь 2025"
+/>
+```
+
+---
+
+## 📚 Документация
+
+### Основная документация:
+- `SERIOUS_8BIT_COMPLETE_GUIDE.md` — полный гайд по 8-бит стилю
+- `MARKET_LAB_ARCHIVE_LORE.md` — лор и концепция архива
+- `START_HERE_TOMORROW.md` — инструкции для завтрашней работы
+- `TOMORROW_TODO.md` — план доработок
+
+### Гайды:
+- `PISKEL_GUIDE.md` — как создавать пиксельные иконки
+- `ICONS_EXPLANATION.md` — откуда значки и как их использовать
+- `CRYPTO_8BIT_STYLE_GUIDE.md` — стилизация под крипто-тематику
+
+### Сравнение тем:
+- `THEME_COMPARISON.md` — Windows 98 vs 8-Bit NES
+- `WINDOWS98_THEME_ANALYSIS.md` — анализ Windows 98 темы
+- `NES8BIT_THEME_ANALYSIS.md` — анализ 8-бит темы
+
+---
+
+## 🎮 Концепция: Market Lab Archive
+
+### История:
+- **2010-2018:** Market Lab Academy — секретная лаборатория трейдинга
+- **2018:** Лаборатория закрыта (причина неизвестна)
+- **Декабрь 2025:** Эмили находит архив и восстанавливает его
+
+### Связь платформ:
+- **Дзен:** Современные LAB REPORT'ы (результаты 2025)
+- **8-бит блог:** Исторический архив (2010-2018)
+- **Telegram:** Мистика и загадки (кодовые слова, шифры)
+
+---
+
+## 🛠️ Технологии
+
+- **Astro** — статический генератор сайтов
+- **TypeScript** — типизация
+- **Markdown/MDX** — контент блога
+- **CSS** — стили (8-бит, Windows 98)
+
+---
+
+## 📝 Команды
+
+| Команда | Действие |
+|---------|----------|
+| `npm install` | Установить зависимости |
+| `npm run dev` | Запустить dev-сервер (localhost:4321) |
+| `npm run build` | Собрать продакшен-версию |
+| `npm run preview` | Превью продакшен-сборки |
+
+---
+
+## 🎯 План развития
+
+### Завтра (19.12.2025):
+- [ ] Проверить приглушённые цвета
+- [ ] Проверить улучшенную типографику
+- [ ] Добавить микровзаимодействия
+- [ ] Интегрировать лор в основную структуру
+
+### На неделе:
+- [ ] Создать первые посты архива
+- [ ] Интегрировать с Дзеном и Telegram
+- [ ] Добавить игры (Сапёр, Косынка, Пасьянс)
+
+---
+
+## 📍 Где найти
+
+### GitHub:
+- **Репозиторий:** https://github.com/Hampfree-hub/marketlab-academy
+- **Projects:** https://github.com/users/Hampfree-hub/projects/1
+- **Issues:** https://github.com/Hampfree-hub/marketlab-academy/issues
+
+### Документация:
+- Все файлы `.md` в корне проекта
+- `START_HERE_TOMORROW.md` — начни отсюда завтра
+
+---
+
+## ✅ Статус проекта
+
+**Текущая версия:** Демо готово, доработки на завтра
+
+**Что готово:**
+- ✅ 8-бит стиль с балансом 70/30
+- ✅ Windows 98 стиль
+- ✅ Компоненты (баннеры, лор, меню)
+- ✅ Демо-страницы
+- ✅ Вся документация
+
+**Что доработать:**
+- ⏳ Микровзаимодействия
+- ⏳ Интеграция лора
+- ⏳ Интеграция с Дзеном и Telegram
+
+---
+
+**🎮 Market Lab Academy — Архив восстановлен! 🚀**
 

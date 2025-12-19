@@ -1,0 +1,219 @@
+---
+// ArchiveLore.astro - Компонент с лором архива Market Lab
+interface Props {
+	integrity?: string;
+	restorationDate?: string;
+}
+
+const {
+	integrity = '95%',
+	restorationDate = 'декабрь 2025',
+} = Astro.props;
+---
+
+<div class="archive-lore">
+	<div class="archive-lore-content">
+		<div class="archive-lore-section">
+			<h3 class="archive-lore-section-title">История восстановления</h3>
+			<p class="archive-lore-text">
+				Эмили нашла в подвале старый сервер с архивами Market Lab Academy — секретной лаборатории трейдинга. 
+				В хранилище сохранились результаты на реальных счётах, торговые эксперименты 
+				и технические индикаторы, которые актуальны до сих пор.
+				Начало описано в первом закреплённом сообщении <a href="https://t.me/hampfree_market_lab" target="_blank" rel="noopener noreferrer" style="color: var(--nes-blue); text-decoration: underline;">[блокнота]</a>.
+			</p>
+		</div>
+		
+		<div class="archive-lore-stats">
+			<div class="archive-stat">
+				<span class="archive-stat-label">Целостность данных:</span>
+				<span class="archive-stat-value">{integrity}</span>
+			</div>
+			<div class="archive-stat">
+				<span class="archive-stat-label">Дата восстановления:</span>
+				<span class="archive-stat-value">{restorationDate}</span>
+			</div>
+		</div>
+		
+		<div class="archive-lore-section">
+			<h3 class="archive-lore-section-title">Содержимое хранилища</h3>
+			<ul class="archive-lore-list">
+				<li>✅ Результаты на реальных счётах</li>
+				<li>✅ Торговые эксперименты</li>
+				<li>✅ Технические индикаторы</li>
+				<li>✅ Рыночные исследования</li>
+			</ul>
+		</div>
+		
+		<div class="archive-lore-mystery">
+			<div class="archive-mystery-box">
+				<p class="archive-mystery-text">
+					📻 <strong>ШИФРОВАННАЯ ЗАПИСЬ</strong><br>
+					[<a href="https://t.me/hampfree_market_lab/15" target="_blank" rel="noopener noreferrer" style="color: var(--nes-black); text-decoration: underline;">Восстановлено из радиоприёмника</a>]<br><br>
+					"...Многими годами ранее мы поняли кое-что важное.<br>
+					Трейдинг - это не просто индикаторы. Это система.<br>
+					Система, которая переживёт всё (ну, или, хотя бы многое).<br><br>
+					Но Маркетлаб давно закрыли. Причину я не знаю.<br>
+					Может, ты разберёшься?<br><br>
+					Кодовое слово: <strong>Market Lab</strong><br>
+					[<a href="https://t.me/Hampfree" target="_blank" rel="noopener noreferrer" style="color: var(--nes-black); text-decoration: underline;">ДАННЫЕ ПОВРЕЖДЕНЫ</a>]<br>
+					...Хэмпфри..."
+				</p>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+<style>
+	.archive-lore {
+		background: var(--nes-white);
+		border: 4px solid var(--nes-black);
+		padding: 30px;
+		margin-bottom: 30px;
+		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+	}
+	
+	.archive-lore-content {
+		font-family: 'Arial', sans-serif;
+	}
+	
+	.archive-lore-section {
+		margin-bottom: 25px;
+	}
+	
+	.archive-lore-section-title {
+		font-family: 'Arial', sans-serif;
+		font-size: 1.2rem;
+		font-weight: bold;
+		color: var(--nes-black);
+		margin: 0 0 10px 0;
+		border-bottom: 2px solid var(--nes-gray);
+		padding-bottom: 5px;
+	}
+	
+	.archive-lore-text {
+		font-size: 1rem;
+		line-height: 1.8;
+		color: var(--nes-black);
+		margin: 0 0 15px 0;
+	}
+	
+	.archive-lore-stats {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 15px;
+		margin: 25px 0;
+	}
+	
+	.archive-stat {
+		background: var(--nes-white);
+		border: 2px solid var(--nes-black);
+		padding: 15px;
+		text-align: center;
+		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+	}
+	
+	.archive-stat-label {
+		display: block;
+		font-family: 'Arial', sans-serif;
+		font-size: 0.9rem;
+		color: var(--nes-gray);
+		margin-bottom: 5px;
+	}
+	
+	.archive-stat-value {
+		display: block;
+		font-family: var(--nes-font);
+		font-size: 1rem;
+		color: var(--nes-black);
+		font-weight: bold;
+	}
+	
+	.archive-lore-list {
+		font-family: 'Arial', sans-serif;
+		font-size: 1rem;
+		line-height: 1.8;
+		color: var(--nes-black);
+		margin: 0;
+		padding-left: 20px;
+	}
+	
+	.archive-lore-mystery {
+		margin: 30px 0;
+	}
+	
+	.archive-mystery-box {
+		background: var(--crypto-bitcoin-gradient);
+		border: 3px solid var(--nes-black);
+		padding: 20px;
+		box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+	}
+	
+	.archive-mystery-text {
+		font-family: 'Arial', sans-serif;
+		font-size: 0.9rem;
+		line-height: 1.8;
+		color: var(--nes-black);
+		margin: 0;
+		text-align: center;
+	}
+	
+	.archive-lore-links {
+		margin-top: 30px;
+		padding-top: 20px;
+		border-top: 2px solid var(--nes-gray);
+	}
+	
+	.archive-links-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 15px;
+		margin-top: 15px;
+	}
+	
+	.archive-link {
+		background: var(--nes-white);
+		border: 2px solid var(--nes-black);
+		padding: 15px;
+		text-decoration: none;
+		color: var(--nes-black);
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+	}
+	
+	.archive-link:hover {
+		background: var(--crypto-bitcoin-gradient);
+		transform: translate(-2px, -2px);
+		box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3);
+	}
+	
+	.archive-link-icon {
+		font-size: 1.5rem;
+	}
+	
+	.archive-link-text {
+		font-family: 'Arial', sans-serif;
+		font-size: 0.9rem;
+		font-weight: bold;
+	}
+	
+	/* Мобильная адаптация */
+	@media (max-width: 768px) {
+		.archive-lore {
+			padding: 20px;
+		}
+		
+		.archive-lore-stats {
+			grid-template-columns: 1fr;
+		}
+		
+		.archive-links-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+

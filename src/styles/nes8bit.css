@@ -1,0 +1,625 @@
+/*
+  8-Bit NES/Dendy Theme Styles
+  Ностальгический стиль 8-бит консолей для блога
+*/
+
+/* 8-Bit Color Palette */
+:root {
+	/* Классические цвета NES */
+	--nes-black: #000000;
+	--nes-white: #FFFFFF;
+	--nes-red: #E53B2C;
+	--nes-blue: #0099CC;
+	--nes-green: #228B22;
+	--nes-yellow: #FFD700;
+	--nes-pink: #FFB6C1;
+	--nes-gray: #808080;
+	
+	/* Крипто-цвета */
+	--crypto-bitcoin: #FFD700;      /* Золотой Bitcoin */
+	--crypto-ethereum: #627EEA;      /* Синий Ethereum */
+	--crypto-green: #00D9A5;         /* Зелёный рост */
+	--crypto-red: #FF4444;           /* Красный падение */
+	--crypto-dark: #1A1A2E;          /* Тёмный фон */
+	--crypto-light: #F5F5F5;         /* Светлый текст */
+	
+	/* Градиенты для фонов - Приглушённые */
+	--nes-sky-gradient: linear-gradient(to bottom, #006699 0%, #004466 100%); /* Более тёмный градиент */
+	--nes-grass-gradient: linear-gradient(to bottom, #1a5a1a 0%, #003300 100%);
+	
+	/* Крипто-градиенты */
+	--crypto-bitcoin-gradient: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+	--crypto-ethereum-gradient: linear-gradient(135deg, #627EEA 0%, #4A5FC7 100%);
+	--crypto-success-gradient: linear-gradient(135deg, #00D9A5 0%, #00B894 100%);
+	--crypto-danger-gradient: linear-gradient(135deg, #FF4444 0%, #CC0000 100%);
+	
+	/* Шрифты 8-бит */
+	--nes-font: 'Press Start 2P', 'Courier New', monospace;
+	--nes-font-size: 8px;
+}
+
+/* Импорт шрифта */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Body 8-Bit Theme - Приглушённые цвета */
+body.nes8bit-theme {
+	background-color: #1a5a1a; /* Приглушённый зелёный (темнее на пол-тона) */
+	background-image: 
+		repeating-linear-gradient(
+			90deg, 
+			transparent, 
+			transparent 32px, 
+			rgba(0, 0, 0, 0.15) 32px, 
+			rgba(0, 0, 0, 0.15) 64px
+		);
+	font-family: var(--nes-font);
+	margin: 0;
+	padding: 20px;
+	min-height: 100vh;
+}
+
+/* Container */
+.nes8bit-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	/* Отступы слева и справа для баланса (боковая панель справа) */
+	padding-left: 80px;
+	padding-right: 80px;
+}
+
+/* Мобильная адаптация - убираем отступы */
+@media (max-width: 768px) {
+	.nes8bit-container {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+
+/* Header - как в NES */
+.nes8bit-header {
+	background: var(--nes-sky-gradient);
+	border: 4px solid var(--nes-black);
+	padding: 40px;
+	text-align: center;
+	margin-bottom: 40px;
+	box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+	color: var(--nes-yellow);
+	position: relative;
+}
+
+.nes8bit-header::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-image: 
+		repeating-linear-gradient(
+			0deg,
+			transparent,
+			transparent 2px,
+			rgba(255, 255, 255, 0.1) 2px,
+			rgba(255, 255, 255, 0.1) 4px
+		);
+	pointer-events: none;
+}
+
+.nes8bit-header h1 {
+	margin: 0;
+	font-size: 2.5rem;
+	color: var(--nes-yellow);
+	text-shadow: 
+		3px 3px 0px var(--nes-black),
+		6px 6px 0px rgba(0, 0, 0, 0.2);
+	letter-spacing: 3px;
+	position: relative;
+	z-index: 1;
+}
+
+.nes8bit-header p {
+	margin: 10px 0 0 0;
+	color: var(--nes-white);
+	font-size: 1rem;
+	text-shadow: 2px 2px 0px var(--nes-black);
+	position: relative;
+	z-index: 1;
+}
+
+/* Content Wrapper */
+.nes8bit-content-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 300px;
+	gap: 20px;
+	margin-bottom: 40px;
+}
+
+/* Улучшенная типографика для серьёзного контента */
+.serious-content {
+	max-width: 900px; /* Увеличена ширина текста (было 800px) */
+	margin: 0 auto;
+}
+
+.serious-content p {
+	line-height: 1.8; /* Увеличен межстрочный интервал */
+	margin-bottom: 20px; /* Больше воздуха между абзацами */
+}
+
+/* Blog Post - Улучшенная версия */
+.nes8bit-post {
+	background: var(--nes-white);
+	border: 4px double var(--nes-black);
+	padding: 20px;
+	margin-bottom: 20px;
+	box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+	position: relative;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nes8bit-post::before {
+	content: '';
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	right: -2px;
+	bottom: -2px;
+	border: 2px solid var(--nes-black);
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.nes8bit-post:hover {
+	transform: translateY(-4px);
+	box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+.nes8bit-post:hover::before {
+	opacity: 1;
+}
+
+.nes8bit-post h2 {
+	color: var(--nes-red);
+	margin: 0 0 10px 0;
+	font-size: 1.2rem;
+	border-bottom: 3px dashed var(--nes-black);
+	padding-bottom: 10px;
+	text-transform: uppercase;
+	font-family: var(--nes-font);
+}
+
+.nes8bit-post p {
+	margin: 10px 0;
+	font-family: Arial, sans-serif;
+	font-size: 0.9rem;
+	line-height: 1.8; /* Увеличен межстрочный интервал (было 1.6) */
+	color: var(--nes-black);
+}
+
+.nes8bit-post-date {
+	color: var(--nes-gray);
+	font-size: 0.7rem;
+	margin-bottom: 10px;
+	font-family: var(--nes-font);
+}
+
+/* 8-Bit Button - Улучшенная версия */
+.nes8bit-btn {
+	background: var(--crypto-bitcoin-gradient);
+	border: 3px solid var(--nes-black);
+	padding: 12px 24px;
+	font-family: var(--nes-font);
+	font-size: 0.7rem;
+	cursor: pointer;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	margin-top: 10px;
+	text-transform: uppercase;
+	color: var(--nes-black);
+	position: relative;
+	box-shadow: 
+		0 4px 0 var(--nes-black),
+		0 6px 10px rgba(0, 0, 0, 0.3);
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.nes8bit-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 
+		0 6px 0 var(--nes-black),
+		0 8px 15px rgba(0, 0, 0, 0.4);
+	background: linear-gradient(135deg, #FFE135 0%, #FFB347 100%);
+}
+
+.nes8bit-btn:active {
+	transform: translateY(2px);
+	box-shadow: 
+		0 2px 0 var(--nes-black),
+		0 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.nes8bit-btn-primary {
+	background: var(--crypto-ethereum-gradient);
+	color: var(--nes-white);
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+}
+
+.nes8bit-btn-primary:hover {
+	background: linear-gradient(135deg, #7A8FF0 0%, #5B6FD8 100%);
+}
+
+.nes8bit-btn-success {
+	background: var(--crypto-success-gradient);
+	color: var(--nes-white);
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+}
+
+.nes8bit-btn-success:hover {
+	background: linear-gradient(135deg, #00E6B8 0%, #00C9A7 100%);
+}
+
+.nes8bit-btn-danger {
+	background: var(--crypto-danger-gradient);
+	color: var(--nes-white);
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+}
+
+.nes8bit-btn-danger:hover {
+	background: linear-gradient(135deg, #FF6666 0%, #DD0000 100%);
+}
+
+/* Sidebar */
+.nes8bit-sidebar {
+	background: var(--nes-yellow);
+	border: 4px double var(--nes-black);
+	padding: 20px;
+	box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+	height: fit-content;
+	position: sticky;
+	top: 20px;
+}
+
+.nes8bit-sidebar h3 {
+	margin: 0 0 15px 0;
+	color: var(--nes-red);
+	font-size: 0.9rem;
+	text-align: center;
+	border-bottom: 3px solid var(--nes-black);
+	padding-bottom: 10px;
+	font-family: var(--nes-font);
+	text-transform: uppercase;
+}
+
+.nes8bit-sidebar ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.nes8bit-sidebar li {
+	background: var(--nes-white);
+	border: 2px solid var(--nes-black);
+	padding: 10px;
+	margin-bottom: 10px;
+	font-size: 0.7rem;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	font-family: var(--nes-font);
+	text-align: center;
+	position: relative;
+}
+
+.nes8bit-sidebar li:hover {
+	background: var(--crypto-bitcoin-gradient);
+	color: var(--nes-black);
+	transform: translate(-3px, -3px);
+	box-shadow: 
+		3px 3px 0px var(--nes-black),
+		5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+.nes8bit-footer {
+	background: var(--nes-sky-gradient);
+	border: 4px solid var(--nes-black);
+	padding: 20px;
+	text-align: center;
+	margin-top: 40px;
+	color: var(--nes-yellow);
+	font-size: 0.8rem;
+	box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+	font-family: var(--nes-font);
+}
+
+/* Pixel Icon */
+.nes8bit-pixel-icon {
+	display: inline-block;
+	margin: 0 5px;
+	font-size: 1.2rem;
+}
+
+/* Navigation */
+.nes8bit-nav {
+	background: var(--nes-white);
+	border: 4px solid var(--nes-black);
+	padding: 8px;
+	margin-bottom: 20px;
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	/* Фиксируем высоту чтобы не расширялась при hover */
+	min-height: 44px;
+	max-height: 44px;
+	overflow: visible;
+}
+
+.nes8bit-nav a {
+	background: var(--crypto-ethereum-gradient);
+	color: var(--nes-white);
+	border: 2px solid var(--nes-black);
+	padding: 6px 12px;
+	text-decoration: none;
+	font-family: var(--nes-font);
+	font-size: 0.65rem;
+	transition: all 0.2s ease-out;
+	text-transform: uppercase;
+	position: relative;
+	box-shadow: 0 2px 0 var(--nes-black);
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+	margin: 0;
+	display: inline-flex; /* Используем flex для центрирования */
+	align-items: center; /* Вертикальное центрирование */
+	justify-content: center; /* Горизонтальное центрирование */
+	/* Фиксируем высоту чтобы не расширялась при hover */
+	height: 28px;
+	line-height: 1;
+	vertical-align: middle;
+}
+
+.nes8bit-nav a:hover {
+	background: var(--crypto-bitcoin-gradient);
+	color: var(--nes-black);
+	/* Убрали transform чтобы избежать дёргания при наведении снизу */
+	box-shadow: 
+		0 4px 0 var(--nes-black),
+		0 6px 10px rgba(0, 0, 0, 0.3);
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3);
+	/* Сохраняем высоту чтобы не расширялась вертикально */
+	height: 28px;
+	margin: 0;
+}
+
+.nes8bit-nav a:active {
+	/* Активное состояние для мобильных */
+	box-shadow: 0 2px 0 var(--nes-black);
+	margin: 0;
+}
+
+/* Card */
+.nes8bit-card {
+	background: var(--nes-white);
+	border: 3px solid var(--nes-black);
+	padding: 15px;
+	margin-bottom: 15px;
+	box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.nes8bit-card h3 {
+	color: var(--nes-red);
+	margin: 0 0 10px 0;
+	font-size: 1rem;
+	font-family: var(--nes-font);
+	text-transform: uppercase;
+}
+
+/* Badge */
+.nes8bit-badge {
+	display: inline-block;
+	background: var(--nes-red);
+	color: var(--nes-white);
+	border: 2px solid var(--nes-black);
+	padding: 4px 8px;
+	font-family: var(--nes-font);
+	font-size: 0.6rem;
+	text-transform: uppercase;
+	margin: 0 5px;
+}
+
+/* Progress Bar */
+.nes8bit-progress {
+	width: 100%;
+	height: 20px;
+	border: 3px solid var(--nes-black);
+	background: var(--nes-white);
+	position: relative;
+	overflow: hidden;
+}
+
+.nes8bit-progress-bar {
+	height: 100%;
+	background: var(--nes-blue);
+	transition: width 0.3s ease;
+	border-right: 2px solid var(--nes-black);
+}
+
+/* Input */
+.nes8bit-input {
+	background: var(--nes-white);
+	border: 3px solid var(--nes-black);
+	padding: 10px;
+	font-family: var(--nes-font);
+	font-size: 0.7rem;
+	color: var(--nes-black);
+	width: 100%;
+	box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+.nes8bit-input:focus {
+	outline: none;
+	border-color: var(--nes-blue);
+	box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.1), 0 0 0 2px var(--nes-blue);
+}
+
+/* Alert */
+.nes8bit-alert {
+	border: 4px solid var(--nes-black);
+	padding: 15px;
+	margin-bottom: 20px;
+	font-family: var(--nes-font);
+	font-size: 0.8rem;
+}
+
+.nes8bit-alert-success {
+	background: var(--nes-green);
+	color: var(--nes-white);
+}
+
+.nes8bit-alert-warning {
+	background: var(--nes-yellow);
+	color: var(--nes-black);
+}
+
+.nes8bit-alert-danger {
+	background: var(--nes-red);
+	color: var(--nes-white);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+	.nes8bit-content-wrapper {
+		grid-template-columns: 1fr;
+	}
+	
+	.nes8bit-header h1 {
+		font-size: 1.5rem;
+	}
+	
+	.nes8bit-header {
+		padding: 20px;
+	}
+	
+	.nes8bit-sidebar {
+		position: relative;
+		top: 0;
+	}
+	
+	.nes8bit-post h2 {
+		font-size: 1rem;
+	}
+	
+	.nes8bit-btn {
+		font-size: 0.6rem;
+		padding: 8px 16px;
+	}
+	
+	/* Мобильные интерактивные элементы - активное состояние при нажатии */
+	.nes8bit-nav a:active {
+		transform: scale(0.95);
+		box-shadow: 0 1px 0 var(--nes-black);
+	}
+	
+	.nes8bit-btn:active {
+		transform: translateY(1px);
+		box-shadow: 0 1px 0 var(--nes-black);
+	}
+}
+
+/* Анимации */
+@keyframes nes8bit-blink {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.5; }
+}
+
+.nes8bit-blink {
+	animation: nes8bit-blink 1s infinite;
+}
+
+@keyframes nes8bit-float {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-5px); }
+}
+
+.nes8bit-float {
+	animation: nes8bit-float 2s ease-in-out infinite;
+}
+
+/* Pixel Art эффекты */
+.nes8bit-pixel-border {
+	image-rendering: pixelated;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: crisp-edges;
+}
+
+/* Крипто-специфичные элементы */
+.crypto-price-up {
+	color: var(--crypto-green);
+	font-weight: bold;
+}
+
+.crypto-price-down {
+	color: var(--crypto-red);
+	font-weight: bold;
+}
+
+.crypto-badge-bitcoin {
+	background: var(--crypto-bitcoin-gradient);
+	color: var(--nes-black);
+	border: 2px solid var(--nes-black);
+	padding: 4px 8px;
+	font-family: var(--nes-font);
+	font-size: 0.6rem;
+	text-transform: uppercase;
+	display: inline-block;
+	box-shadow: 0 2px 0 var(--nes-black);
+}
+
+.crypto-badge-ethereum {
+	background: var(--crypto-ethereum-gradient);
+	color: var(--nes-white);
+	border: 2px solid var(--nes-black);
+	padding: 4px 8px;
+	font-family: var(--nes-font);
+	font-size: 0.6rem;
+	text-transform: uppercase;
+	display: inline-block;
+	box-shadow: 0 2px 0 var(--nes-black);
+}
+
+/* Улучшенные анимации */
+@keyframes crypto-pulse {
+	0%, 100% { 
+		transform: scale(1);
+		opacity: 1;
+	}
+	50% { 
+		transform: scale(1.05);
+		opacity: 0.9;
+	}
+}
+
+.crypto-pulse {
+	animation: crypto-pulse 2s ease-in-out infinite;
+}
+
+@keyframes crypto-shine {
+	0% { background-position: -200% center; }
+	100% { background-position: 200% center; }
+}
+
+.crypto-shine {
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.3),
+		transparent
+	);
+	background-size: 200% 100%;
+	animation: crypto-shine 3s linear infinite;
+}
+
+

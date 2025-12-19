@@ -1,0 +1,73 @@
+---
+// SocialSidebar.astro - Боковая панель с соцсетями (прилипшая справа)
+---
+
+<aside class="social-sidebar">
+	<a href="https://t.me/hampfree_market_lab" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="Telegram">
+		<span class="social-sidebar-icon">💬</span>
+	</a>
+	<a href="https://dzen.ru/hampfree_algo_trading" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="Дзен">
+		<span class="social-sidebar-icon">📰</span>
+	</a>
+	<a href="https://vk.com/hampfree_market_lab" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="VK">
+		<span class="social-sidebar-icon">📱</span>
+	</a>
+	<a href="https://finbazar.ru/profile/Hampfree" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="Bazar">
+		<span class="social-sidebar-icon">💼</span>
+	</a>
+</aside>
+
+<style>
+	.social-sidebar {
+		position: fixed;
+		right: 0;
+		top: 33vh; /* Нижняя треть экрана */
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		z-index: 1000;
+		padding: 15px 8px;
+		background: var(--nes-white);
+		border: 3px solid var(--nes-black);
+		border-right: none;
+		border-radius: 12px 0 0 12px; /* Скруглённые углы слева */
+		box-shadow: -4px 4px 0px rgba(0, 0, 0, 0.2);
+		transition: transform 0.3s ease;
+	}
+
+	.social-sidebar:hover {
+		transform: translateX(-5px);
+	}
+
+	.social-sidebar-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		background: var(--crypto-ethereum-gradient);
+		border: 2px solid var(--nes-black);
+		border-radius: 8px;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		box-shadow: 0 2px 0 var(--nes-black);
+	}
+
+	.social-sidebar-link:hover {
+		background: var(--crypto-bitcoin-gradient);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 0 var(--nes-black);
+	}
+
+	.social-sidebar-icon {
+		font-size: 1.5rem;
+		filter: drop-shadow(1px 1px 0px var(--nes-black));
+	}
+
+	/* Мобильная адаптация */
+	@media (max-width: 768px) {
+		.social-sidebar {
+			display: none; /* Скрываем на мобильных */
+		}
+	}
+</style>

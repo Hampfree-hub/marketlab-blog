@@ -1,0 +1,182 @@
+---
+// ArticleGrid.astro - Плитка из последних статей блога
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 5); // Берём 5 последних статей
+---
+
+<section class="article-grid-section">
+	<h2 class="article-grid-title">Последние восстановленные материалы</h2>
+	<p class="article-grid-subtitle">Истории создания технических индикаторов и другие эксперименты</p>
+	
+	<div class="article-grid">
+		{posts.map((post) => (
+			<article class="article-card">
+				<a href={`/blog/${post.id}/`} class="article-card-link">
+					{post.data.heroImage && (
+						<div class="article-card-image">
+							<Image 
+								src={post.data.heroImage} 
+								alt={post.data.title}
+								width={400}
+								height={200}
+								loading="lazy"
+							/>
+						</div>
+					)}
+					<div class="article-card-content">
+						<h3 class="article-card-title">{post.data.title}</h3>
+						{post.data.description && (
+							<p class="article-card-description">{post.data.description}</p>
+						)}
+						{post.data.pubDate && (
+							<time class="article-card-date">
+								{new Date(post.data.pubDate).toLocaleDateString('ru-RU', {
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric'
+								})}
+							</time>
+						)}
+					</div>
+				</a>
+			</article>
+		))}
+	</div>
+</section>
+
+<style>
+	.article-grid-section {
+		background: var(--nes-white);
+		border: 4px solid var(--nes-black);
+		padding: 30px;
+		margin-bottom: 30px;
+		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+		max-width: 1200px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.article-grid-title {
+		font-family: 'Arial', sans-serif;
+		font-size: 1.8rem;
+		font-weight: bold;
+		color: var(--nes-black);
+		margin: 0 0 10px 0;
+		text-align: center;
+	}
+
+	.article-grid-subtitle {
+		font-family: 'Arial', sans-serif;
+		font-size: 1rem;
+		color: var(--nes-gray);
+		margin: 0 0 25px 0;
+		text-align: center;
+	}
+
+	.article-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 20px;
+	}
+
+	.article-card {
+		background: var(--nes-white);
+		border: 3px solid var(--nes-black);
+		overflow: hidden;
+		transition: all 0.3s ease;
+		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+		/* Убираем скруглённые углы для единого движения */
+		border-radius: 0;
+	}
+
+	.article-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+		/* Всё двигается как единый элемент */
+	}
+
+	.article-card-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+	}
+
+	.article-card-image {
+		width: 100%;
+		height: 200px;
+		overflow: hidden;
+		background: var(--nes-gray);
+		/* Убираем скруглённые углы - они создают проблемы при движении */
+		border-radius: 0;
+	}
+
+	.article-card-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		image-rendering: pixelated;
+		image-rendering: -moz-crisp-edges;
+		image-rendering: crisp-edges;
+		/* Убираем скруглённые углы */
+		border-radius: 0;
+	}
+
+	.article-card-content {
+		padding: 15px;
+	}
+
+	.article-card-title {
+		font-family: 'Arial', sans-serif;
+		font-size: 1.1rem;
+		font-weight: bold;
+		color: var(--nes-black);
+		margin: 0 0 10px 0;
+		line-height: 1.4;
+	}
+
+	.article-card-description {
+		font-family: 'Arial', sans-serif;
+		font-size: 0.9rem;
+		color: var(--nes-gray);
+		margin: 0 0 10px 0;
+		line-height: 1.6;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.article-card-date {
+		font-family: var(--nes-font);
+		font-size: 0.7rem;
+		color: var(--nes-gray);
+		display: block;
+	}
+
+	/* Мобильная адаптация */
+	@media (max-width: 768px) {
+		.article-grid {
+			grid-template-columns: 1fr;
+		}
+		
+		.article-grid-section {
+			padding: 20px;
+		}
+		
+		.article-grid-title {
+			font-size: 1.5rem;
+		}
+	}
+	
+	/* Мобильные интерактивные элементы - активное состояние при нажатии */
+	@media (max-width: 768px) {
+		.article-card:active {
+			transform: translateY(-2px);
+			box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+		}
+	}
+</style>
