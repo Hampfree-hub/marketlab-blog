@@ -36,10 +36,10 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		</div>
 		<div class="header-right">
 			<ThemeToggle />
-			<div class="language-switcher">
-				<button class="lang-button active" aria-label="Русский">RU</button>
-				<button class="lang-button" aria-label="English">EN</button>
-				<button class="lang-button" aria-label="Español">ES</button>
+			<div class="language-switcher" role="group" aria-label="Выбор языка">
+				<button class="lang-button active" data-lang="ru" aria-label="Русский" aria-pressed="true">RU</button>
+				<button class="lang-button" data-lang="en" aria-label="English" aria-pressed="false">EN</button>
+				<button class="lang-button" data-lang="es" aria-label="Español" aria-pressed="false">ES</button>
 			</div>
 			<div class="social-links">
 				<a href="https://dzen.ru/hampfree_algo_trading" target="_blank" rel="noopener noreferrer" class="social-button" data-label="Дзен" aria-label="Дзен">
@@ -842,3 +842,69 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		}
 	}
 </style>
+
+<script>
+	// Language switcher functionality
+	(function() {
+		// Get current language from HTML lang attribute or localStorage
+		function getCurrentLanguage() {
+			const htmlLang = document.documentElement.lang || 'ru';
+			const savedLang = localStorage.getItem('preferred-language');
+			return savedLang || htmlLang.toLowerCase().split('-')[0]; // 'ru', 'en', 'es'
+		}
+
+		// Update active button state
+		function updateActiveButton(lang) {
+			document.querySelectorAll('.lang-button').forEach(button => {
+				const buttonLang = button.getAttribute('data-lang');
+				if (buttonLang === lang) {
+					button.classList.add('active');
+					button.setAttribute('aria-pressed', 'true');
+				} else {
+					button.classList.remove('active');
+					button.setAttribute('aria-pressed', 'false');
+				}
+			});
+		}
+
+		// Update page language
+		function switchLanguage(lang) {
+			// Save preference
+			localStorage.setItem('preferred-language', lang);
+			
+			// Update HTML lang attribute
+			document.documentElement.lang = lang;
+			
+			// Update active button
+			updateActiveButton(lang);
+			
+			// Update all elements with data-lang attribute (like CookieBanner)
+			document.querySelectorAll('[data-lang]').forEach(el => {
+				const elLang = el.getAttribute('data-lang');
+				if (elLang === lang) {
+					el.style.display = '';
+				} else {
+					el.style.display = 'none';
+				}
+			});
+			
+			// Dispatch custom event for other components
+			window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+		}
+
+		// Initialize on page load
+		document.addEventListener('DOMContentLoaded', () => {
+			const currentLang = getCurrentLanguage();
+			updateActiveButton(currentLang);
+			
+			// Add click handlers to language buttons
+			document.querySelectorAll('.lang-button').forEach(button => {
+				button.addEventListener('click', (e) => {
+					e.preventDefault();
+					const lang = button.getAttribute('data-lang');
+					switchLanguage(lang);
+				});
+			});
+		});
+	})();
+</script>
