@@ -59,3 +59,15 @@ SECURITY_WORK_PLAN.md
 # Cursor is not designed for visual design work
 FIGMA_*.md
 MCP_FIGMA_*.md
+
+# Plans, strategies, summaries, status reports (private only)
+*_PLAN.md
+*_STRATEGY.md
+*_SUMMARY.md
+*_STATUS.md
+*_EVALUATION.md
+*_FIXES*.md
+*_REDESIGN*.md
+*_COMPLETE*.md
+*_ANALYSIS.md
+*_REPORT.md

@@ -11,15 +11,15 @@ const {
 } = Astro.props;
 ---
 
-<div class="archive-lore">
+<div class="archive-lore" role="region" aria-labelledby="archive-lore-title">
 	<div class="archive-lore-content">
 		<div class="archive-lore-section">
-			<h3 class="archive-lore-section-title">История восстановления</h3>
+			<h3 class="archive-lore-section-title" id="archive-lore-title">История восстановления</h3>
 			<p class="archive-lore-text">
 				Эмили нашла в подвале старый сервер с архивами Market Lab Academy — секретной лаборатории трейдинга. 
 				В хранилище сохранились результаты на реальных счётах, торговые эксперименты 
 				и технические индикаторы, которые актуальны до сих пор.
-				Начало описано в первом закреплённом сообщении <a href="https://t.me/hampfree_market_lab" target="_blank" rel="noopener noreferrer" style="color: var(--nes-blue); text-decoration: underline;">[блокнота]</a>.
+				Начало описано в первом закреплённом сообщении <a href="https://t.me/hampfree_market_lab" target="_blank" rel="noopener noreferrer" style="color: var(--nes-blue); text-decoration: underline;" aria-label="Первый закреплённый пост в Telegram канале">[блокнота]</a>.
 			</p>
 		</div>
 		
@@ -48,14 +48,14 @@ const {
 			<div class="archive-mystery-box">
 				<p class="archive-mystery-text">
 					📻 <strong>ШИФРОВАННАЯ ЗАПИСЬ</strong><br>
-					[<a href="https://t.me/hampfree_market_lab/15" target="_blank" rel="noopener noreferrer" style="color: var(--nes-black); text-decoration: underline;">Восстановлено из радиоприёмника</a>]<br><br>
+					[<a href="https://t.me/hampfree_market_lab/15" target="_blank" rel="noopener noreferrer" style="color: var(--nes-black); text-decoration: underline;" aria-label="Шифрованная запись из поста 15 в Telegram">Восстановлено из радиоприёмника</a>]<br><br>
 					"...Многими годами ранее мы поняли кое-что важное.<br>
 					Трейдинг - это не просто индикаторы. Это система.<br>
 					Система, которая переживёт всё (ну, или, хотя бы многое).<br><br>
 					Но Маркетлаб давно закрыли. Причину я не знаю.<br>
 					Может, ты разберёшься?<br><br>
 					Кодовое слово: <strong>Market Lab</strong><br>
-					[<a href="https://t.me/Hampfree" target="_blank" rel="noopener noreferrer" style="color: var(--nes-black); text-decoration: underline;">ДАННЫЕ ПОВРЕЖДЕНЫ</a>]<br>
+					[<a href="https://t.me/Hampfree" target="_blank" rel="noopener noreferrer" style="color: var(--nes-black); text-decoration: underline;" aria-label="Личный Telegram канал Hampfree">ДАННЫЕ ПОВРЕЖДЕНЫ</a>]<br>
 					...Хэмпфри..."
 				</p>
 			</div>
@@ -67,9 +67,9 @@ const {
 <style>
 	.archive-lore {
 		background: var(--nes-white);
-		border: 4px solid var(--nes-black);
+		border: 3px solid var(--nes-black); /* Более лаконичная рамка */
 		padding: 30px;
-		margin-bottom: 30px;
+		margin-bottom: 20px; /* Уменьшенный отступ между блоками (было 30px) */
 		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
 	}
 	
@@ -204,6 +204,7 @@ const {
 	@media (max-width: 768px) {
 		.archive-lore {
 			padding: 20px;
+			margin-bottom: 15px; /* Уменьшенный отступ между блоками на мобильных (было 20px) */
 		}
 		
 		.archive-lore-stats {
@@ -215,5 +216,7 @@ const {
 		}
 	}
 </style>
+
+
 
 

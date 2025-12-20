@@ -73,7 +73,7 @@ try {
     $items = $itemsResponse.data.user.projectV2.items.nodes
     
     Write-Host "`n📊 Найдено Issues на доске: $($items.Count)" -ForegroundColor Cyan
-    Write-Host "=" * 80 -ForegroundColor Gray
+    Write-Host ("=" * 80) -ForegroundColor Gray
     
     # Выводим список Issues
     foreach ($item in $items) {
@@ -90,7 +90,7 @@ try {
         }
     }
     
-    Write-Host "`n" + ("=" * 80) -ForegroundColor Gray
+    Write-Host ("`n" + ("=" * 80)) -ForegroundColor Gray
     
     # Ищем Issues, связанные с навигацией/UI
     $navigationKeywords = @("навигация", "navigation", "кнопки", "buttons", "отступы", "spacing", "padding", "UI", "стили", "styles")
@@ -134,4 +134,6 @@ try {
     Write-Host "❌ Ошибка при получении Items: $_" -ForegroundColor Red
     exit 1
 }
+
+
 

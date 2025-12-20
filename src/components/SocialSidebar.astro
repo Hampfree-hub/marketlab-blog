@@ -2,17 +2,17 @@
 // SocialSidebar.astro - Боковая панель с соцсетями (прилипшая справа)
 ---
 
-<aside class="social-sidebar">
-	<a href="https://t.me/hampfree_market_lab" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="Telegram">
-		<span class="social-sidebar-icon">💬</span>
-	</a>
-	<a href="https://dzen.ru/hampfree_algo_trading" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="Дзен">
+	<aside class="social-sidebar" aria-label="Социальные сети">
+		<a href="https://t.me/hampfree_market_lab" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="Telegram" aria-label="Telegram канал Market Lab">
+			<span class="social-sidebar-icon">💬</span>
+		</a>
+	<a href="https://dzen.ru/hampfree_algo_trading" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="Дзен" aria-label="Канал на Дзене">
 		<span class="social-sidebar-icon">📰</span>
 	</a>
-	<a href="https://vk.com/hampfree_market_lab" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="VK">
+	<a href="https://vk.com/hampfree_market_lab" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="VK" aria-label="Группа ВКонтакте">
 		<span class="social-sidebar-icon">📱</span>
 	</a>
-	<a href="https://finbazar.ru/profile/Hampfree" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="Bazar">
+	<a href="https://finbazar.ru/profile/Hampfree" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" title="Bazar" aria-label="Профиль на FinBazar">
 		<span class="social-sidebar-icon">💼</span>
 	</a>
 </aside>
@@ -31,43 +31,82 @@
 		border: 3px solid var(--nes-black);
 		border-right: none;
 		border-radius: 12px 0 0 12px; /* Скруглённые углы слева */
-		box-shadow: -4px 4px 0px rgba(0, 0, 0, 0.2);
-		transition: transform 0.3s ease;
+		/* Тень только снизу - НЕ слева и НЕ справа, чтобы не создавать визуальный зазор от края */
+		box-shadow: 0 6px 0px rgba(0, 0, 0, 0.2); /* Тень только снизу (6px), как у других блоков */
+		transition: background 0.3s ease; /* Только фон меняется, тень статична */
+		/* Фиксируем правый край, чтобы не отрывался */
+		margin-right: 0;
 	}
 
 	.social-sidebar:hover {
-		transform: translateX(-5px);
+		/* Тень НЕ меняется - остаётся точно такой же, как в обычном состоянии */
+		box-shadow: 0 6px 0px rgba(0, 0, 0, 0.2); /* Идентичная тень - никаких изменений! */
 	}
 
 	.social-sidebar-link {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 48px;
-		height: 48px;
+		width: 38px; /* Уменьшенный размер для более компактного вида */
+		height: 38px; /* Уменьшенный размер для более компактного вида */
 		background: var(--crypto-ethereum-gradient);
 		border: 2px solid var(--nes-black);
+		border-bottom-width: 2px; /* Нижняя граница стандартная */
 		border-radius: 8px;
 		text-decoration: none;
-		transition: all 0.2s ease;
+		transition: all 0.15s ease; /* Добавляем все свойства для интерактивности */
 		box-shadow: 0 2px 0 var(--nes-black);
+		position: relative;
+		cursor: pointer; /* Явно указываем курсор */
 	}
 
 	.social-sidebar-link:hover {
 		background: var(--crypto-bitcoin-gradient);
-		transform: translateY(-2px);
-		box-shadow: 0 4px 0 var(--nes-black);
+		transform: translateY(-2px); /* Кнопка поднимается при hover */
+		box-shadow: 0 4px 0 var(--nes-black), 0 0 10px rgba(255, 215, 0, 0.4); /* Увеличиваем тень и добавляем свечение */
+	}
+
+	.social-sidebar-link:active {
+		transform: translateY(1px); /* Кнопка прожимается вниз */
+		box-shadow: 0 1px 0 var(--nes-black); /* Нижняя тень остаётся на месте! */
+		border-bottom-width: 2px; /* Сохраняем нижнюю границу */
+		transition: transform 0.05s ease, box-shadow 0.05s ease, border-bottom-width 0.05s ease;
+	}
+	
+	/* Focus states для клавиатурной навигации */
+	.social-sidebar-link:focus {
+		outline: 3px solid var(--nes-yellow);
+		outline-offset: 2px;
+		box-shadow: 0 2px 0 var(--nes-black), 0 0 0 4px rgba(255, 215, 0, 0.3);
+	}
+	
+	.social-sidebar-link:focus:not(:focus-visible) {
+		outline: none;
+		box-shadow: 0 2px 0 var(--nes-black);
 	}
 
 	.social-sidebar-icon {
-		font-size: 1.5rem;
+		font-size: 1.1rem; /* Уменьшенный размер иконки для более компактного вида */
 		filter: drop-shadow(1px 1px 0px var(--nes-black));
 	}
 
-	/* Мобильная адаптация */
+	/* Планшеты - адаптируем только padding, размеры кнопок единые */
+	@media (max-width: 1024px) {
+		.social-sidebar {
+			right: 0; /* Блок прилипает к краю, не отрывается */
+			padding: 12px 6px; /* Немного уменьшаем padding для компактности */
+		}
+		
+		/* Размеры кнопок остаются едиными (38x38px) - единообразие */
+	}
+	
+	/* Мобильная адаптация - полностью скрываем (будет в footer) */
 	@media (max-width: 768px) {
 		.social-sidebar {
-			display: none; /* Скрываем на мобильных */
+			display: none; /* Скрываем на мобильных - соцсети будут в footer */
 		}
 	}
 </style>
+
+
+

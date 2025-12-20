@@ -4,6 +4,7 @@ import ArchiveLore from '../components/ArchiveLore.astro';
 import ArticleGrid from '../components/ArticleGrid.astro';
 import CTABlock from '../components/CTABlock.astro';
 import SocialSidebar from '../components/SocialSidebar.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 import { SITE_TITLE } from '../consts';
 ---
 
@@ -12,27 +13,30 @@ import { SITE_TITLE } from '../consts';
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Market Lab Academy — Восстановленная лаборатория</title>
+		<title>MarketLab Academy — Восстановленная лаборатория</title>
 		<link rel="stylesheet" href="/src/styles/global.css" />
 		<link rel="stylesheet" href="/src/styles/nes8bit.css" />
 	</head>
 	<body class="nes8bit-theme">
+		<!-- Баннер куки -->
+		<CookieBanner />
+		
 		<!-- Боковая панель с соцсетями -->
 		<SocialSidebar />
 		
 		<div class="nes8bit-container">
 			<!-- HEADER с лором -->
 			<div class="nes8bit-header">
-				<h1>🧪 MARKET LAB ACADEMY</h1>
+				<h1>🧪 MARKETLAB ACADEMY</h1>
 				<p>Ценный архив | Восстановленные данные</p>
 			</div>
 			
 			<!-- NAVIGATION (sticky) -->
-			<nav class="nes8bit-nav">
-				<a href="#storage">📦 Хранилище</a>
-				<a href="#strategies">📊 Стратегии</a>
-				<a href="#analysis">📈 Анализ</a>
-				<a href="#experiments">⚗️ Эксперименты</a>
+			<nav class="nes8bit-nav" aria-label="Основная навигация">
+				<a href="#storage" aria-label="Перейти к разделу Хранилище">📦 Хранилище</a>
+				<a href="#strategies" aria-label="Перейти к разделу Стратегии">📊 Стратегии</a>
+				<a href="#analysis" aria-label="Перейти к разделу Анализ">📈 Анализ</a>
+				<a href="#experiments" aria-label="Перейти к разделу Эксперименты">⚗️ Эксперименты</a>
 			</nav>
 			
 			<!-- ЛОР АРХИВА -->
@@ -47,11 +51,26 @@ import { SITE_TITLE } from '../consts';
 			
 			<!-- FOOTER -->
 			<footer class="nes8bit-footer">
-				<p>
-					© 2025 {SITE_TITLE} | 
-					<span class="nes8bit-pixel-icon">🧪</span> 
-					Market Lab Academy | Serious Play
-				</p>
+				<div class="footer-content">
+					<!-- Соцсети для мобильных (над надписью) -->
+					<div class="footer-social-mobile">
+						<a href="https://t.me/hampfree_market_lab" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Telegram канал Market Lab" title="Telegram">
+							<span>💬</span>
+						</a>
+						<a href="https://dzen.ru/hampfree_algo_trading" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Канал на Дзене" title="Дзен">
+							<span>📰</span>
+						</a>
+						<a href="https://vk.com/hampfree_market_lab" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Группа ВКонтакте" title="VK">
+							<span>📱</span>
+						</a>
+						<a href="https://finbazar.ru/profile/Hampfree" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Профиль на FinBazar" title="Bazar">
+							<span>💼</span>
+						</a>
+					</div>
+					<p class="footer-text">
+						© 2025 {SITE_TITLE} | Serious Play
+					</p>
+				</div>
 			</footer>
 		</div>
 	</body>

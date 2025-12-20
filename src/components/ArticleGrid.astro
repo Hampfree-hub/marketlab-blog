@@ -13,9 +13,9 @@ const posts = (await getCollection('blog'))
 	<p class="article-grid-subtitle">Истории создания технических индикаторов и другие эксперименты</p>
 	
 	<div class="article-grid">
-		{posts.map((post) => (
-			<article class="article-card">
-				<a href={`/blog/${post.id}/`} class="article-card-link">
+		{posts.map((post, index) => (
+			<article class="article-card" role="article" aria-labelledby={`article-title-${index}`}>
+				<a href={`/blog/${post.id}/`} class="article-card-link" aria-label={`Читать статью: ${post.data.title}`}>
 					{post.data.heroImage && (
 						<div class="article-card-image">
 							<Image 
@@ -28,7 +28,7 @@ const posts = (await getCollection('blog'))
 						</div>
 					)}
 					<div class="article-card-content">
-						<h3 class="article-card-title">{post.data.title}</h3>
+						<h3 class="article-card-title" id={`article-title-${index}`}>{post.data.title}</h3>
 						{post.data.description && (
 							<p class="article-card-description">{post.data.description}</p>
 						)}
@@ -51,9 +51,9 @@ const posts = (await getCollection('blog'))
 <style>
 	.article-grid-section {
 		background: var(--nes-white);
-		border: 4px solid var(--nes-black);
+		border: 3px solid var(--nes-black); /* Более лаконичная рамка */
 		padding: 30px;
-		margin-bottom: 30px;
+		margin-bottom: 20px; /* Уменьшенный отступ между блоками (было 30px) */
 		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
 		max-width: 1200px;
 		margin-left: auto;
@@ -97,6 +97,18 @@ const posts = (await getCollection('blog'))
 		transform: translateY(-4px);
 		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
 		/* Всё двигается как единый элемент */
+	}
+
+	/* Focus states для карточек статей */
+	.article-card:focus {
+		outline: 3px solid var(--nes-blue);
+		outline-offset: 2px;
+		box-shadow: 0 0 0 4px rgba(0, 153, 204, 0.3);
+	}
+
+	.article-card:focus:not(:focus-visible) {
+		outline: none;
+		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
 	}
 
 	.article-card-link {
@@ -165,6 +177,7 @@ const posts = (await getCollection('blog'))
 		
 		.article-grid-section {
 			padding: 20px;
+			margin-bottom: 15px; /* Уменьшенный отступ между блоками на мобильных (было 20px) */
 		}
 		
 		.article-grid-title {
@@ -180,3 +193,6 @@ const posts = (await getCollection('blog'))
 		}
 	}
 </style>
+
+
+

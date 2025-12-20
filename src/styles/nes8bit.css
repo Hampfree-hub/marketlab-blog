@@ -54,7 +54,7 @@ body.nes8bit-theme {
 		);
 	font-family: var(--nes-font);
 	margin: 0;
-	padding: 20px;
+	padding: 30px; /* Отступы сверху и снизу 30px (как есть), по бокам 30px */
 	min-height: 100vh;
 }
 
@@ -63,26 +63,79 @@ body.nes8bit-theme {
 	max-width: 1200px;
 	margin: 0 auto;
 	/* Отступы слева и справа для баланса (боковая панель справа) */
-	padding-left: 80px;
-	padding-right: 80px;
+	padding-left: 60px; /* Увеличено с 40px для более комфортного вида */
+	padding-right: 60px; /* Стандартный отступ (sidebar прилипает к краю, не отрывается) */
 }
 
-/* Мобильная адаптация - убираем отступы */
-@media (max-width: 768px) {
+/* Планшеты (средние экраны) */
+@media (max-width: 1024px) {
 	.nes8bit-container {
-		padding-left: 20px;
-		padding-right: 20px;
+		padding-left: 40px; /* Увеличено с 30px */
+		padding-right: 40px; /* Стандартный отступ (sidebar прилипает к краю, не отрывается) */
+	}
+	
+	/* Улучшаем навигацию на планшетах - делаем компактнее */
+	.nes8bit-nav {
+		padding: 12px 10px; /* Увеличенные отступы: 12px сверху/снизу, 10px слева/справа */
+		gap: 10px; /* Увеличен gap между кнопками для лучшей читаемости */
+		min-height: 48px; /* 12px padding-top + 24px кнопка + 12px padding-bottom = 48px */
+		max-height: none; /* Убираем ограничение для переноса */
+		overflow: hidden; /* Предотвращаем выход кнопок за границы блока */
+	}
+	
+	.nes8bit-nav a {
+		font-size: 0.6rem; /* Уменьшаем шрифт для компактности (было 0.7rem) */
+		padding: 5px 10px; /* Компактный padding (было 8px 14px) */
+		height: 24px; /* Компактная высота (меньше чем на десктопе 32px) */
+		margin: 0; /* Убираем margin, используем padding родителя для отступов */
+		min-width: 80px; /* Минимальная ширина для читаемости */
+		max-width: calc(100% - 20px); /* Предотвращаем выход за границы (учитываем gap и padding родителя) */
+		flex: 0 1 auto; /* Кнопки подстраиваются под контент, но могут переноситься */
+		box-sizing: border-box; /* Учитываем border и padding в общей ширине */
+	}
+	
+	/* Планшеты - hover состояние */
+	.nes8bit-nav a:hover {
+		height: 24px; /* Сохраняем компактную высоту */
+		margin: 0; /* Сохраняем margin: 0, отступы через padding родителя */
+	}
+	
+	/* Планшеты - active состояние */
+	.nes8bit-nav a:active {
+		height: 24px; /* Сохраняем компактную высоту */
+		margin: 0; /* Сохраняем margin: 0, отступы через padding родителя */
+	}
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+	body.nes8bit-theme {
+		padding: 20px; /* Уменьшенные отступы на мобильных (было 30px) */
+	}
+	
+	.nes8bit-container {
+		padding-left: 0; /* Убираем дополнительный padding на мобильных */
+		padding-right: 0;
+	}
+	
+	/* Уменьшаем отступы между блоками на мобильных */
+	.nes8bit-header {
+		margin-bottom: 15px; /* Уменьшено с 20px для мобильных */
+	}
+	
+	.nes8bit-nav {
+		margin-bottom: 15px; /* Уменьшено с 20px для мобильных */
 	}
 }
 
 /* Header - как в NES */
 .nes8bit-header {
 	background: var(--nes-sky-gradient);
-	border: 4px solid var(--nes-black);
+	border: 3px solid var(--nes-black); /* Более лаконичная рамка */
 	padding: 40px;
 	text-align: center;
-	margin-bottom: 40px;
-	box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+	margin-bottom: 20px; /* Уменьшенный отступ между блоками (было 30px) */
+	box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2); /* Унифицированная тень (как у других блоков) */
 	color: var(--nes-yellow);
 	position: relative;
 }
@@ -148,7 +201,7 @@ body.nes8bit-theme {
 /* Blog Post - Улучшенная версия */
 .nes8bit-post {
 	background: var(--nes-white);
-	border: 4px double var(--nes-black);
+	border: 3px solid var(--nes-black); /* Более лаконичная рамка вместо двойной */
 	padding: 20px;
 	margin-bottom: 20px;
 	box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
@@ -207,17 +260,18 @@ body.nes8bit-theme {
 .nes8bit-btn {
 	background: var(--crypto-bitcoin-gradient);
 	border: 3px solid var(--nes-black);
+	border-bottom-width: 2px; /* Нижняя граница стандартная (как у nav) */
 	padding: 12px 24px;
 	font-family: var(--nes-font);
 	font-size: 0.7rem;
 	cursor: pointer;
-	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: all 0.15s ease;
 	margin-top: 10px;
 	text-transform: uppercase;
 	color: var(--nes-black);
 	position: relative;
 	box-shadow: 
-		0 4px 0 var(--nes-black),
+		0 2px 0 var(--nes-black), /* Стандартная тень (как у nav) */
 		0 6px 10px rgba(0, 0, 0, 0.3);
 	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3);
 }
@@ -225,16 +279,34 @@ body.nes8bit-theme {
 .nes8bit-btn:hover {
 	transform: translateY(-2px);
 	box-shadow: 
-		0 6px 0 var(--nes-black),
+		0 4px 0 var(--nes-black), /* Стандартная тень при hover (как у nav) */
 		0 8px 15px rgba(0, 0, 0, 0.4);
 	background: linear-gradient(135deg, #FFE135 0%, #FFB347 100%);
 }
 
 .nes8bit-btn:active {
-	transform: translateY(2px);
+	transform: translateY(1px); /* Кнопка прожимается вниз (как у nav) */
 	box-shadow: 
-		0 2px 0 var(--nes-black),
-		0 4px 5px rgba(0, 0, 0, 0.3);
+		0 1px 0 var(--nes-black), /* Нижняя тень остаётся на месте! */
+		0 2px 4px rgba(0, 0, 0, 0.2);
+	border-bottom-width: 2px; /* Сохраняем нижнюю границу */
+	transition: transform 0.05s ease, box-shadow 0.05s ease, border-bottom-width 0.05s ease;
+}
+
+/* Focus states для кнопок */
+.nes8bit-btn:focus {
+	outline: 3px solid var(--nes-yellow);
+	outline-offset: 2px;
+	box-shadow: 
+		0 4px 0 var(--nes-black),
+		0 0 0 4px rgba(255, 215, 0, 0.3);
+}
+
+.nes8bit-btn:focus:not(:focus-visible) {
+	outline: none;
+	box-shadow: 
+		0 4px 0 var(--nes-black),
+		0 6px 10px rgba(0, 0, 0, 0.3);
 }
 
 .nes8bit-btn-primary {
@@ -270,7 +342,7 @@ body.nes8bit-theme {
 /* Sidebar */
 .nes8bit-sidebar {
 	background: var(--nes-yellow);
-	border: 4px double var(--nes-black);
+	border: 3px solid var(--nes-black); /* Более лаконичная рамка вместо двойной */
 	padding: 20px;
 	box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
 	height: fit-content;
@@ -318,17 +390,104 @@ body.nes8bit-theme {
 }
 
 /* Footer */
-.nes8bit-footer {
-	background: var(--nes-sky-gradient);
-	border: 4px solid var(--nes-black);
-	padding: 20px;
-	text-align: center;
-	margin-top: 40px;
-	color: var(--nes-yellow);
-	font-size: 0.8rem;
-	box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
-	font-family: var(--nes-font);
-}
+	.nes8bit-footer {
+		background: var(--nes-sky-gradient);
+		border: 3px solid var(--nes-black); /* Более лаконичная рамка */
+		padding: 15px 20px 20px 20px; /* Увеличен padding-bottom для закрытия gap при hover кнопок */
+		text-align: center;
+		margin-top: 20px; /* Уменьшенный отступ между блоками (было 30px) */
+		margin-bottom: 0; /* Убираем margin-bottom - body padding-bottom уже создаёт отступ снизу */
+		color: var(--nes-yellow);
+		font-size: 0.8rem;
+		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+		font-family: var(--nes-font);
+		display: flex; /* Для вертикального центрирования */
+		align-items: center; /* Вертикальное центрирование */
+		justify-content: center; /* Горизонтальное центрирование */
+		min-height: 60px; /* Минимальная высота для правильного центрирования */
+		overflow: visible; /* Позволяем кнопкам подниматься при hover */
+		position: relative; /* Для правильного позиционирования */
+	}
+	
+	.footer-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 15px;
+		width: 100%;
+		position: relative; /* Для правильного позиционирования */
+		z-index: 1; /* Поднимаем контент над фоном */
+	}
+	
+	.footer-text {
+		margin: 0; /* Убираем margin у параграфа для правильного центрирования */
+		padding: 0;
+	}
+	
+	/* Соцсети в footer для мобильных */
+	.footer-social-mobile {
+		display: none; /* По умолчанию скрыты (только на мобильных) */
+		flex-direction: row;
+		gap: 10px;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.footer-social-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 38px; /* Уменьшенный размер для более компактного вида (как в sidebar) */
+		height: 38px; /* Уменьшенный размер для более компактного вида (как в sidebar) */
+		background: var(--crypto-ethereum-gradient);
+		border: 2px solid var(--nes-black);
+		border-bottom: 2px solid var(--nes-black); /* Явно указываем чёрный border-bottom */
+		border-radius: 8px;
+		text-decoration: none;
+		transition: all 0.15s ease;
+		box-shadow: 0 2px 0 var(--nes-black);
+		cursor: pointer;
+		font-size: 1.1rem; /* Уменьшенный размер иконки для более компактного вида (как в sidebar) */
+		position: relative; /* Для правильного позиционирования */
+		z-index: 2; /* Поднимаем кнопки над фоном footer */
+	}
+	
+	.footer-social-link:hover {
+		background: var(--crypto-bitcoin-gradient);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 0 var(--nes-black), 0 0 10px rgba(255, 215, 0, 0.4);
+		/* Явно указываем чёрный border-bottom, чтобы не было зелёной полосы */
+		border-bottom: 2px solid var(--nes-black) !important; /* Принудительно чёрный border */
+	}
+	
+	.footer-social-link:active {
+		transform: translateY(1px);
+		box-shadow: 0 1px 0 var(--nes-black);
+		transition: transform 0.05s ease, box-shadow 0.05s ease;
+	}
+	
+	.footer-social-link:focus {
+		outline: 3px solid var(--nes-yellow);
+		outline-offset: 2px;
+		box-shadow: 0 2px 0 var(--nes-black), 0 0 0 4px rgba(255, 215, 0, 0.3);
+	}
+	
+	.footer-social-link:focus:not(:focus-visible) {
+		outline: none;
+		box-shadow: 0 2px 0 var(--nes-black);
+	}
+	
+	/* Мобильная адаптация для footer */
+	@media (max-width: 768px) {
+		.nes8bit-footer {
+			margin-top: 15px; /* Уменьшенный отступ между блоками на мобильных (было 20px) */
+			padding: 15px; /* Компактный padding на мобильных */
+		}
+		
+		.footer-social-mobile {
+			display: flex; /* Показываем соцсети на мобильных */
+		}
+	}
 
 /* Pixel Icon */
 .nes8bit-pixel-icon {
@@ -340,64 +499,85 @@ body.nes8bit-theme {
 /* Navigation */
 .nes8bit-nav {
 	background: var(--nes-white);
-	border: 4px solid var(--nes-black);
-	padding: 8px;
-	margin-bottom: 20px;
+	border: 3px solid var(--nes-black); /* Более лаконичная рамка */
+	padding: 12px 12px; /* Увеличенные отступы: 12px сверху/снизу, 12px слева/справа */
+	margin-bottom: 20px; /* Уменьшенный отступ между блоками (было 30px) */
 	display: flex;
-	gap: 8px;
+	gap: 10px; /* Увеличен gap между кнопками для лучшей читаемости */
 	flex-wrap: wrap;
 	justify-content: center;
-	align-items: center;
-	box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+	align-items: center; /* Центрирование по вертикали */
+	box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2); /* Унифицированная тень (как у других блоков) */
 	position: sticky;
 	top: 0;
 	z-index: 100;
-	/* Фиксируем высоту чтобы не расширялась при hover */
-	min-height: 44px;
-	max-height: 44px;
-	overflow: visible;
+	/* Высота автоматически: 12px padding-top + 32px кнопка + 12px padding-bottom = 56px */
+	min-height: 56px;
+	overflow: hidden; /* Предотвращаем выход кнопок за границы блока при hover/transform */
+	box-sizing: border-box; /* Учитываем border в общей ширине */
 }
 
 .nes8bit-nav a {
 	background: var(--crypto-ethereum-gradient);
 	color: var(--nes-white);
 	border: 2px solid var(--nes-black);
-	padding: 6px 12px;
+	border-bottom-width: 2px; /* Нижняя граница стандартная */
+	padding: 8px 16px; /* Увеличен padding для лучшего вида на десктопе */
 	text-decoration: none;
 	font-family: var(--nes-font);
-	font-size: 0.65rem;
-	transition: all 0.2s ease-out;
+	font-size: 0.7rem; /* Увеличен шрифт для лучшей читаемости на десктопе */
+	transition: all 0.15s ease-out;
 	text-transform: uppercase;
 	position: relative;
 	box-shadow: 0 2px 0 var(--nes-black);
 	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
-	margin: 0;
+	margin: 0; /* Убираем margin, используем padding родителя для отступов */
 	display: inline-flex; /* Используем flex для центрирования */
 	align-items: center; /* Вертикальное центрирование */
 	justify-content: center; /* Горизонтальное центрирование */
 	/* Фиксируем высоту чтобы не расширялась при hover */
-	height: 28px;
+	height: 32px; /* Увеличена высота для лучшего вида на десктопе */
 	line-height: 1;
 	vertical-align: middle;
+	box-sizing: border-box; /* Учитываем border и padding в общей ширине */
+	flex-shrink: 1; /* Позволяем кнопкам сжиматься при необходимости */
+	min-width: 0; /* Убираем минимальную ширину по умолчанию для flex-элементов */
+	max-width: 100%; /* Предотвращаем выход за границы родителя */
 }
 
-.nes8bit-nav a:hover {
-	background: var(--crypto-bitcoin-gradient);
-	color: var(--nes-black);
-	/* Убрали transform чтобы избежать дёргания при наведении снизу */
-	box-shadow: 
+	.nes8bit-nav a:hover {
+		background: var(--crypto-bitcoin-gradient);
+		color: var(--nes-black);
+		transform: translateY(-2px);
+		box-shadow: 
 		0 4px 0 var(--nes-black),
-		0 6px 10px rgba(0, 0, 0, 0.3);
-	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3);
-	/* Сохраняем высоту чтобы не расширялась вертикально */
-	height: 28px;
-	margin: 0;
-}
+		0 7px 10px rgba(0, 0, 0, 0.3);
+		text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3);
+		/* Сохраняем высоту чтобы не расширялась вертикально */
+		height: 32px; /* Сохраняем увеличенную высоту */
+		margin: 0; /* Сохраняем margin: 0, отступы через padding родителя */
+	}
 
 .nes8bit-nav a:active {
-	/* Активное состояние для мобильных */
+	/* Активное состояние - прожимание вниз, нижняя полоса остаётся */
+	transform: translateY(1px);
+	box-shadow: 0 1px 0 var(--nes-black); /* Нижняя тень остаётся на месте! */
+	border-bottom-width: 2px; /* Сохраняем нижнюю границу */
+	margin: 0; /* Сохраняем margin: 0, отступы через padding родителя */
+	transition: transform 0.05s ease, box-shadow 0.05s ease, border-bottom-width 0.05s ease;
+}
+
+/* Focus states для клавиатурной навигации */
+.nes8bit-nav a:focus {
+	outline: 3px solid var(--nes-yellow);
+	outline-offset: 2px;
+	box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3);
+}
+
+/* Убираем outline по умолчанию, оставляем только для клавиатуры */
+.nes8bit-nav a:focus:not(:focus-visible) {
+	outline: none;
 	box-shadow: 0 2px 0 var(--nes-black);
-	margin: 0;
 }
 
 /* Card */
@@ -501,6 +681,7 @@ body.nes8bit-theme {
 	
 	.nes8bit-header {
 		padding: 20px;
+		margin-bottom: 15px; /* Уменьшенный отступ между блоками на мобильных (было 20px) */
 	}
 	
 	.nes8bit-sidebar {
@@ -517,15 +698,53 @@ body.nes8bit-theme {
 		padding: 8px 16px;
 	}
 	
-	/* Мобильные интерактивные элементы - активное состояние при нажатии */
-	.nes8bit-nav a:active {
-		transform: scale(0.95);
-		box-shadow: 0 1px 0 var(--nes-black);
+	/* Высота навигации на мобильных - компактнее чем на десктопе */
+	.nes8bit-nav {
+		min-height: 48px; /* 12px padding-top + 24px кнопка + 12px padding-bottom = 48px */
+		max-height: none; /* Убираем ограничение высоты для переноса */
+		margin-bottom: 15px; /* Уменьшенный отступ между блоками на мобильных (было 20px) */
+		padding: 12px 8px; /* Увеличенные отступы: 12px сверху/снизу, 8px слева/справа */
+		gap: 10px; /* Увеличен gap между кнопками для лучшей читаемости */
+		overflow: hidden; /* Предотвращаем выход кнопок за границы блока */
 	}
 	
+	.nes8bit-nav a {
+		height: 24px; /* Компактная высота для мобильных (равна планшету, меньше десктопа 32px) */
+		padding: 5px 10px; /* Компактный padding */
+		margin: 0; /* Убираем margin, используем padding родителя для отступов */
+		line-height: 14px; /* Центрирование текста */
+		font-size: 0.6rem; /* Компактный шрифт для мобильных */
+		min-width: 70px; /* Минимальная ширина для читаемости */
+		max-width: calc(100% - 18px); /* Предотвращаем выход за границы (учитываем gap и padding родителя) */
+		flex: 1 1 auto; /* Кнопки равномерно распределяются, но могут переноситься */
+		box-sizing: border-box; /* Учитываем border и padding в общей ширине */
+	}
+	
+	/* Мобильные - hover состояние */
+	.nes8bit-nav a:hover {
+		height: 24px; /* Сохраняем компактную высоту */
+		margin: 0; /* Сохраняем margin: 0, отступы через padding родителя */
+	}
+	
+	/* Мобильные интерактивные элементы - активное состояние при нажатии */
+	.nes8bit-nav a:active {
+		transform: translateY(1px); /* Кнопка прожимается вниз */
+		box-shadow: 0 1px 0 var(--nes-black); /* Нижняя тень остаётся на месте! */
+		border-bottom-width: 2px; /* Сохраняем нижнюю границу */
+		height: 24px; /* Сохраняем компактную высоту (как в обычном состоянии) */
+		margin: 0; /* Сохраняем margin: 0, отступы через padding родителя */
+		transition: transform 0.05s ease, box-shadow 0.05s ease, border-bottom-width 0.05s ease;
+	}
+	
+	.nes8bit-btn {
+		border-bottom-width: 2px; /* Нижняя граница стандартная (как у nav) */
+	}
+
 	.nes8bit-btn:active {
-		transform: translateY(1px);
-		box-shadow: 0 1px 0 var(--nes-black);
+		transform: translateY(1px); /* Кнопка прожимается вниз (как у nav) */
+		box-shadow: 0 1px 0 var(--nes-black); /* Нижняя тень остаётся на месте! */
+		border-bottom-width: 2px; /* Сохраняем нижнюю границу */
+		transition: transform 0.05s ease, box-shadow 0.05s ease, border-bottom-width 0.05s ease;
 	}
 }
 
@@ -621,5 +840,7 @@ body.nes8bit-theme {
 	background-size: 200% 100%;
 	animation: crypto-shine 3s linear infinite;
 }
+
+
 
 
