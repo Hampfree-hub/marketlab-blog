@@ -110,7 +110,11 @@ const posts = (await getCollection('blog'))
 		/* Убираем изменение всего фона - только тонкая рамка */
 		border-color: var(--nes-yellow);
 		transform: translateY(-1px); /* Чуть выезжает вверх */
-		/* Beveling сохраняется для объёма */
+		/* Beveling сохраняется для объёма через отдельные границы */
+		border-top-color: var(--nes-yellow);
+		border-left-color: var(--nes-yellow);
+		border-bottom-color: var(--nes-yellow);
+		border-right-color: var(--nes-yellow);
 		/* Всё содержимое (картинка + контент) двигается как единое целое */
 	}
 	
@@ -121,12 +125,8 @@ const posts = (await getCollection('blog'))
 
 	.article-card:active {
 		transform: translateY(1px); /* Карточка прожимается вниз */
-		/* Убираем beveling - все границы одинаковые (чёрные) чтобы не было белой полоски */
-		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000) !important;
-		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000) !important;
-		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000) !important;
-		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000) !important;
-		border-color: var(--nes-bevel-dark, #000000) !important; /* Дополнительно переопределяем общий border-color */
+		/* КРИТИЧНО: Полностью переопределяем ВСЕ границы одной командой border, чтобы убрать beveling и белую полоску */
+		border: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000) !important;
 		transition: transform 0.05s ease, border 0.05s ease;
 	}
 
