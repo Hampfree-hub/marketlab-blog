@@ -51,10 +51,11 @@ const posts = (await getCollection('blog'))
 <style>
 	.article-grid-section {
 		background: var(--nes-white);
-		border: 3px solid var(--nes-black); /* Более лаконичная рамка */
-		padding: 30px;
-		margin-bottom: 20px; /* Уменьшенный отступ между блоками (было 30px) */
-		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+		border: var(--nes-border-width, 2px) solid var(--nes-black);
+		border-radius: 4px;
+		padding: var(--nes-spacing-lg, 24px); /* 24px - кратно 4px */
+		margin-bottom: var(--nes-spacing-md, 16px); /* 16px - кратно 4px */
+		/* БЕЗ теней - плоские элементы */
 		max-width: 1200px;
 		margin-left: auto;
 		margin-right: auto;
@@ -65,7 +66,7 @@ const posts = (await getCollection('blog'))
 		font-size: 1.8rem;
 		font-weight: bold;
 		color: var(--nes-black);
-		margin: 0 0 10px 0;
+		margin: 0 0 var(--nes-spacing-sm, 8px) 0; /* 8px - кратно 4px */
 		text-align: center;
 	}
 
@@ -73,72 +74,154 @@ const posts = (await getCollection('blog'))
 		font-family: 'Arial', sans-serif;
 		font-size: 1rem;
 		color: var(--nes-gray);
-		margin: 0 0 25px 0;
+		margin: 0 0 var(--nes-spacing-lg, 24px) 0; /* 24px - кратно 4px */
 		text-align: center;
 	}
 
 	.article-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 20px;
+		gap: var(--nes-spacing-md, 16px); /* 16px - кратно 4px */
 	}
 
 	.article-card {
 		background: var(--nes-white);
-		border: 3px solid var(--nes-black);
-		overflow: hidden;
-		transition: all 0.3s ease;
-		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
-		/* Убираем скруглённые углы для единого движения */
-		border-radius: 0;
+		/* Beveling для объёма */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		overflow: hidden; /* КРИТИЧНО: скрывает всё что выходит за границы (убирает зазоры) */
+		transition: transform 0.15s ease, border 0.15s ease;
+		/* БЕЗ теней - объём создаётся через beveling */
+		border-radius: 4px; /* Сглаженные углы */
+		/* Единый элемент - всё двигается синхронно */
+		display: flex;
+		flex-direction: column;
+		/* ВАЖНО: все дочерние элементы двигаются вместе с родителем */
+		margin: 0; /* Убираем все отступы */
+		padding: 0; /* Убираем все отступы */
+		/* КРИТИЧНО: Убираем все зазоры */
+		box-sizing: border-box; /* Учитываем border в размерах */
+		cursor: pointer; /* Указываем курсор для интерактивности */
 	}
 
 	.article-card:hover {
-		transform: translateY(-4px);
-		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
-		/* Всё двигается как единый элемент */
+		/* Убираем изменение всего фона - только тонкая рамка */
+		border-color: var(--nes-yellow);
+		transform: translateY(-1px); /* Чуть выезжает вверх */
+		/* Beveling сохраняется для объёма */
+		/* Всё содержимое (картинка + контент) двигается как единое целое */
+	}
+	
+	.article-card:hover .article-card-content {
+		/* Только контентная область получает жёлтый фон при hover */
+		background: var(--nes-yellow);
+	}
+
+	.article-card:active {
+		transform: translateY(1px); /* Карточка прожимается вниз */
+		/* Убираем beveling - все границы одинаковые (чёрные) чтобы не было белой полоски */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000) !important;
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000) !important;
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000) !important;
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000) !important;
+		border-color: var(--nes-bevel-dark, #000000) !important; /* Дополнительно переопределяем общий border-color */
+		transition: transform 0.05s ease, border 0.05s ease;
+	}
+
+	/* Убираем жёлтый фон при активном состоянии (для светлой темы) */
+	.article-card:active .article-card-content {
+		background: var(--nes-white); /* Возвращаем белый фон */
 	}
 
 	/* Focus states для карточек статей */
 	.article-card:focus {
-		outline: 3px solid var(--nes-blue);
+		outline: var(--nes-border-width, 2px) solid var(--nes-blue);
 		outline-offset: 2px;
-		box-shadow: 0 0 0 4px rgba(0, 153, 204, 0.3);
+		/* БЕЗ теней - плоские элементы */
 	}
 
 	.article-card:focus:not(:focus-visible) {
 		outline: none;
-		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+		/* БЕЗ теней - плоские элементы */
 	}
 
 	.article-card-link {
 		text-decoration: none;
 		color: inherit;
 		display: block;
+		margin: 0; /* Убираем все отступы */
+		padding: 0; /* Убираем все отступы */
+		border: none; /* Убираем границы */
 	}
 
 	.article-card-image {
-		width: 100%;
-		height: 200px;
-		overflow: hidden;
+		width: calc(100% + 6px); /* Увеличиваем на 3px с каждой стороны для наезда на рамку */
+		height: calc(200px + 6px); /* Увеличиваем на 3px сверху и снизу для наезда на рамку */
+		margin: -3px -3px 0 -3px; /* Отрицательный margin для наезда на рамку родительской карточки */
+		overflow: hidden; /* КРИТИЧНО: скрывает всё что выходит за границы (убирает зазоры) */
 		background: var(--nes-gray);
-		/* Убираем скруглённые углы - они создают проблемы при движении */
-		border-radius: 0;
+		border-radius: 0; /* УБИРАЕМ border-radius - изображение должно заполнять углы родительской карточки */
+		flex-shrink: 0; /* Фиксированный размер, не сжимается */
+		/* КРИТИЧНО: НЕТ transition, transform, position - двигается строго вместе с родителем */
+		transition: none !important;
+		transform: none !important;
+		position: relative !important; /* Для абсолютного позиционирования img */
+		padding: 0; /* Убираем все отступы */
+		border: none; /* Убираем границы (граница только у родителя) */
+		/* КРИТИЧНО: Убираем все зазоры по углам и границам */
+		line-height: 0; /* Убираем зазор снизу у изображения */
+		display: block; /* Блочный элемент */
+		box-sizing: border-box; /* Учитываем border в размерах */
+		/* КРИТИЧНО: Контейнер должен быть прямоугольным для полного заполнения изображением */
+		position: relative; /* Для правильного позиционирования img */
 	}
 
+	/* Стили для компонента Image из Astro - КРИТИЧНО: прилепить к фрейму без зазоров */
+	.article-card-image :global(img),
+	.article-card-image :global(picture),
+	.article-card-image :global(picture img),
 	.article-card-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+		/* КРИТИЧНО: Изображение должно полностью заполнять контейнер без зазоров по периметру */
+		position: absolute !important; /* Абсолютное позиционирование для полного заполнения */
+		top: 0 !important;
+		left: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		width: 100% !important;
+		height: 100% !important;
+		object-fit: cover !important; /* Заполняет весь контейнер без белых областей */
+		object-position: center !important; /* Центрируем изображение */
 		image-rendering: pixelated;
 		image-rendering: -moz-crisp-edges;
 		image-rendering: crisp-edges;
-		/* Убираем скруглённые углы */
-		border-radius: 0;
+		border-radius: 0 !important; /* КРИТИЧНО: УБИРАЕМ border-radius - заполняем углы родительской карточки */
+		display: block !important; /* Убираем лишние отступы */
+		margin: 0 !important; /* Убираем все отступы */
+		padding: 0 !important; /* Убираем все отступы */
+		border: none !important; /* Убираем границы */
+		/* КРИТИЧНО: НЕТ transition, transform - двигается строго вместе с родителем */
+		transition: none !important;
+		transform: none !important;
+		/* КРИТИЧНО: Убираем все зазоры */
+		line-height: 0 !important; /* Убираем зазор снизу */
+		vertical-align: top !important; /* Убираем зазор снизу */
+		/* КРИТИЧНО: Изображение должно точно соответствовать контейнеру */
+		box-sizing: border-box !important; /* Учитываем padding/border в размерах */
+		/* КРИТИЧНО: Изображение должно полностью заполнять контейнер, включая углы - увеличиваем для перекрытия рамки */
+		width: calc(100% + 6px) !important; /* Увеличение для заполнения углов и перекрытия рамки (3px * 2) */
+		height: calc(100% + 6px) !important; /* Увеличение для заполнения углов и перекрытия рамки (3px * 2) */
+		top: -3px !important; /* Смещение для заполнения верхнего угла и перекрытия верхней рамки */
+		left: -3px !important; /* Смещение для заполнения левого угла и перекрытия левой рамки */
 	}
 
 	.article-card-content {
-		padding: 15px;
+		padding: var(--nes-spacing-md, 16px); /* 16px - кратно 4px */
+		flex: 1;
+		/* КРИТИЧНО: НЕТ transition, transform - двигается строго вместе с родителем */
+		transition: background-color 0.15s ease !important; /* Только для плавного изменения фона */
+		transform: none !important;
 	}
 
 	.article-card-title {
@@ -146,7 +229,7 @@ const posts = (await getCollection('blog'))
 		font-size: 1.1rem;
 		font-weight: bold;
 		color: var(--nes-black);
-		margin: 0 0 10px 0;
+		margin: 0 0 var(--nes-spacing-sm, 8px) 0; /* 8px - кратно 4px */
 		line-height: 1.4;
 	}
 
@@ -154,7 +237,7 @@ const posts = (await getCollection('blog'))
 		font-family: 'Arial', sans-serif;
 		font-size: 0.9rem;
 		color: var(--nes-gray);
-		margin: 0 0 10px 0;
+		margin: 0 0 var(--nes-spacing-sm, 8px) 0; /* 8px - кратно 4px */
 		line-height: 1.6;
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
@@ -176,8 +259,8 @@ const posts = (await getCollection('blog'))
 		}
 		
 		.article-grid-section {
-			padding: 20px;
-			margin-bottom: 15px; /* Уменьшенный отступ между блоками на мобильных (было 20px) */
+			padding: var(--nes-spacing-md, 16px); /* 16px - кратно 4px */
+			margin-bottom: var(--nes-spacing-md, 16px); /* 16px - кратно 4px */
 		}
 		
 		.article-grid-title {
@@ -188,11 +271,73 @@ const posts = (await getCollection('blog'))
 	/* Мобильные интерактивные элементы - активное состояние при нажатии */
 	@media (max-width: 768px) {
 		.article-card:active {
-			transform: translateY(-2px);
-			box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+			transform: translateY(1px); /* Карточка прожимается вниз */
+			/* БЕЗ теней - плоские элементы */
+			transition: transform 0.05s ease;
 		}
 	}
+
+	/* ТЁМНАЯ ТЕМА: Карточки статей */
+	html.dark-theme .article-card {
+		background: var(--nes-bg-card, #1a2a1a);
+		border-color: rgba(0, 255, 65, 0.3); /* Приглушённый неоновый зелёный */
+	}
+
+	html.dark-theme .article-card:hover {
+		border-color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .article-card:hover .article-card-content {
+		background: rgba(0, 255, 65, 0.1); /* Приглушённый неоновый зелёный фон */
+	}
+
+	html.dark-theme .article-card-content {
+		background: var(--nes-bg-card, #1a2a1a);
+	}
+
+	html.dark-theme .article-card-title {
+		color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .article-card-description {
+		color: var(--nes-text-light, #e5e5e5);
+	}
+
+	html.dark-theme .article-card-date {
+		color: var(--nes-text-muted, #999999);
+	}
+
+	html.dark-theme .article-grid-title,
+	html.dark-theme .article-grid-subtitle {
+		color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .article-grid-description {
+		color: var(--nes-text-light, #e5e5e5);
+	}
+
+	html.dark-theme .article-grid-section {
+		background: var(--nes-bg-card, #1a2a1a);
+		border-color: rgba(0, 255, 65, 0.3);
+	}
+
+	html.dark-theme .article-grid-subtitle {
+		color: var(--nes-text-muted, #999999);
+	}
+
+	/* ТЁМНАЯ ТЕМА: Активное состояние карточек (без белой полосы) */
+	html.dark-theme .article-card:active {
+		border-top: var(--nes-border-width, 2px) solid rgba(0, 255, 65, 0.5);
+		border-left: var(--nes-border-width, 2px) solid rgba(0, 255, 65, 0.5);
+		border-bottom: var(--nes-border-width, 2px) solid rgba(0, 255, 65, 0.5);
+		border-right: var(--nes-border-width, 2px) solid rgba(0, 255, 65, 0.5);
+	}
+
+	html.dark-theme .article-card:active .article-card-content {
+		background: var(--nes-bg-card, #1a2a1a); /* Возвращаем тёмный фон */
+	}
 </style>
+
 
 
 

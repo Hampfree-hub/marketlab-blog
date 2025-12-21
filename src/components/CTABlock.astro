@@ -45,9 +45,10 @@
 
 	.cta-block {
 		background: var(--nes-white);
-		border: 3px solid var(--nes-black); /* Более лаконичная рамка */
+		border: var(--nes-border-width, 2px) solid var(--nes-black);
+		border-radius: 4px;
 		padding: 20px;
-		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+		/* БЕЗ теней - плоские элементы */
 		text-align: center;
 	}
 
@@ -57,7 +58,7 @@
 		font-weight: bold;
 		color: var(--nes-black);
 		margin: 0 0 15px 0;
-		border-bottom: 2px solid var(--nes-gray);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-gray);
 		padding-bottom: 10px;
 	}
 
@@ -71,44 +72,51 @@
 	.cta-button {
 		background: var(--crypto-ethereum-gradient);
 		color: var(--nes-white);
-		border: 2px solid var(--nes-black); /* Единообразие с навигационными кнопками */
-		border-bottom-width: 2px; /* Нижняя граница стандартная (как у nav) */
+		/* Beveling для объёма */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-radius: 4px; /* Сглаженные углы */
 		padding: 10px 20px;
 		text-decoration: none;
 		font-family: var(--nes-font);
 		font-size: 0.7rem;
 		text-transform: uppercase;
 		transition: all 0.15s ease;
-		box-shadow: 0 2px 0 var(--nes-black); /* Стандартная тень (как у nav) */
+		/* БЕЗ теней - объём создаётся через beveling */
 		text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
 		position: relative;
 	}
 
 	.cta-button:hover {
-		background: var(--crypto-bitcoin-gradient);
+		background: var(--nes-yellow); /* Унифицированный hover - жёлтый цвет */
 		color: var(--nes-black);
-		transform: translateY(-2px);
-		box-shadow: 0 4px 0 var(--nes-black); /* Стандартная тень при hover (как у nav) */
+		transform: translateY(-1px); /* Небольшое выдвижение вверх */
+		/* Beveling сохраняется для объёма */
 		text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3);
 	}
 
 	.cta-button:active {
-		transform: translateY(1px); /* Кнопка прожимается вниз (как у nav) */
-		box-shadow: 0 1px 0 var(--nes-black); /* Нижняя тень остаётся на месте! */
-		border-bottom-width: 2px; /* Сохраняем нижнюю границу */
-		transition: transform 0.05s ease, box-shadow 0.05s ease, border-bottom-width 0.05s ease;
+		transform: translateY(1px); /* Кнопка прожимается вниз */
+		/* Инвертируем beveling при нажатии */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		transition: transform 0.05s ease, border 0.05s ease;
 	}
 
 	/* Focus states для CTA-кнопок */
 	.cta-button:focus {
-		outline: 3px solid var(--nes-yellow);
+		outline: var(--nes-border-width, 2px) solid var(--nes-yellow);
 		outline-offset: 2px;
-		box-shadow: 0 2px 0 var(--nes-black), 0 0 0 4px rgba(255, 215, 0, 0.3);
+		/* БЕЗ теней - плоские кнопки */
 	}
 
 	.cta-button:focus:not(:focus-visible) {
 		outline: none;
-		box-shadow: 0 2px 0 var(--nes-black);
+		/* БЕЗ теней - плоские кнопки */
 	}
 
 	/* Мобильная адаптация */
@@ -123,12 +131,35 @@
 	/* Мобильные интерактивные элементы - активное состояние при нажатии */
 	@media (max-width: 768px) {
 		.cta-button:active {
-			transform: translateY(1px); /* Кнопка прожимается вниз (как у nav) */
-			box-shadow: 0 1px 0 var(--nes-black); /* Нижняя тень остаётся на месте! */
-			border-bottom-width: 2px;
+			transform: translateY(1px); /* Кнопка прожимается вниз */
+			/* БЕЗ теней - плоские кнопки */
 		}
 	}
+
+	/* ТЁМНАЯ ТЕМА: CTABlock */
+	html.dark-theme .cta-block {
+		background: var(--nes-bg-card, #1a2a1a);
+		border-color: rgba(0, 255, 65, 0.3);
+	}
+
+	html.dark-theme .cta-block-title {
+		color: var(--nes-neon-green, #00ff41);
+		border-bottom-color: rgba(0, 255, 65, 0.4);
+	}
+
+	html.dark-theme .cta-button {
+		background: linear-gradient(135deg, rgba(0, 255, 65, 0.2) 0%, rgba(0, 255, 255, 0.2) 100%);
+		border-color: rgba(0, 255, 65, 0.4);
+		color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .cta-button:hover {
+		background: var(--nes-neon-green, #00ff41);
+		color: var(--nes-black);
+		box-shadow: 0 0 10px rgba(0, 255, 65, 0.5); /* Неоновое свечение */
+	}
 </style>
+
 
 
 

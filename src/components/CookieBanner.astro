@@ -1,31 +1,31 @@
 ---
-// CookieBanner.astro - Баннер предупреждения о куки
-// Поддержка RU/EN/ES
+// CookieBanner.astro - ������ �������������� � ����
+// ��������� RU/EN/ES
 ---
 
 <div class="cookie-banner" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-description" id="cookie-banner" style="display: none;">
 	<div class="cookie-banner-content">
 		<div class="cookie-banner-text">
-			<p id="cookie-title" class="cookie-banner-title" data-lang="ru">Хотите печенье?</p>
+			<p id="cookie-title" class="cookie-banner-title" data-lang="ru">������ �������?</p>
 			<p id="cookie-description" class="cookie-banner-description" data-lang="ru">
-				Мы не шпионим, просто собираем куки для уюта лаборатории и персонализации опыта. 
-				Это как технический индикатор — помогает улучшить работу системы и сделать ваш визит удобнее. 
-				Продолжая использовать сайт, вы соглашаетесь с нашей 
-				<a href="/privacy" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a>.
+				�� �� �������, ������ �������� ���� ��� ���� ����������� � �������������� �����. 
+				��� ��� ����������� ��������� � �������� �������� ������ ������� � ������� ��� ����� �������. 
+				��������� ������������ ����, �� ������������ � ����� 
+				<a href="/privacy" target="_blank" rel="noopener noreferrer">��������� ������������������</a>.
 			</p>
 			<p class="cookie-banner-title" data-lang="en" style="display: none;">Want a cookie?</p>
 			<p class="cookie-banner-description" data-lang="en" style="display: none;">
 				We're not spying, just collecting cookies to make the lab cozy and personalize your experience. 
-				It's like a technical indicator — helps improve system performance and make your visit more convenient. 
+				It's like a technical indicator � helps improve system performance and make your visit more convenient. 
 				By continuing to use the site, you agree to our 
 				<a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
 			</p>
-			<p class="cookie-banner-title" data-lang="es" style="display: none;">¿Quieres una galleta?</p>
+			<p class="cookie-banner-title" data-lang="es" style="display: none;">?Quieres una galleta?</p>
 			<p class="cookie-banner-description" data-lang="es" style="display: none;">
 				No espiamos, solo recopilamos cookies para hacer el laboratorio acogedor y personalizar tu experiencia. 
-				Es como un indicador técnico: ayuda a mejorar el rendimiento del sistema y hacer tu visita más conveniente. 
+				Es como un indicador tecnico: ayuda a mejorar el rendimiento del sistema y hacer tu visita mas conveniente. 
 				Al continuar usando el sitio, acepta nuestra 
-				<a href="/privacy" target="_blank" rel="noopener noreferrer">Política de privacidad</a>.
+				<a href="/privacy" target="_blank" rel="noopener noreferrer">Politica de privacidad</a>.
 			</p>
 		</div>
 		<div class="cookie-banner-buttons">
@@ -33,9 +33,9 @@
 				type="button" 
 				class="cookie-banner-accept nes8bit-btn nes8bit-btn-success" 
 				onclick="acceptCookies()"
-				aria-label="Принять использование куки"
+				aria-label="������� ������������� ����"
 			>
-				<span data-lang="ru">Принять</span>
+				<span data-lang="ru">�������</span>
 				<span data-lang="en" style="display: none;">Accept</span>
 				<span data-lang="es" style="display: none;">Aceptar</span>
 			</button>
@@ -43,9 +43,9 @@
 				type="button" 
 				class="cookie-banner-reject nes8bit-btn nes8bit-btn-danger" 
 				onclick="rejectCookies()"
-				aria-label="Отклонить использование куки"
+				aria-label="��������� ������������� ����"
 			>
-				<span data-lang="ru">Отклонить</span>
+				<span data-lang="ru">���������</span>
 				<span data-lang="en" style="display: none;">Reject</span>
 				<span data-lang="es" style="display: none;">Rechazar</span>
 			</button>
@@ -60,13 +60,15 @@
 		left: 0;
 		right: 0;
 		background: var(--nes-white);
-		border-top: 3px solid var(--nes-black); /* Более лаконичная рамка */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-black);
+		border-top-left-radius: 4px; /* ���������� ������� ���� */
+		border-top-right-radius: 4px; /* ���������� ������� ���� */
 		padding: 20px;
-		box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
-		z-index: 999; /* Ниже CTA-блока, чтобы он был виден */
+		/* ��� ����� - ������� �������� */
+		z-index: 999; /* ���� CTA-�����, ����� �� ��� ����� */
 		font-family: 'Arial', sans-serif;
-		max-height: 180px; /* Ограничиваем высоту, чтобы не перекрывать контент */
-		overflow-y: auto; /* Прокрутка, если контент не помещается */
+		max-height: 180px; /* ������������ ������, ����� �� ����������� ������� */
+		overflow-y: auto; /* ���������, ���� ������� �� ���������� */
 	}
 
 	.cookie-banner-content {
@@ -118,28 +120,30 @@
 	.cookie-banner-accept,
 	.cookie-banner-reject {
 		min-width: 120px;
-		transition: transform 0.15s ease, box-shadow 0.15s ease, border-bottom-width 0.15s ease;
+		transition: all 0.15s ease;
 		position: relative;
-		border-bottom-width: 2px !important; /* Нижняя граница стандартная (как у nav) */
+		border: var(--nes-border-width, 2px) solid var(--nes-black);
+		/* ��� ����� - ������� ������ */
 	}
 
-	/* Hover - лёгкий подъём */
+	/* Hover - ����� ������ */
 	.cookie-banner-accept:hover,
 	.cookie-banner-reject:hover {
-		transform: translateY(-2px) !important;
-		box-shadow: 0 4px 0 var(--nes-black) !important; /* Стандартная тень при hover (как у nav) */
+		background: var(--nes-yellow) !important; /* ��������������� hover - ����� ���� */
+		color: var(--nes-black) !important;
+		transform: translateY(-1px) !important; /* ���� �������� ����� */
+		/* ��� ����� - ������� ������ */
 	}
 
-	/* Active - прожимание вниз, нижняя полоса остаётся на месте */
+	/* Active - ���������� ���� */
 	.cookie-banner-accept:active,
 	.cookie-banner-reject:active {
-		transform: translateY(1px) !important; /* Кнопка прожимается вниз (как у nav) */
-		box-shadow: 0 1px 0 var(--nes-black) !important; /* Нижняя тень остаётся на месте! */
-		border-bottom-width: 2px !important; /* Сохраняем нижнюю границу */
-		transition: transform 0.05s ease, box-shadow 0.05s ease, border-bottom-width 0.05s ease !important;
+		transform: translateY(1px) !important; /* ������ ����������� ���� */
+		/* ��� ����� - ������� ������ */
+		transition: transform 0.05s ease !important;
 	}
 
-	/* Мобильная адаптация */
+	/* ��������� ��������� */
 	@media (max-width: 768px) {
 		.cookie-banner {
 			padding: 15px;
@@ -160,16 +164,38 @@
 			min-width: 0;
 		}
 	}
+
+	/* ТЁМНАЯ ТЕМА: CookieBanner */
+	html.dark-theme .cookie-banner {
+		background: var(--nes-bg-card, #1a2a1a);
+		border-top-color: rgba(0, 255, 65, 0.3);
+	}
+
+	html.dark-theme .cookie-banner-title {
+		color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .cookie-banner-description {
+		color: var(--nes-text-light, #e5e5e5);
+	}
+
+	html.dark-theme .cookie-banner-description a {
+		color: var(--nes-neon-cyan, #00ffff);
+	}
+
+	html.dark-theme .cookie-banner-description a:hover {
+		color: var(--nes-neon-green, #00ff41);
+	}
 </style>
 
 <script>
-	// Определение языка страницы
+	// ����������� ����� ��������
 	function getPageLanguage() {
 		const htmlLang = document.documentElement.lang || 'ru';
 		return htmlLang.toLowerCase().split('-')[0]; // 'ru', 'en', 'es'
 	}
 
-	// Показать/скрыть элементы по языку
+	// ��������/������ �������� �� �����
 	function updateLanguageVisibility(lang) {
 		document.querySelectorAll('[data-lang]').forEach(el => {
 			const elLang = el.getAttribute('data-lang');
@@ -181,50 +207,50 @@
 		});
 	}
 
-	// Проверка, было ли уже принято решение о куки
+	// ��������, ���� �� ��� ������� ������� � ����
 	function checkCookieConsent() {
 		const consent = localStorage.getItem('cookieConsent');
 		if (consent === 'accepted' || consent === 'rejected') {
-			return false; // Не показывать баннер
+			return false; // �� ���������� ������
 		}
-		return true; // Показать баннер
+		return true; // �������� ������
 	}
 
-	// Принять куки
+	// ������� ����
 	function acceptCookies() {
-		// 1. Сохраняем выбор пользователя в localStorage
+		// 1. ��������� ����� ������������ � localStorage
 		localStorage.setItem('cookieConsent', 'accepted');
 		
-		// 2. Здесь можно добавить инициализацию аналитики (Google Analytics, Яндекс.Метрика и т.д.)
-		// Например:
+		// 2. ����� ����� �������� ������������� ��������� (Google Analytics, ������.������� � �.�.)
+		// ��������:
 		// if (typeof gtag !== 'undefined') {
 		//   gtag('consent', 'update', { 'analytics_storage': 'granted' });
 		// }
 		
-		// 3. Скрываем баннер
+		// 3. �������� ������
 		hideCookieBanner();
 		
-		console.log('Cookies accepted - аналитика включена');
+		console.log('Cookies accepted - ��������� ��������');
 	}
 
-	// Отклонить куки
+	// ��������� ����
 	function rejectCookies() {
-		// 1. Сохраняем выбор пользователя в localStorage
+		// 1. ��������� ����� ������������ � localStorage
 		localStorage.setItem('cookieConsent', 'rejected');
 		
-		// 2. Отключаем аналитику (если она была инициализирована)
-		// Например:
+		// 2. ��������� ��������� (���� ��� ���� ����������������)
+		// ��������:
 		// if (typeof gtag !== 'undefined') {
 		//   gtag('consent', 'update', { 'analytics_storage': 'denied' });
 		// }
 		
-		// 3. Скрываем баннер
+		// 3. �������� ������
 		hideCookieBanner();
 		
-		console.log('Cookies rejected - аналитика отключена');
+		console.log('Cookies rejected - ��������� ���������');
 	}
 	
-	// Скрыть баннер
+	// ������ ������
 	function hideCookieBanner() {
 		const banner = document.getElementById('cookie-banner');
 		if (banner) {
@@ -232,17 +258,17 @@
 		}
 	}
 
-	// Экспортируем функции в глобальную область видимости для onclick
-	// ВАЖНО: Делаем это сразу после определения функций, чтобы они были доступны при загрузке страницы
+	// ������������ ������� � ���������� ������� ��������� ��� onclick
+	// �����: ������ ��� ����� ����� ����������� �������, ����� ��� ���� �������� ��� �������� ��������
 	if (typeof window !== 'undefined') {
 		window.acceptCookies = acceptCookies;
 		window.rejectCookies = rejectCookies;
 		window.hideCookieBanner = hideCookieBanner;
 	}
 
-	// Инициализация при загрузке страницы
+	// ������������� ��� �������� ��������
 	if (typeof window !== 'undefined') {
-		// Экспортируем функции ДО DOMContentLoaded, чтобы они были доступны сразу
+		// ������������ ������� �� DOMContentLoaded, ����� ��� ���� �������� �����
 		window.acceptCookies = acceptCookies;
 		window.rejectCookies = rejectCookies;
 		window.hideCookieBanner = hideCookieBanner;
@@ -260,6 +286,7 @@
 		});
 	}
 </script>
+
 
 
 

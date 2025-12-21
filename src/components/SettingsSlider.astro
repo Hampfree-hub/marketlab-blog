@@ -2,22 +2,22 @@
 // Выдвигающийся 8-бит слайдер настроек (тема + язык)
 ---
 
-<div class="settings-slider">
-	<!-- Закладка (tab) в правом верхнем углу -->
-	<div class="settings-tab" aria-label="Настройки" title="Настройки">
-		<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-			<circle cx="12" cy="12" r="3"></circle>
-			<path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24"></path>
-		</svg>
-	</div>
-	
-	<!-- Выдвигающаяся панель -->
-	<div class="settings-panel">
-		<div class="settings-controls">
-			<!-- Переключатель темы (вертикальный тумблер) -->
-			<div class="theme-toggle-wrapper">
+<div class="settings-slider" aria-label="Настройки" title="Настройки">
+	<!-- Единый элемент: стрелка в начале, вытягивается как целое -->
+	<div class="settings-container">
+		<!-- Стрелочка в начале (всегда справа, прилипает к краю) -->
+		<div class="settings-arrow-container">
+			<svg class="settings-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M19 12H5M12 19l-7-7 7-7"></path>
+			</svg>
+		</div>
+		
+		<!-- Панель с тумблерами (вытягивается вертикально вниз) -->
+		<div class="settings-panel">
+			<div class="settings-controls">
+				<!-- Переключатель темы -->
 				<button id="theme-toggle" class="theme-toggle-btn" aria-label="Переключить тему" title="Переключить тему">
-					<svg class="theme-icon theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<svg class="theme-icon theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<circle cx="12" cy="12" r="5"></circle>
 						<line x1="12" y1="1" x2="12" y2="3"></line>
 						<line x1="12" y1="21" x2="12" y2="23"></line>
@@ -28,17 +28,17 @@
 						<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
 						<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
 					</svg>
-					<svg class="theme-icon theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<svg class="theme-icon theme-icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
 					</svg>
 				</button>
-			</div>
-			
-			<!-- Переключатель языков (вертикальный тумблер) -->
-			<div class="language-toggle-wrapper">
-				<button class="lang-toggle-btn active" data-lang="ru" aria-label="Русский" aria-pressed="true" title="Русский">RU</button>
-				<button class="lang-toggle-btn" data-lang="en" aria-label="English" aria-pressed="false" title="English">EN</button>
-				<button class="lang-toggle-btn" data-lang="es" aria-label="Español" aria-pressed="false" title="Español">ES</button>
+				
+				<!-- Переключатель языков (как кнопка темы - одна кнопка) -->
+				<button id="language-toggle" class="language-toggle-btn" aria-label="Переключить язык" title="Переключить язык">
+					<span class="lang-text lang-text-ru">RU</span>
+					<span class="lang-text lang-text-en">EN</span>
+					<span class="lang-text lang-text-es">ES</span>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -119,31 +119,73 @@
 		});
 	})();
 
-	// Language switcher functionality
+	// Language switcher functionality (как кнопка темы - переключение по клику)
 	(function() {
+		const languageToggle = document.getElementById('language-toggle');
+		
+		if (!languageToggle) return;
+		
+		const languages = ['ru', 'en', 'es'];
+		
 		function getCurrentLanguage() {
-			const htmlLang = document.documentElement.lang || 'ru';
 			const savedLang = localStorage.getItem('preferred-language');
-			return savedLang || htmlLang.toLowerCase().split('-')[0];
+			if (savedLang && languages.includes(savedLang)) {
+				return savedLang;
+			}
+			const htmlLang = document.documentElement.lang || 'ru';
+			return htmlLang.toLowerCase().split('-')[0];
 		}
-
-		function updateActiveButton(lang) {
-			document.querySelectorAll('.lang-toggle-btn').forEach(button => {
-				const buttonLang = button.getAttribute('data-lang');
-				if (buttonLang === lang) {
-					button.classList.add('active');
-					button.setAttribute('aria-pressed', 'true');
-				} else {
-					button.classList.remove('active');
-					button.setAttribute('aria-pressed', 'false');
-				}
-			});
+		
+		function getNextLanguage(currentLang) {
+			const currentIndex = languages.indexOf(currentLang);
+			const nextIndex = (currentIndex + 1) % languages.length;
+			return languages[nextIndex];
 		}
-
+		
+		function updateLanguageText(lang) {
+			if (!languageToggle) return;
+			
+			const ruText = languageToggle.querySelector('.lang-text-ru');
+			const enText = languageToggle.querySelector('.lang-text-en');
+			const esText = languageToggle.querySelector('.lang-text-es');
+			
+			// Скрываем все
+			if (ruText) {
+				ruText.style.opacity = '0';
+				ruText.style.visibility = 'hidden';
+				ruText.style.display = 'none';
+			}
+			if (enText) {
+				enText.style.opacity = '0';
+				enText.style.visibility = 'hidden';
+				enText.style.display = 'none';
+			}
+			if (esText) {
+				esText.style.opacity = '0';
+				esText.style.visibility = 'hidden';
+				esText.style.display = 'none';
+			}
+			
+			// Показываем текущий
+			if (lang === 'ru' && ruText) {
+				ruText.style.opacity = '1';
+				ruText.style.visibility = 'visible';
+				ruText.style.display = 'block';
+			} else if (lang === 'en' && enText) {
+				enText.style.opacity = '1';
+				enText.style.visibility = 'visible';
+				enText.style.display = 'block';
+			} else if (lang === 'es' && esText) {
+				esText.style.opacity = '1';
+				esText.style.visibility = 'visible';
+				esText.style.display = 'block';
+			}
+		}
+		
 		function switchLanguage(lang) {
 			localStorage.setItem('preferred-language', lang);
 			document.documentElement.lang = lang;
-			updateActiveButton(lang);
+			updateLanguageText(lang);
 			document.querySelectorAll('[data-lang]').forEach(el => {
 				const elLang = el.getAttribute('data-lang');
 				if (elLang === lang) {
@@ -154,17 +196,15 @@
 			});
 			window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
 		}
-
-		document.addEventListener('DOMContentLoaded', () => {
+		
+		// Инициализация
+		const currentLang = getCurrentLanguage();
+		switchLanguage(currentLang); // Устанавливаем язык и обновляем текст
+		
+		languageToggle.addEventListener('click', () => {
 			const currentLang = getCurrentLanguage();
-			updateActiveButton(currentLang);
-			document.querySelectorAll('.lang-toggle-btn').forEach(button => {
-				button.addEventListener('click', (e) => {
-					e.preventDefault();
-					const lang = button.getAttribute('data-lang');
-					switchLanguage(lang);
-				});
-			});
+			const nextLang = getNextLanguage(currentLang);
+			switchLanguage(nextLang);
 		});
 	})();
 </script>
@@ -172,92 +212,132 @@
 <style>
 	.settings-slider {
 		position: fixed;
-		top: 0;
-		right: 0;
+		top: 60px; /* Идеальный центр синей рамки header */
+		right: 0; /* Прилипает к краю - скрывает содержимое */
 		z-index: 1000;
 		font-family: var(--nes-font, 'Press Start 2P', monospace);
+		margin: 0; /* Убираем все отступы */
+		padding: 0; /* Убираем все отступы */
 	}
 
-	/* Закладка (tab) - компактная, не длинная */
-	.settings-tab {
-		position: absolute;
-		right: 0;
-		top: 0;
-		width: 36px;
+	/* Единый контейнер: стрелка в начале, вытягивается горизонтально */
+	.settings-container {
+		position: relative;
+		display: flex;
+		flex-direction: row; /* Горизонтально! */
+		align-items: center;
+		width: 20px; /* Минимальная ширина - только стрелка */
+		height: 36px;
+		transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		cursor: pointer;
+		margin: 0; /* Убираем все отступы */
+		padding: 0; /* Убираем все отступы */
+		outline: none; /* Убираем outline */
+	}
+
+	.settings-slider:hover .settings-container {
+		width: 100px; /* Вытягивается горизонтально влево */
+	}
+
+	/* Контейнер стрелки (всегда справа, в начале) */
+	.settings-arrow-container {
+		flex-shrink: 0;
+		width: 20px;
 		height: 36px;
 		background: var(--nes-white);
-		border: 3px solid var(--nes-black);
-		border-right: none;
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
+		border: var(--nes-border-width, 2px) solid var(--nes-black);
+		border-right: 0; /* Прилипает к краю без разрыва */
+		border-top-left-radius: 4px;
+		border-bottom-left-radius: 4px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		cursor: pointer;
-		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-		transition: all 0.2s ease;
-		color: var(--nes-black);
-		z-index: 1001;
+		/* БЕЗ теней - плоские элементы */
+		transition: background 0.2s ease;
+		margin: 0; /* Убираем все отступы */
+		padding: 0; /* Убираем все отступы */
+		outline: none; /* Убираем outline */
 	}
 
-	.settings-tab:hover {
+	.settings-slider:hover .settings-arrow-container {
 		background: var(--nes-yellow);
-		transform: translateX(-2px);
+		border-right: 0; /* Остаётся без правой границы */
 	}
 
-	.settings-tab svg {
-		width: 16px;
-		height: 16px;
+	.settings-arrow {
+		width: 12px;
+		height: 12px;
+		transition: transform 0.2s ease;
 	}
 
-	/* Выдвигающаяся панель - длинная узкая полоска */
+	.settings-slider:hover .settings-arrow {
+		transform: translateY(-1px); /* Небольшое выдвижение вверх (как у кнопок темы и языка) */
+	}
+
+	/* Панель с тумблерами (выезжает горизонтально влево) */
 	.settings-panel {
-		position: absolute;
-		right: 0;
-		top: 0;
-		width: 0;
-		height: auto;
+		flex: 1;
+		height: 36px; /* Та же высота, что и стрелка */
 		background: var(--nes-white);
-		border: 3px solid var(--nes-black);
-		border-right: none;
-		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-		overflow: hidden;
+		border: var(--nes-border-width, 2px) solid var(--nes-black);
+		border-right: 0; /* Соединяется со стрелкой */
+		border-left: var(--nes-border-width, 2px) solid var(--nes-black); /* Левая граница */
+		border-top-right-radius: 0; /* Убираем скругление правого края - его изначально не должно быть */
+		border-bottom-right-radius: 0; /* Убираем скругление правого края - его изначально не должно быть */
+		overflow: hidden; /* Скрываем всё что выходит за границы */
+		display: flex;
+		align-items: center; /* Вертикальное центрирование */
+		justify-content: center; /* Горизонтальное центрирование */
+		/* БЕЗ теней - плоские элементы */
 		opacity: 0;
-		transform: translateX(100%);
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		pointer-events: none;
-		min-width: 50px;
+		margin: 0; /* Убираем все отступы */
+		padding: 0; /* Убираем все отступы */
+		outline: none; /* Убираем outline */
+		position: relative;
 	}
+
 
 	.settings-slider:hover .settings-panel {
-		width: 50px;
 		opacity: 1;
-		transform: translateX(0);
 		pointer-events: all;
 	}
 
 	.settings-controls {
-		padding: 8px 4px;
+		/* Идеальное центрирование: одинаковые отступы со всех сторон */
+		/* КРИТИЧНО: Одинаковые расстояния: между жёлтой рамкой и кнопкой = между кнопками = между кнопкой и краем */
+		/* КРИТИЧНО: Кнопки должны быть по центру рамки по вертикали */
+		padding: 0; /* Убираем padding - используем gap для отступов */
 		display: flex;
-		flex-direction: column;
-		gap: 8px;
-		align-items: center;
+		flex-direction: row; /* Горизонтально! */
+		gap: 6px; /* Отступ между кнопками (равен отступу от краев) */
+		align-items: center; /* Вертикальное центрирование - КРИТИЧНО для центрирования кнопок */
+		justify-content: center; /* Горизонтальное центрирование */
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box; /* Учитываем padding в размерах */
+		margin: 0; /* Убираем все отступы */
+		/* КРИТИЧНО: Дополнительное центрирование для идеального выравнивания */
+		/* Добавляем отступы от краев через padding на панели */
+		padding-left: 6px; /* Отступ слева от жёлтой рамки */
+		padding-right: 6px; /* Отступ справа от края */
+		padding-top: 0; /* Нет отступа сверху - кнопки по центру */
+		padding-bottom: 0; /* Нет отступа снизу - кнопки по центру */
 	}
 
 	/* Тумблер темы (вертикальный) */
-	.theme-toggle-wrapper {
-		width: 100%;
-		display: flex;
-		justify-content: center;
-	}
-
 	.theme-toggle-btn {
-		width: 36px;
-		height: 36px;
+		width: 28px;
+		height: 28px;
 		padding: 0;
 		background: var(--nes-white);
-		border: 3px solid var(--nes-black);
-		border-radius: 0;
+		/* Beveling для объёма */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-radius: 4px;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
@@ -265,23 +345,37 @@
 		position: relative;
 		transition: all 0.15s ease;
 		color: var(--nes-black);
+		flex-shrink: 0;
+		margin: 0; /* Убираем все отступы */
 	}
 
 	.theme-toggle-btn:hover {
 		background: var(--nes-yellow);
 		transform: translateY(-1px);
-		box-shadow: 0 2px 0 var(--nes-black);
+		/* Beveling сохраняется для объёма */
+		/* БЕЗ теней - плоские кнопки */
+	}
+
+	.theme-toggle-btn:active {
+		transform: translateY(1px); /* Кнопка прожимается вниз */
+		/* Убираем инвертированный beveling - оставляем все границы тёмными для единообразия */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		transition: transform 0.05s ease, border 0.05s ease;
 	}
 
 	.theme-icon {
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		width: 16px;
-		height: 16px;
+		width: 14px;
+		height: 14px;
 		pointer-events: none;
 		transform: translate(-50%, -50%);
 		transition: opacity 0.2s ease, visibility 0.2s ease;
+		display: block;
 	}
 
 	.theme-icon-sun,
@@ -291,81 +385,172 @@
 		display: none;
 	}
 
-	/* Тумблер языков (вертикальный) */
-	.language-toggle-wrapper {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		gap: 0;
-		border: 3px solid var(--nes-black);
+	/* Показываем правильную иконку в зависимости от темы */
+	html.dark-theme .theme-toggle-btn .theme-icon-sun {
+		opacity: 1;
+		visibility: visible;
+		display: block;
 	}
 
-	.lang-toggle-btn {
-		width: 100%;
-		height: 32px;
+	html.light-theme .theme-toggle-btn .theme-icon-moon,
+	html:not(.dark-theme):not(.light-theme) .theme-toggle-btn .theme-icon-moon {
+		opacity: 1;
+		visibility: visible;
+		display: block;
+	}
+
+	/* Тумблер языков (как кнопка темы - одна кнопка, идентичный стиль) */
+	.language-toggle-btn {
+		width: 28px;
+		height: 28px;
 		padding: 0;
 		background: var(--nes-white);
-		border: none;
-		border-bottom: 2px solid var(--nes-black);
-		border-radius: 0;
-		color: var(--nes-black);
-		font-size: 0.5rem;
-		font-weight: 400;
+		/* Beveling для объёма */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-radius: 4px;
 		cursor: pointer;
-		transition: all 0.15s ease;
-		font-family: var(--nes-font, 'Press Start 2P', monospace);
-		text-transform: uppercase;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		position: relative;
+		transition: all 0.15s ease;
+		color: var(--nes-black);
+		flex-shrink: 0;
+		margin: 0; /* Убираем все отступы */
+		font-family: var(--nes-font, 'Press Start 2P', monospace);
+		text-transform: uppercase;
+		font-size: 0.4rem;
+		font-weight: 400;
+	}
+
+	.language-toggle-btn:hover {
+		background: var(--nes-yellow);
+		transform: translateY(-1px);
+		/* Beveling сохраняется для объёма */
+	}
+
+	.language-toggle-btn:active {
+		transform: translateY(1px); /* Кнопка прожимается вниз */
+		/* Убираем инвертированный beveling - оставляем все границы тёмными для единообразия */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		transition: transform 0.05s ease, border 0.05s ease;
+	}
+
+	.lang-text {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		transition: opacity 0.2s ease, visibility 0.2s ease;
+		display: block;
 		line-height: 1;
 	}
 
-	.lang-toggle-btn:last-child {
-		border-bottom: none;
-	}
-
-	.lang-toggle-btn:hover {
-		background: var(--nes-yellow);
-		color: var(--nes-black);
-		transform: translateY(-1px);
-	}
-
-	.lang-toggle-btn.active {
-		background: var(--nes-blue);
-		color: var(--nes-white);
-		font-weight: 600;
-		text-shadow: 1px 1px 0px var(--nes-black);
+	.lang-text-ru,
+	.lang-text-en,
+	.lang-text-es {
+		opacity: 0;
+		visibility: hidden;
+		display: none;
 	}
 
 	/* Мобильная адаптация */
 	@media (max-width: 768px) {
-		.settings-tab {
-			width: 32px;
+		.settings-container {
+			width: 18px;
 			height: 32px;
 		}
 
-		.settings-tab svg {
-			width: 14px;
-			height: 14px;
+		.settings-slider:hover .settings-container {
+			width: 90px; /* Горизонтально для мобильных */
 		}
 
-		.settings-slider:hover .settings-panel {
-			width: 44px;
+		.settings-arrow-container {
+			width: 18px;
+			height: 32px;
+		}
+
+		.settings-arrow {
+			width: 10px;
+			height: 10px;
 		}
 
 		.settings-panel {
-			min-width: 44px;
-		}
-
-		.theme-toggle-btn {
-			width: 32px;
 			height: 32px;
 		}
 
-		.lang-toggle-btn {
-			height: 28px;
-			font-size: 0.45rem;
+		.theme-toggle-btn {
+			width: 24px;
+			height: 24px;
+		}
+
+		.language-toggle-btn {
+			width: 24px;
+			height: 24px;
+			font-size: 0.35rem;
 		}
 	}
+
+	/* ТЁМНАЯ ТЕМА: SettingsSlider */
+	html.dark-theme .settings-arrow-container {
+		background: var(--nes-bg-card, #1a2a1a);
+		border-color: rgba(0, 255, 65, 0.3);
+	}
+
+	html.dark-theme .settings-slider:hover .settings-arrow-container {
+		background: rgba(0, 255, 65, 0.2);
+		border-color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .settings-arrow {
+		color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .settings-panel {
+		background: var(--nes-bg-card, #1a2a1a);
+		border-color: rgba(0, 255, 65, 0.3);
+	}
+
+	html.dark-theme .theme-toggle-btn {
+		background: var(--nes-bg-card, #1a2a1a);
+		border-color: rgba(0, 255, 65, 0.3);
+		color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .theme-toggle-btn:hover {
+		background: rgba(0, 255, 65, 0.2);
+		border-color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .theme-toggle-btn:active {
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+	}
+
+	html.dark-theme .language-toggle-btn {
+		background: var(--nes-bg-card, #1a2a1a);
+		border-color: rgba(0, 255, 65, 0.3);
+		color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .language-toggle-btn:hover {
+		background: rgba(0, 255, 65, 0.2);
+		border-color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .language-toggle-btn:active {
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+	}
 </style>
+

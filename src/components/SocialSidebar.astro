@@ -28,19 +28,17 @@
 		z-index: 1000;
 		padding: 15px 8px;
 		background: var(--nes-white);
-		border: 3px solid var(--nes-black);
+		border: var(--nes-border-width, 2px) solid var(--nes-black);
 		border-right: none;
 		border-radius: 12px 0 0 12px; /* Скруглённые углы слева */
-		/* Тень только снизу - НЕ слева и НЕ справа, чтобы не создавать визуальный зазор от края */
-		box-shadow: 0 6px 0px rgba(0, 0, 0, 0.2); /* Тень только снизу (6px), как у других блоков */
-		transition: background 0.3s ease; /* Только фон меняется, тень статична */
+		/* БЕЗ теней - плоские элементы */
+		transition: background 0.15s ease;
 		/* Фиксируем правый край, чтобы не отрывался */
 		margin-right: 0;
 	}
 
 	.social-sidebar:hover {
-		/* Тень НЕ меняется - остаётся точно такой же, как в обычном состоянии */
-		box-shadow: 0 6px 0px rgba(0, 0, 0, 0.2); /* Идентичная тень - никаких изменений! */
+		/* БЕЗ теней - плоские элементы */
 	}
 
 	.social-sidebar-link {
@@ -50,44 +48,50 @@
 		width: 38px; /* Уменьшенный размер для более компактного вида */
 		height: 38px; /* Уменьшенный размер для более компактного вида */
 		background: var(--crypto-ethereum-gradient);
-		border: 2px solid var(--nes-black);
-		border-bottom-width: 2px; /* Нижняя граница стандартная */
-		border-radius: 8px;
+		/* Beveling для объёма */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-radius: 4px; /* Унифицированное скругление */
 		text-decoration: none;
-		transition: all 0.15s ease; /* Добавляем все свойства для интерактивности */
-		box-shadow: 0 2px 0 var(--nes-black);
+		transition: all 0.15s ease;
+		/* БЕЗ теней - объём создаётся через beveling */
 		position: relative;
-		cursor: pointer; /* Явно указываем курсор */
+		cursor: pointer;
 	}
 
 	.social-sidebar-link:hover {
-		background: var(--crypto-bitcoin-gradient);
-		transform: translateY(-2px); /* Кнопка поднимается при hover */
-		box-shadow: 0 4px 0 var(--nes-black), 0 0 10px rgba(255, 215, 0, 0.4); /* Увеличиваем тень и добавляем свечение */
+		background: var(--nes-yellow); /* Унифицированный hover - жёлтый цвет */
+		transform: translateY(-1px); /* Чуть выезжает вверх */
+		/* Beveling сохраняется для объёма */
 	}
 
 	.social-sidebar-link:active {
 		transform: translateY(1px); /* Кнопка прожимается вниз */
-		box-shadow: 0 1px 0 var(--nes-black); /* Нижняя тень остаётся на месте! */
-		border-bottom-width: 2px; /* Сохраняем нижнюю границу */
-		transition: transform 0.05s ease, box-shadow 0.05s ease, border-bottom-width 0.05s ease;
+		/* Инвертируем beveling при нажатии */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		transition: transform 0.05s ease, border 0.05s ease;
 	}
 	
 	/* Focus states для клавиатурной навигации */
 	.social-sidebar-link:focus {
-		outline: 3px solid var(--nes-yellow);
+		outline: var(--nes-border-width, 2px) solid var(--nes-yellow);
 		outline-offset: 2px;
-		box-shadow: 0 2px 0 var(--nes-black), 0 0 0 4px rgba(255, 215, 0, 0.3);
+		/* БЕЗ теней - плоские кнопки */
 	}
 	
 	.social-sidebar-link:focus:not(:focus-visible) {
 		outline: none;
-		box-shadow: 0 2px 0 var(--nes-black);
+		/* БЕЗ теней - плоские кнопки */
 	}
 
 	.social-sidebar-icon {
 		font-size: 1.1rem; /* Уменьшенный размер иконки для более компактного вида */
-		filter: drop-shadow(1px 1px 0px var(--nes-black));
+		/* БЕЗ filter/drop-shadow - плоские элементы, объём через beveling */
 	}
 
 	/* Планшеты - адаптируем только padding, размеры кнопок единые */
@@ -106,7 +110,24 @@
 			display: none; /* Скрываем на мобильных - соцсети будут в footer */
 		}
 	}
+
+	/* ТЁМНАЯ ТЕМА: SocialSidebar */
+	html.dark-theme .social-sidebar {
+		background: var(--nes-bg-card, #1a2a1a);
+		border-color: rgba(0, 255, 65, 0.3);
+	}
+
+	html.dark-theme .social-sidebar-link {
+		background: linear-gradient(135deg, rgba(0, 255, 65, 0.2) 0%, rgba(0, 255, 255, 0.2) 100%);
+		border-color: rgba(0, 255, 65, 0.4);
+	}
+
+	html.dark-theme .social-sidebar-link:hover {
+		background: var(--nes-neon-green, #00ff41);
+		box-shadow: 0 0 10px rgba(0, 255, 65, 0.5); /* Неоновое свечение */
+	}
 </style>
+
 
 
 

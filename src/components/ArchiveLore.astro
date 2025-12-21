@@ -67,10 +67,11 @@ const {
 <style>
 	.archive-lore {
 		background: var(--nes-white);
-		border: 3px solid var(--nes-black); /* Более лаконичная рамка */
+		border: var(--nes-border-width, 2px) solid var(--nes-black);
+		border-radius: 4px; /* Сглаженные углы */
 		padding: 30px;
 		margin-bottom: 20px; /* Уменьшенный отступ между блоками (было 30px) */
-		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+		/* БЕЗ теней - плоские элементы */
 	}
 	
 	.archive-lore-content {
@@ -87,7 +88,7 @@ const {
 		font-weight: bold;
 		color: var(--nes-black);
 		margin: 0 0 10px 0;
-		border-bottom: 2px solid var(--nes-gray);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-gray);
 		padding-bottom: 5px;
 	}
 	
@@ -107,10 +108,11 @@ const {
 	
 	.archive-stat {
 		background: var(--nes-white);
-		border: 2px solid var(--nes-black);
+		border: var(--nes-border-width, 2px) solid var(--nes-black);
+		border-radius: 4px;
 		padding: 15px;
 		text-align: center;
-		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+		/* БЕЗ теней - плоские элементы */
 	}
 	
 	.archive-stat-label {
@@ -144,9 +146,10 @@ const {
 	
 	.archive-mystery-box {
 		background: var(--crypto-bitcoin-gradient);
-		border: 3px solid var(--nes-black);
+		border: var(--nes-border-width, 2px) solid var(--nes-black);
+		border-radius: 4px;
 		padding: 20px;
-		box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+		/* БЕЗ теней - плоские элементы */
 	}
 	
 	.archive-mystery-text {
@@ -161,7 +164,7 @@ const {
 	.archive-lore-links {
 		margin-top: 30px;
 		padding-top: 20px;
-		border-top: 2px solid var(--nes-gray);
+		border-top: var(--nes-border-width, 2px) solid var(--nes-gray);
 	}
 	
 	.archive-links-grid {
@@ -173,21 +176,37 @@ const {
 	
 	.archive-link {
 		background: var(--nes-white);
-		border: 2px solid var(--nes-black);
+		/* Beveling для объёма */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-radius: 4px;
 		padding: 15px;
 		text-decoration: none;
 		color: var(--nes-black);
 		display: flex;
 		align-items: center;
 		gap: 10px;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+		transition: all 0.15s ease;
+		/* БЕЗ теней - объём создаётся через beveling */
+		cursor: pointer;
 	}
-	
+
 	.archive-link:hover {
-		background: var(--crypto-bitcoin-gradient);
-		transform: translate(-2px, -2px);
-		box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3);
+		background: var(--nes-yellow); /* Унифицированный hover - жёлтый цвет */
+		transform: translateY(-1px); /* Чуть выезжает вверх */
+		/* Beveling сохраняется для объёма */
+	}
+
+	.archive-link:active {
+		transform: translateY(1px); /* Кнопка прожимается вниз */
+		/* Инвертируем beveling при нажатии */
+		border-top: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-left: var(--nes-border-width, 2px) solid var(--nes-bevel-dark, #000000);
+		border-bottom: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		border-right: var(--nes-border-width, 2px) solid var(--nes-bevel-light, #FFFFFF);
+		transition: transform 0.05s ease, border 0.05s ease;
 	}
 	
 	.archive-link-icon {
@@ -215,7 +234,61 @@ const {
 			grid-template-columns: 1fr;
 		}
 	}
+
+	/* ТЁМНАЯ ТЕМА: ArchiveLore */
+	html.dark-theme .archive-lore {
+		background: var(--nes-bg-card, #1a2a1a);
+		border-color: rgba(0, 255, 65, 0.3);
+	}
+
+	html.dark-theme .archive-lore-section-title {
+		color: var(--nes-neon-green, #00ff41);
+		border-bottom-color: rgba(0, 255, 65, 0.4);
+	}
+
+	html.dark-theme .archive-lore-text {
+		color: var(--nes-text-light, #e5e5e5);
+	}
+
+	html.dark-theme .archive-stat {
+		background: var(--nes-bg-dark, #0d1a0d);
+		border-color: rgba(0, 255, 65, 0.3);
+	}
+
+	html.dark-theme .archive-stat-label {
+		color: var(--nes-text-muted, #999999);
+	}
+
+	html.dark-theme .archive-stat-value {
+		color: var(--nes-neon-green, #00ff41);
+	}
+
+	html.dark-theme .archive-lore-list {
+		color: var(--nes-text-light, #e5e5e5);
+	}
+
+	html.dark-theme .archive-mystery-box {
+		background: linear-gradient(135deg, rgba(0, 255, 65, 0.2) 0%, rgba(0, 255, 255, 0.2) 100%);
+		border-color: rgba(0, 255, 65, 0.4);
+	}
+
+	html.dark-theme .archive-mystery-text {
+		color: var(--nes-neon-cyan, #00ffff);
+	}
+
+	html.dark-theme .archive-link {
+		background: var(--nes-bg-card, #1a2a1a);
+		border-color: rgba(0, 255, 65, 0.3);
+		color: var(--nes-text-light, #e5e5e5);
+	}
+
+	html.dark-theme .archive-link:hover {
+		background: rgba(0, 255, 65, 0.2);
+		border-color: var(--nes-neon-green, #00ff41);
+		color: var(--nes-neon-green, #00ff41);
+	}
 </style>
+
 
 
 
