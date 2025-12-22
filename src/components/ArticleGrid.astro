@@ -1,0 +1,144 @@
+---
+// ArticleGrid.astro - Директория системных отчетов
+import { getCollection } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	filterCategory?: string;
+	title?: string;
+}
+
+const { filterCategory, title = "root/reports/all/" } = Astro.props;
+
+let posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+if (filterCategory) {
+	posts = posts.filter(post => post.data.category === filterCategory);
+}
+
+function getFileExtension(category: string | undefined) {
+	switch(category) {
+		case 'strategies': return '.exe';
+		case 'guides': return '.dat';
+		case 'important': return '.sys';
+		default: return '.log';
+	}
+}
+
+function getPermissions(category: string | undefined) {
+	switch(category) {
+		case 'important': return 'drwxr-xr-x';
+		case 'strategies': return '-rwxr-xr-x';
+		default: return '-rw-r--r--';
+	}
+}
+---
+
+<section class="system-section">
+	<div class="section-header">
+		<span class="cmd-prefix">></span> ls -la {title}
+	</div>
+
+	<div class="file-table">
+		<div class="table-header">
+			<span class="col-attr">PERMISSIONS</span>
+			<span class="col-date">DATE</span>
+			<span class="col-name">NAME</span>
+			<span class="col-status">STATUS</span>
+		</div>
+
+		{posts.length > 0 ? (
+			posts.map((post) => (
+				<div class="file-row">
+					<span class="col-attr">{getPermissions(post.data.category)}</span>
+					<span class="col-date"><FormattedDate date={post.data.pubDate} /></span>
+					<a href={`/blog/${post.id}/`} class="col-name">
+						{post.data.title.toLowerCase().replace(/\s+/g, '_')}{getFileExtension(post.data.category)}
+					</a>
+					<span class={`col-status ${post.data.category || 'public'}`}>
+						[{post.data.category?.toUpperCase() || 'PUBLIC'}]
+					</span>
+				</div>
+			))
+		) : (
+			<div class="file-row empty">
+				<span class="col-name">No files found in this directory.</span>
+			</div>
+		)}
+	</div>
+</section>
+
+<style>
+	.system-section {
+		margin-bottom: 40px;
+		border: 1px solid var(--term-dim);
+		padding: 15px;
+		background: rgba(0, 255, 65, 0.02);
+	}
+
+	.section-header {
+		color: var(--term-amber);
+		margin-bottom: 20px;
+		font-weight: bold;
+	}
+
+	.cmd-prefix { color: var(--term-green); }
+
+	.file-table {
+		display: flex;
+		flex-direction: column;
+		font-size: 0.9rem;
+	}
+
+	.table-header {
+		display: flex;
+		padding: 10px;
+		border-bottom: 1px solid var(--term-dim);
+		color: var(--term-dim);
+		font-size: 0.7rem;
+		letter-spacing: 1px;
+	}
+
+	.file-row {
+		display: flex;
+		align-items: center;
+		padding: 12px 10px;
+		border-bottom: 1px solid var(--term-dim);
+		transition: background 0.2s;
+	}
+
+	.file-row:not(.empty):hover {
+		background: var(--term-dim);
+	}
+
+	.empty { opacity: 0.5; font-style: italic; }
+
+	.col-attr { width: 120px; color: var(--term-dim); font-size: 0.8rem; }
+	.col-date { width: 120px; opacity: 0.7; }
+	.col-name { 
+		flex-grow: 1; 
+		color: var(--term-green); 
+		text-decoration: none;
+		font-weight: bold;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		padding-right: 20px;
+	}
+	.col-name:hover { color: var(--term-amber); }
+	.col-status { width: 120px; text-align: right; font-size: 0.7rem; }
+
+	/* Цвета категорий для статуса */
+	.important { color: var(--term-amber); }
+	.strategies { color: var(--term-blue); }
+	.guides { color: var(--term-green); }
+	.public { color: var(--term-dim); }
+
+	@media (max-width: 768px) {
+		.col-attr, .col-status { display: none; }
+		.col-date { width: 100px; }
+	}
+</style>
+

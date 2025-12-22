@@ -1,0 +1,71 @@
+---
+// Hampfree8BitLayout.astro - 8-bit ретро layout для компьютера Эмили
+import EmilyControlPanel from '../components/EmilyControlPanel.astro';
+import ProfessionalFooter from '../components/ProfessionalFooter.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = 'Emily Computer | MarketLab OS', description = 'Профессиональная платформа для изучения алгоритмического трейдинга и криптовалют' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<title>{title}</title>
+		<link rel="stylesheet" href="/src/styles/global.css" />
+		<link rel="stylesheet" href="/src/styles/hampfree8bit.css" />
+	</head>
+	<body class="hampfree8bit emily-computer">
+		<!-- Fixed Control Panel -->
+		<div class="global-control-panel">
+			<EmilyControlPanel />
+		</div>
+		
+		<div class="hampfree-container">
+			<!-- System Header -->
+			<header class="hampfree-header emily-header">
+				<div class="system-info">
+					<span class="system-label">MARKETLAB OS</span>
+					<span class="system-version">v25.12.21</span>
+				</div>
+				<h1 class="hampfree-logo">
+					<span class="logo-hampfree">EMILY</span><span class="logo-blog">COMPUTER</span>
+				</h1>
+				<div class="system-status">
+					<span class="status-dot"></span>
+					<span class="status-text">SYSTEM ONLINE</span>
+				</div>
+			</header>
+			
+			<nav class="hampfree-nav" aria-label="Основная навигация">
+				<a href="/">[ FILES ]</a>
+				<a href="/blog">[ BLOG ]</a>
+				<a href="/guides">[ GUIDES ]</a>
+				<a href="/strategies">[ STRATEGIES ]</a>
+				<a href="/about">[ SYSTEM INFO ]</a>
+			</nav>
+			
+			<slot />
+			
+			<!-- Terminal Prompt (сохраняем для стиля) -->
+			<div class="footer-prompt-container">
+				<div class="footer-prompt">
+					<span class="prompt-text">root@emily-computer:~#</span>
+					<span class="typing-cursor">▮</span>
+				</div>
+			</div>
+			
+			<ProfessionalFooter />
+		</div>
+	</body>
+</html>

@@ -1,0 +1,143 @@
+---
+// EmilySystemBanner.astro - Баннер системы Эмили в 8-bit стиле
+---
+
+<section class="emily-banner">
+	<div class="emily-banner__badge">LAB REPORT</div>
+	<h2 class="emily-banner__title">EMILY COMPUTER: SYSTEM INITIALIZED</h2>
+	<p class="emily-banner__text">
+		Эмили запускает новый эксперимент. Поток данных усиливается, уровень шума растёт, 
+		а Лаборатория адаптируется в реальном времени.
+	</p>
+	<div class="emily-banner__stats">
+		<div class="stat-item">
+			<span class="stat-label">STATUS:</span>
+			<span class="stat-value">ONLINE</span>
+		</div>
+		<div class="stat-item">
+			<span class="stat-label">EXPERIMENTS:</span>
+			<span class="stat-value">ACTIVE</span>
+		</div>
+		<div class="stat-item">
+			<span class="stat-label">DATA FLOW:</span>
+			<span class="stat-value">OPTIMAL</span>
+		</div>
+	</div>
+</section>
+
+<style>
+	.emily-banner {
+		border: 4px solid var(--8bit-yellow);
+		background: var(--8bit-black);
+		padding: 20px;
+		margin-bottom: 30px;
+		position: relative;
+		box-shadow: 0 0 20px var(--8bit-yellow);
+		transition: all 0.05s linear;
+	}
+
+	.emily-banner:hover {
+		box-shadow: 0 0 40px var(--8bit-yellow);
+	}
+
+	.emily-banner__badge {
+		display: inline-block;
+		padding: 8px 16px;
+		border: 4px solid var(--8bit-yellow);
+		background: var(--8bit-black);
+		font-size: 0.75rem;
+		color: var(--8bit-yellow);
+		margin-bottom: 16px;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		text-shadow: 3px 3px 0px #000000;
+		box-shadow: 0 0 15px var(--8bit-yellow);
+		transition: all 0.05s linear;
+	}
+
+	.emily-banner__badge:hover {
+		box-shadow: 0 0 30px var(--8bit-yellow);
+	}
+
+	.emily-banner__title {
+		font-size: 1.125rem;
+		color: var(--8bit-lime);
+		margin-bottom: 16px;
+		line-height: 1.6;
+		text-shadow: 3px 3px 0px #000000;
+		font-family: var(--8bit-font) !important;
+	}
+
+	.emily-banner__text {
+		font-size: 0.75rem;
+		color: var(--8bit-white);
+		line-height: 2;
+		margin-bottom: 20px;
+		opacity: 0.9;
+		font-family: var(--8bit-font) !important;
+		text-shadow: 1px 1px 0px #000000;
+	}
+
+	.emily-banner__stats {
+		display: flex;
+		gap: 24px;
+		flex-wrap: wrap;
+		padding-top: 20px;
+		border-top: 4px solid var(--8bit-cyan);
+	}
+
+	.stat-item {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		padding: 8px;
+		border: 4px solid var(--8bit-cyan);
+		background: var(--8bit-black);
+		box-shadow: 0 0 10px var(--8bit-cyan);
+		transition: all 0.05s linear;
+	}
+
+	.stat-item:hover {
+		box-shadow: 0 0 25px var(--8bit-cyan);
+	}
+
+	.stat-label {
+		font-size: 0.625rem;
+		color: var(--8bit-cyan);
+		opacity: 0.9;
+		text-transform: uppercase;
+		text-shadow: 2px 2px 0px #000000;
+		font-family: var(--8bit-font) !important;
+	}
+
+	.stat-value {
+		font-size: 0.75rem;
+		color: var(--8bit-lime);
+		font-weight: normal;
+		text-shadow: 3px 3px 0px #000000;
+		font-family: var(--8bit-font) !important;
+	}
+
+	@media (max-width: 768px) {
+		.emily-banner {
+			padding: 16px;
+		}
+
+		.emily-banner__title {
+			font-size: 0.875rem;
+		}
+
+		.emily-banner__text {
+			font-size: 0.625rem;
+		}
+
+		.emily-banner__stats {
+			flex-direction: column;
+			gap: 12px;
+		}
+
+		.stat-item {
+			padding: 6px;
+		}
+	}
+</style>

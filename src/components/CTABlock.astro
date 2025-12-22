@@ -1,0 +1,94 @@
+---
+// CTABlock.astro - Системный терминал для обратной связи
+---
+
+<section class="system-section cta-terminal">
+	<div class="terminal-prompt">
+		<span class="prompt-user">root@marketlab</span>:<span class="prompt-path">~</span>$ contact --mode lab-access
+	</div>
+	
+	<div class="cta-content">
+		<p class="cta-text">Готовы подключиться к торговым алгоритмам Лаборатории?</p>
+		<div class="cta-actions">
+			<a href="https://t.me/hampfree_market_lab" class="sys-btn large">RUN connection.sh</a>
+			<a href="/guides" class="sys-btn large secondary">READ whitepaper.pdf</a>
+		</div>
+	</div>
+	
+	<div class="typing-cursor">_</div>
+</section>
+
+<style>
+	.system-section {
+		margin-bottom: 40px;
+		border: 1px solid var(--term-green);
+		padding: 25px;
+		background: var(--term-glow);
+		position: relative;
+	}
+
+	.terminal-prompt {
+		font-weight: bold;
+		margin-bottom: 20px;
+	}
+
+	.prompt-user { color: var(--term-blue); }
+	.prompt-path { color: var(--term-amber); }
+
+	.cta-text {
+		font-size: 1.2rem;
+		margin-bottom: 30px;
+		color: var(--term-amber);
+	}
+
+	.cta-actions {
+		display: flex;
+		gap: 20px;
+	}
+
+	.sys-btn {
+		padding: 10px 20px;
+		border: 1px solid var(--term-green);
+		color: var(--term-green);
+		text-decoration: none !important;
+		text-transform: uppercase;
+		font-size: 0.9rem;
+		transition: all 0.2s;
+		border-bottom: 1px solid var(--term-green);
+	}
+
+	.sys-btn:hover {
+		background: var(--term-green);
+		color: var(--term-bg);
+		text-decoration: none !important;
+		border-bottom: 1px solid var(--term-green);
+	}
+
+	.secondary {
+		border-color: var(--term-dim);
+		color: var(--term-dim);
+		text-decoration: none !important;
+		border-bottom: 1px solid var(--term-dim);
+	}
+
+	.secondary:hover {
+		background: var(--term-dim);
+		color: var(--term-green);
+		border-bottom: 1px solid var(--term-dim);
+		text-decoration: none !important;
+	}
+
+	.typing-cursor {
+		position: absolute;
+		bottom: 10px;
+		right: 20px;
+		animation: blink 1s step-end infinite;
+	}
+
+	@keyframes blink { 50% { opacity: 0; } }
+
+	@media (max-width: 768px) {
+		.cta-actions { flex-direction: column; }
+	}
+</style>
+

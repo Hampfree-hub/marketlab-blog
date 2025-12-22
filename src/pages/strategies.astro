@@ -1,0 +1,36 @@
+---
+// src/pages/strategies.astro
+import TerminalLayout from '../layouts/TerminalLayout.astro';
+import ArticleGrid from '../components/ArticleGrid.astro';
+---
+
+<TerminalLayout title="STRATEGIES | MarketLab OS">
+	<main>
+		<header class="page-header">
+			<h1><span class="cmd-prefix">></span> access root/reports/strategies/</h1>
+			<p class="subtitle">Исполняемые файлы торговых алгоритмов и описание логики входа/выхода.</p>
+		</header>
+
+		<ArticleGrid filterCategory="strategies" title="root/reports/strategies/" />
+
+		<section class="system-section warning-box">
+			<div class="section-header"><span class="cmd-prefix">></span> system-alert --risk-level high</div>
+			<p>ВНИМАНИЕ: Торговые стратегии в данном секторе могут иметь высокую волатильность. Emily не несет ответственности за просадки, вызванные Океаном Шума. Соблюдайте риск-менеджмент Кая.</p>
+		</section>
+	</main>
+</TerminalLayout>
+
+<style>
+	.page-header { margin-bottom: 30px; }
+	.subtitle { color: var(--term-dim); font-size: 0.9rem; }
+	.cmd-prefix { color: var(--term-green); }
+	.warning-box { 
+		margin-top: 40px; 
+		padding: 20px; 
+		border: 1px solid #ff3333;
+		background: rgba(255, 51, 51, 0.05);
+		font-size: 0.8rem;
+		color: #ff3333;
+	}
+</style>
+

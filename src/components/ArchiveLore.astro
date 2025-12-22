@@ -1,0 +1,73 @@
+---
+// ArchiveLore.astro - Системные логи истории проекта
+---
+
+<section class="system-section lore-logs">
+	<div class="section-header">
+		<span class="cmd-prefix">></span> cat root/var/log/marketlab_history.log
+	</div>
+
+	<div class="log-entries">
+		<div class="log-entry">
+			<span class="log-timestamp">[2024.11.05 09:00:00]</span>
+			<span class="log-tag">[SYSTEM]</span>
+			<span class="log-msg">Инициализация ядра MARKETLAB. Сектор Emily активирован.</span>
+		</div>
+		<div class="log-entry">
+			<span class="log-timestamp">[2024.12.10 14:35:22]</span>
+			<span class="log-tag">[NETWORK]</span>
+			<span class="log-msg">Установлено соединение с ByBit API. Проверка волатильности пройдена.</span>
+		</div>
+		<div class="log-entry warning">
+			<span class="log-timestamp">[2025.01.15 22:10:05]</span>
+			<span class="log-tag">[ALERT]</span>
+			<span class="log-msg">Обнаружена аномалия в BTC/USDT. Переход в режим повышенной готовности.</span>
+		</div>
+		<div class="log-entry info">
+			<span class="log-timestamp">[2025.12.21 12:00:00]</span>
+			<span class="log-tag">[CORE]</span>
+			<span class="log-msg">Запуск реактора Flux Capacitor. Энергоснабжение системы стабильно.</span>
+		</div>
+	</div>
+</section>
+
+<style>
+	.system-section {
+		margin-bottom: 40px;
+		border: 1px solid var(--term-dim);
+		padding: 15px;
+		background: var(--term-bg);
+	}
+
+	.section-header {
+		color: var(--term-amber);
+		margin-bottom: 15px;
+	}
+
+	.log-entries {
+		font-size: 0.8rem;
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+	}
+
+	.log-entry {
+		display: flex;
+		gap: 10px;
+		opacity: 0.8;
+	}
+
+	.log-timestamp { color: var(--term-dim); }
+	.log-tag { color: var(--term-blue); font-weight: bold; }
+	.log-msg { color: var(--term-green); opacity: 0.9; }
+
+	.warning { opacity: 1; border-left: 2px solid var(--term-amber); padding-left: 10px; }
+	.warning .log-tag { color: var(--term-amber); }
+
+	.info { opacity: 1; border-left: 2px solid var(--term-green); padding-left: 10px; }
+	
+	@media (max-width: 768px) {
+		.log-entry { flex-direction: column; gap: 2px; margin-bottom: 10px; }
+	}
+</style>
+

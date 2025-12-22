@@ -1,167 +1,114 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE } from '../consts';
+// src/pages/maintenance.astro
+import TerminalLayout from '../layouts/TerminalLayout.astro';
 ---
 
-<!doctype html>
-<html lang="ru">
-	<head>
-		<BaseHead title="Блог временно недоступен" description="Блог на техническом обслуживании" />
-	</head>
-	<body>
-		<div class="maintenance-wrapper">
-			<div class="maintenance-container">
-				<div class="maintenance-content">
-				<div class="maintenance-icon">
-					<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-						<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.78 1.31a2 2 0 0 0 .73 2.73l.15.08a2 2 0 0 1 1 1.73v.56a2 2 0 0 1-1 1.73l-.15.08a2 2 0 0 0-.73 2.73l.78 1.31a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.78-1.31a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.73v-.56a2 2 0 0 1 1-1.73l.15-.08a2 2 0 0 0 .73-2.73l-.78-1.31a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2-0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
-						<circle cx="12" cy="12" r="3"/>
-					</svg>
-				</div>
-					<h1>Блог временно недоступен</h1>
-					<p>Мы проводим техническое обслуживание</p>
-					<p class="subtitle">Скоро вернёмся!</p>
-				</div>
-			</div>
-			<Footer />
+<TerminalLayout title="SYSTEM MAINTENANCE | MarketLab OS">
+	<main class="maintenance-screen">
+		<div class="system-alert">
+			<pre class="alert-icon">
+  ! ! ! ALERT ! ! !
+      _______
+     |  ___  |
+     | |   | |
+     | |___| |
+     |_______|
+     |_______|
+			</pre>
+			<h1>SYSTEM_MAINTENANCE_IN_PROGRESS</h1>
 		</div>
-	</body>
-</html>
+
+		<div class="status-box">
+			<div class="status-line">NODE_STATUS: <span class="offline">OFFLINE</span></div>
+			<div class="status-line">UPTIME: 0.00s</div>
+			<div class="status-line">REASON: Scheduled security sweep by KAI</div>
+			<div class="status-line">ETA: T-minus 120 minutes</div>
+		</div>
+
+		<div class="maintenance-logs">
+			<div class="log-line">[14:00:01] Initiating backup of all reports... [OK]</div>
+			<div class="log-line">[14:05:22] Patching router vulnerability... [IN_PROGRESS]</div>
+			<div class="log-line">[14:10:05] Emily is cleaning the coffee machine... [DONE]</div>
+			<div class="log-line typing-text">Scanning for unauthorized connections...</div>
+		</div>
+
+		<div class="actions">
+			<a href="https://t.me/hampfree_market_lab" class="cmd-btn">CHECK TELEGRAM NODE</a>
+		</div>
+	</main>
+</TerminalLayout>
 
 <style>
-	body {
-		margin: 0;
-		padding: 0;
-		font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
-		/* Вариант 1: Едва серый фон (9/10) — лучший баланс */
-		background: #F8F8F8;
-		min-height: 100vh;
-	}
-
-	.maintenance-wrapper {
-		min-height: 100vh;
+	.maintenance-screen {
 		display: flex;
 		flex-direction: column;
-	}
-
-	.maintenance-container {
-		flex: 1;
-		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 2em;
-	}
-
-	.maintenance-content {
+		min-height: 60vh;
+		gap: 40px;
 		text-align: center;
-		color: white;
-		/* Зелёный градиент для карточки */
-		background: linear-gradient(135deg, 
-			#6BC86B 0%,    /* Лайм (средний зелёный) */
-			#4A9A4A 50%,   /* Лесной зелёный */
-			#3A7A3A 100%   /* Тёмно-зелёный */
-		);
-		border-radius: 24px;
-		padding: 3.5em 2.5em;
-		/* Усиленная многослойная тень для depth */
-		box-shadow: 
-			0 16px 48px rgba(0, 0, 0, 0.15), 
-			0 8px 24px rgba(0, 0, 0, 0.12), 
-			0 4px 12px rgba(0, 0, 0, 0.08);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		max-width: 600px;
-		width: 100%;
 	}
 
-	.maintenance-icon {
-		width: 64px;
-		height: 64px;
-		margin: 0 auto 2em auto;
-		color: #F0D890;
-		animation: rotate 3s linear infinite;
+	.alert-icon {
+		color: var(--term-amber);
+		font-size: 1.2rem;
+		margin-bottom: 20px;
+		animation: blink 1s step-end infinite;
 	}
 
-	@keyframes rotate {
-		from {
-			transform: rotate(0deg);
-		}
-		to {
-			transform: rotate(360deg);
-		}
-	}
+	@keyframes blink { 50% { opacity: 0.3; } }
 
 	h1 {
-		font-size: 2.5em;
-		margin: 0 0 0.5em 0;
-		font-weight: 500;
-		color: #FFFFFF;
-		/* Объёмные многослойные тени - слегка усилены для глубины */
-		text-shadow: 
-			0 2px 3px rgba(0, 0, 0, 0.35),
-			0 3px 6px rgba(0, 0, 0, 0.3),
-			0 6px 12px rgba(0, 0, 0, 0.25),
-			0 0 16px rgba(0, 0, 0, 0.2);
-		letter-spacing: -0.02em; /* Лёгкое уплотнение для лучшей читаемости */
+		font-size: 1.5rem;
+		margin: 0;
+		color: var(--term-amber);
 	}
 
-	p {
-		font-size: 1.2em;
-		margin: 0.5em 0;
-		line-height: 1.6;
-		color: #FFFFFF;
-		/* Объёмные многослойные тени - слегка усилены */
-		text-shadow: 
-			0 1px 3px rgba(0, 0, 0, 0.35),
-			0 2px 6px rgba(0, 0, 0, 0.25),
-			0 0 10px rgba(0, 0, 0, 0.15);
+	.status-box {
+		border: 1px solid var(--term-dim);
+		padding: 20px;
+		background: rgba(255, 176, 0, 0.05);
+		width: 100%;
+		max-width: 500px;
+		text-align: left;
 	}
 
-	.subtitle {
-		font-size: 1em;
-		color: #FFFFFF; /* Явно белый, как и остальной текст */
-		margin-top: 1em;
-		/* Объёмные многослойные тени (как у основного текста) */
-		text-shadow: 
-			0 1px 3px rgba(0, 0, 0, 0.35),
-			0 2px 6px rgba(0, 0, 0, 0.25),
-			0 0 10px rgba(0, 0, 0, 0.15);
+	.status-line {
+		margin-bottom: 10px;
+		font-size: 0.9rem;
 	}
 
-	/* Footer стилизация для maintenance page */
-	:global(footer) {
-		background: var(--bg-secondary, #F5F0E8);
-		border-top: 1px solid rgba(0, 0, 0, 0.05);
+	.offline { color: #ff3333; font-weight: bold; }
+
+	.maintenance-logs {
+		width: 100%;
+		max-width: 600px;
+		font-size: 0.8rem;
+		text-align: left;
+		color: var(--term-blue);
+		opacity: 0.8;
 	}
 
-	:global(.footer-copyright p) {
-		color: rgba(255, 255, 255, 0.8);
+	.log-line { margin-bottom: 5px; }
+
+	.typing-text::after {
+		content: "|";
+		animation: cursor-blink 1s step-end infinite;
 	}
 
-	:global(.footer-section h3) {
-		color: #F0D890;
+	@keyframes cursor-blink { 50% { opacity: 0; } }
+
+	.cmd-btn {
+		color: var(--term-blue);
+		text-decoration: none;
+		border: 1px solid var(--term-blue);
+		padding: 10px 25px;
+		transition: all 0.2s;
 	}
 
-	:global(.footer-section a) {
-		color: rgba(255, 255, 255, 0.7);
-	}
-
-	:global(.footer-section a:hover) {
-		color: #F0D890;
-	}
-
-	@media (max-width: 720px) {
-		h1 {
-			font-size: 2em;
-		}
-
-		.maintenance-content {
-			padding: 2.5em 1.5em;
-		}
-
-		p {
-			font-size: 1.1em;
-		}
+	.cmd-btn:hover {
+		background: var(--term-blue);
+		color: var(--term-bg);
+		box-shadow: 0 0 15px var(--term-blue);
 	}
 </style>
-

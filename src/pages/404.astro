@@ -1,0 +1,119 @@
+---
+// src/pages/404.astro
+import TerminalLayout from '../layouts/TerminalLayout.astro';
+---
+
+<TerminalLayout title="SYSTEM ERROR | 404 NOT FOUND">
+	<main class="error-screen">
+		<div class="error-code">
+			<pre>
+  ____   ___  _  _   
+ |___ \ / _ \| || |  
+   __) | | | | || |_ 
+  / __/| |_| |__   _|
+ |_____|\___/   |_|  
+			</pre>
+		</div>
+
+		<div class="error-message">
+			<h2 class="critical">CRITICAL_SYSTEM_ERROR: SEGMENTATION_FAULT</h2>
+			<p>Узел по адресу <code>{Astro.url.pathname}</code> не найден в базе данных Market Lab.</p>
+			<p>Возможно, файл был удален Кайем в целях безопасности или перемещен Эмили в другой сектор.</p>
+		</div>
+
+		<div class="system-dump">
+			<div class="dump-header">*** ERROR_DUMP_START ***</div>
+			<div class="dump-line">TIMESTAMP: {new Date().toISOString()}</div>
+			<div class="dump-line">MODULE: ROUTER_CORE</div>
+			<div class="dump-line">ERROR_TYPE: 0x404_FILE_NOT_FOUND</div>
+			<div class="dump-line">RECOVERY_STATUS: WAITING_FOR_INPUT</div>
+			<div class="dump-footer">*** ERROR_DUMP_END ***</div>
+		</div>
+
+		<div class="actions">
+			<a href="/" class="cmd-btn">REBOOT SYSTEM (GO HOME)</a>
+			<a href="/blog" class="cmd-btn secondary">SCAN DIRECTORY (REPORTS)</a>
+		</div>
+	</main>
+</TerminalLayout>
+
+<style>
+	.error-screen {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		min-height: 60vh;
+		gap: 30px;
+	}
+
+	.error-code pre {
+		color: var(--term-amber);
+		font-size: 1.5rem;
+		line-height: 1;
+		text-shadow: 0 0 10px var(--term-amber);
+	}
+
+	.critical {
+		color: #ff3333;
+		text-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+		margin-bottom: 20px;
+	}
+
+	.system-dump {
+		background: rgba(255, 51, 51, 0.05);
+		border: 1px dashed #ff3333;
+		padding: 20px;
+		font-size: 0.8rem;
+		text-align: left;
+		width: 100%;
+		max-width: 600px;
+	}
+
+	.dump-header, .dump-footer {
+		color: var(--term-dim);
+		margin-bottom: 10px;
+	}
+
+	.dump-line {
+		color: #ff3333;
+		margin-bottom: 5px;
+	}
+
+	.actions {
+		display: flex;
+		gap: 20px;
+		margin-top: 20px;
+	}
+
+	.cmd-btn {
+		color: var(--term-green);
+		text-decoration: none;
+		border: 1px solid var(--term-green);
+		padding: 10px 20px;
+		transition: all 0.2s;
+	}
+
+	.cmd-btn:hover {
+		background: var(--term-green);
+		color: var(--term-bg);
+		box-shadow: 0 0 15px var(--term-green);
+	}
+
+	.secondary {
+		border-color: var(--term-amber);
+		color: var(--term-amber);
+	}
+
+	.secondary:hover {
+		background: var(--term-amber);
+		color: var(--term-bg);
+		box-shadow: 0 0 15px var(--term-amber);
+	}
+
+	@media (max-width: 768px) {
+		.actions { flex-direction: column; }
+	}
+</style>
+

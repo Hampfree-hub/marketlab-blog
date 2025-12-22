@@ -45,7 +45,7 @@ const showBanners = import.meta.env.PUBLIC_SHOW_BANNERS !== 'false';
 		color: var(--text-secondary);
 		text-decoration: none;
 		font-size: 0.9em;
-		transition: color 0.2s ease;
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	}
 
 	.banner-link:hover {
@@ -63,7 +63,8 @@ const showBanners = import.meta.env.PUBLIC_SHOW_BANNERS !== 'false';
 		cursor: pointer;
 		padding: 0.25em;
 		border-radius: 4px;
-		transition: color 0.2s ease, background-color 0.2s ease;
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+		            background-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -110,4 +111,18 @@ const showBanners = import.meta.env.PUBLIC_SHOW_BANNERS !== 'false';
 		}
 	});
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

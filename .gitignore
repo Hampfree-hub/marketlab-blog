@@ -54,3 +54,48 @@ SECURITY_CHECK*.md
 SECURITY_EXPLAINED*.md
 SECURITY_SIMPLE_EXPLAINED.md
 SECURITY_WORK_PLAN.md
+
+# Figma documentation (temporary, not for repository)
+# Cursor is not designed for visual design work
+FIGMA_*.md
+MCP_FIGMA_*.md
+
+# Plans, strategies, summaries, status reports (private only)
+*_PLAN.md
+*_STRATEGY.md
+*_SUMMARY.md
+*_STATUS.md
+*_EVALUATION.md
+*_FIXES*.md
+*_REDESIGN*.md
+*_COMPLETE*.md
+*_ANALYSIS.md
+*_REPORT.md
+
+# Temporary documentation files
+*_TODO.md
+*_CHECKLIST.md
+*_GUIDE.md
+*_EXPLANATION.md
+*_MATERIALS.md
+*_TEMPLATE.md
+*_CAPABILITIES.md
+*_SCOPES.md
+*_INSTRUCTIONS.md
+*_PREPARATION.md
+*_CONFIRMATION.md
+*_COMPARISON.md
+*_ADAPTATION.md
+*_DETECTION*.md
+
+# Temporary PowerShell scripts (keep only essential ones)
+*_simple.ps1
+*_now.ps1
+cleanup-*.ps1
+create-issue-*.ps1
+update-*-only.ps1
+
+# Temporary test files
+temp_*.md
+*_test.*
+*_demo.*

@@ -1,0 +1,48 @@
+---
+// HampfreeSidebar.astro - Боковая панель с категориями
+---
+
+<aside class="hampfree-sidebar">
+	<h2 class="sidebar-title">CATEGORIES</h2>
+	<ul class="category-list">
+		<li class="category-item">TRADING</li>
+		<li class="category-item">CRYPTO</li>
+		<li class="category-item">STRATEGIES</li>
+		<li class="category-item">INDICATORS</li>
+		<li class="category-item">TUTORIALS</li>
+	</ul>
+	
+	<h2 class="sidebar-title" style="margin-top: 32px;">SEARCH</h2>
+	<div class="search-box">
+		<input 
+			type="text" 
+			class="search-input" 
+			placeholder="SEARCH POSTS..."
+			id="searchInput"
+		/>
+	</div>
+</aside>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const searchInput = document.getElementById('searchInput');
+		const postItems = document.querySelectorAll('#postList .post-item');
+		
+		if (searchInput && postItems.length > 0) {
+			searchInput.addEventListener('input', (e) => {
+				const searchTerm = e.target.value.toLowerCase();
+				
+				postItems.forEach((item) => {
+					const title = item.getAttribute('data-title') || '';
+					const description = item.getAttribute('data-description') || '';
+					
+					if (title.includes(searchTerm) || description.includes(searchTerm)) {
+						item.style.display = 'flex';
+					} else {
+						item.style.display = 'none';
+					}
+				});
+			});
+		}
+	});
+</script>

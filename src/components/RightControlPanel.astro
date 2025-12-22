@@ -1,0 +1,236 @@
+---
+// RightControlPanel.astro - Системный терминал управления
+---
+
+<aside class="system-controls">
+	<!-- THEME CONTROL -->
+	<div class="control-section theme-section">
+		<div class="label">THEME</div>
+		<button id="theme-toggle" class="sys-btn theme-btn" title="Переключить тему">
+			<span class="icon theme-sun">☼</span>
+			<span class="icon theme-moon">☾</span>
+		</button>
+	</div>
+
+	<div class="section-divider"></div>
+
+	<!-- LANGUAGE CONTROL -->
+	<div class="control-section lang-section">
+		<div class="label">LANG</div>
+		<button id="language-toggle" class="sys-btn lang-btn" title="Переключить язык">
+			<span class="lang-txt lang-ru">RU</span>
+			<span class="lang-txt lang-en">EN</span>
+			<span class="lang-txt lang-es">ES</span>
+		</button>
+	</div>
+
+	<div class="section-divider"></div>
+
+	<!-- NETWORK LINKS -->
+	<div class="control-section social-section">
+		<div class="label">NET</div>
+		<a href="https://t.me/hampfree_market_lab" target="_blank" class="sys-btn" title="Telegram">TG</a>
+		<a href="https://dzen.ru/hampfree_algo_trading" target="_blank" class="sys-btn" title="Dzen">DZ</a>
+		<a href="https://vk.com/hampfree_market_lab" target="_blank" class="sys-btn" title="VK">VK</a>
+		<a href="https://finbazar.ru/profile/Hampfree" target="_blank" class="sys-btn" title="FinBazar">FB</a>
+	</div>
+</aside>
+
+<script>
+	(function() {
+		const themeBtn = document.getElementById('theme-toggle');
+		const html = document.documentElement;
+		
+		if (!themeBtn) return;
+		
+		function setUITheme(theme) {
+			// Убираем все классы тем
+			html.classList.remove('dark-theme', 'light-theme');
+			// Добавляем нужный класс
+			html.classList.add(theme + '-theme');
+			localStorage.setItem('theme', theme);
+			
+			const sunIcon = themeBtn.querySelector('.theme-sun');
+			const moonIcon = themeBtn.querySelector('.theme-moon');
+			
+			if (sunIcon && moonIcon) {
+				sunIcon.style.display = theme === 'light' ? 'block' : 'none';
+				moonIcon.style.display = theme === 'dark' ? 'block' : 'none';
+			}
+		}
+
+		// По умолчанию темная тема (если нет сохраненной)
+		const savedTheme = localStorage.getItem('theme') || 'dark';
+		setUITheme(savedTheme);
+		
+		themeBtn.addEventListener('click', () => {
+			const currentTheme = html.classList.contains('light-theme') ? 'light' : 'dark';
+			setUITheme(currentTheme === 'dark' ? 'light' : 'dark');
+		});
+
+		const langBtn = document.getElementById('language-toggle');
+		if (langBtn) {
+			const langs = ['ru', 'en', 'es'];
+			function setUILang(lang) {
+				html.lang = lang;
+				localStorage.setItem('lang', lang);
+				langBtn.querySelectorAll('.lang-txt').forEach(t => t.style.display = 'none');
+				const activeLang = langBtn.querySelector('.lang-' + lang);
+				if (activeLang) activeLang.style.display = 'inline';
+			}
+			const savedLang = localStorage.getItem('lang') || 'ru';
+			setUILang(savedLang);
+			langBtn.addEventListener('click', () => {
+				const current = localStorage.getItem('lang') || 'ru';
+				setUILang(langs[(langs.indexOf(current) + 1) % langs.length]);
+			});
+		}
+	})();
+</script>
+
+<style>
+	.system-controls {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		background: rgba(0, 255, 65, 0.03);
+		border: 1px solid var(--term-green);
+		padding: 4px 2px;
+		width: 36px;
+		min-width: 36px;
+		max-width: 36px;
+	}
+
+	.control-section {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		padding: 3px 0;
+	}
+
+	.section-divider {
+		height: 1px;
+		background: var(--term-dim);
+		margin: 4px 1px;
+		opacity: 0.4;
+	}
+
+	.label {
+		font-size: 4px;
+		color: var(--term-dim);
+		text-align: center;
+		letter-spacing: 0.5px;
+		margin-bottom: 3px;
+		text-transform: uppercase;
+		line-height: 1;
+	}
+
+	.sys-btn {
+		width: 28px;
+		height: 28px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
+		border: 1px solid var(--term-green);
+		color: var(--term-green);
+		cursor: pointer;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 7px;
+		text-decoration: none;
+		transition: all 0.15s ease;
+		position: relative;
+		margin: 0 auto;
+		box-shadow: none; /* Убираем все тени */
+	}
+
+	.sys-btn:hover {
+		background: var(--term-green);
+		color: var(--term-bg);
+		transform: translateY(-1px);
+		box-shadow: none; /* Убираем подчёркивание */
+	}
+
+	.sys-btn:active {
+		transform: translateY(0);
+		box-shadow: none;
+	}
+
+	.theme-btn .icon {
+		font-size: 14px;
+		line-height: 1;
+	}
+
+	.theme-sun { display: none; }
+	.theme-moon { display: block; }
+
+	:global(.light-theme) .theme-sun { display: block; }
+	:global(.light-theme) .theme-moon { display: none; }
+
+	.lang-btn {
+		font-weight: bold;
+	}
+
+	.lang-txt { 
+		display: none; 
+		font-size: 6px;
+	}
+
+	.lang-txt.lang-ru { display: inline; }
+
+	/* Светлая тема для панели (BIOS стиль) */
+	:global(.light-theme) .system-controls {
+		background: rgba(255, 255, 255, 0.98);
+		border-color: var(--term-blue);
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	}
+
+	:global(.light-theme) .label {
+		color: var(--term-dim);
+	}
+
+	:global(.light-theme) .section-divider {
+		background: var(--term-dim);
+	}
+
+	:global(.light-theme) .sys-btn {
+		border-color: var(--term-blue);
+		color: var(--term-blue);
+		box-shadow: none;
+	}
+
+	:global(.light-theme) .sys-btn:hover {
+		background: var(--term-blue);
+		color: var(--term-bg);
+		box-shadow: none;
+	}
+
+	/* Мобильная адаптация */
+	@media (max-width: 1024px) {
+		.system-controls {
+			width: auto;
+			flex-direction: row;
+			gap: 8px;
+			padding: 8px;
+			border-radius: 4px;
+		}
+		.control-section {
+			flex-direction: row;
+			gap: 6px;
+			padding: 0;
+		}
+		.section-divider {
+			width: 1px;
+			height: auto;
+			margin: 0 4px;
+		}
+		.label {
+			display: none;
+		}
+		.sys-btn {
+			width: 28px;
+			height: 28px;
+		}
+	}
+</style>
+

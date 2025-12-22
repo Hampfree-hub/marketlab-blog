@@ -1,63 +1,173 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+// src/pages/about.astro - Страница "О проекте"
+import Hampfree8BitLayout from '../layouts/Hampfree8BitLayout.astro';
+
+const pageTitle = 'О проекте | MarketLab Academy';
+const pageDescription = 'MarketLab Academy — профессиональная платформа для изучения алгоритмического трейдинга, криптовалют и технического анализа';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<Hampfree8BitLayout title={pageTitle} description={pageDescription}>
+	<main class="hampfree-content">
+		<h2 class="about-title">О ПРОЕКТЕ</h2>
+		
+		<section class="about-section">
+			<h3 class="section-title">MARKETLAB ACADEMY</h3>
+			<p class="section-text">
+				MarketLab Academy — это образовательная платформа для трейдеров и разработчиков, 
+				которые хотят изучить алгоритмический трейдинг, технический анализ и работу с криптовалютными рынками.
+			</p>
+			<p class="section-text">
+				Мы предоставляем практические материалы о торговых стратегиях, индикаторах, 
+				риск-менеджменте и психологии трейдинга. Все материалы основаны на реальном опыте и практических примерах.
+			</p>
+		</section>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+		<section class="about-section">
+			<h3 class="section-title">НАША МИССИЯ</h3>
+			<p class="section-text">
+				Превращать рыночный хаос в исполняемые алгоритмы. Мы верим, что системный подход 
+				к трейдингу и глубокое понимание рынков помогают принимать более обоснованные решения.
+			</p>
+			<p class="section-text">
+				Наша цель — делиться знаниями о том, как работать с техническими индикаторами, 
+				тестировать стратегии на исторических данных и управлять рисками в реальной торговле.
+			</p>
+		</section>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+		<section class="about-section">
+			<h3 class="section-title">ЧТО МЫ ПРЕДОСТАВЛЯЕМ</h3>
+			<ul class="features-list">
+				<li><strong>Образовательные статьи</strong> о техническом анализе, индикаторах и стратегиях</li>
+				<li><strong>Практические гайды</strong> по использованию инструментов трейдинга</li>
+				<li><strong>Анализ рынков</strong> и разбор реальных торговых ситуаций</li>
+				<li><strong>Риск-менеджмент</strong> и психология трейдинга</li>
+			</ul>
+		</section>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+		<section class="about-section">
+			<h3 class="section-title">EMILY COMPUTER SYSTEM</h3>
+			<p class="section-text">
+				Emily Computer — это наша внутренняя система управления экспериментами и анализа данных. 
+				Она используется для тестирования алгоритмических стратегий и обработки рыночной информации 
+				в реальном времени.
+			</p>
+		</section>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+		<section class="about-section disclaimer-section">
+			<h3 class="section-title">ВАЖНАЯ ИНФОРМАЦИЯ</h3>
+			<p class="section-text">
+				<strong>Disclaimer:</strong> Вся информация на этом сайте предоставляется исключительно 
+				в образовательных целях. Торговля криптовалютами и другими финансовыми инструментами 
+				сопряжена с высокими рисками. Всегда проводите собственное исследование (DYOR) и 
+				никогда не инвестируйте больше, чем можете позволить себе потерять.
+			</p>
+		</section>
+	</main>
+</Hampfree8BitLayout>
+
+<style>
+	.about-title {
+		color: var(--8bit-yellow);
+		margin-bottom: 32px;
+		font-size: 1.5rem;
+		text-shadow: 3px 3px 0px #000000;
+		font-family: var(--8bit-font) !important;
+	}
+
+	.about-section {
+		margin-bottom: 32px;
+		padding: 20px;
+		border: 4px solid var(--8bit-cyan);
+		background: var(--8bit-black);
+		box-shadow: 0 0 15px var(--8bit-cyan);
+		transition: all 0.05s linear;
+	}
+
+	.about-section:hover {
+		box-shadow: 0 0 25px var(--8bit-cyan);
+	}
+
+	.disclaimer-section {
+		border-color: var(--8bit-yellow);
+		box-shadow: 0 0 15px var(--8bit-yellow);
+		background: rgba(255, 255, 0, 0.05);
+	}
+
+	.disclaimer-section:hover {
+		box-shadow: 0 0 25px var(--8bit-yellow);
+	}
+
+	.section-title {
+		color: var(--8bit-lime);
+		margin-bottom: 16px;
+		font-size: 1rem;
+		text-shadow: 3px 3px 0px #000000;
+		font-family: var(--8bit-font) !important;
+		text-transform: uppercase;
+	}
+
+	.section-text {
+		font-size: 0.75rem;
+		line-height: 2;
+		color: var(--8bit-white);
+		margin-bottom: 16px;
+		font-family: var(--8bit-font) !important;
+		text-shadow: 1px 1px 0px #000000;
+	}
+
+	.section-text:last-child {
+		margin-bottom: 0;
+	}
+
+	.section-text strong {
+		color: var(--8bit-yellow);
+	}
+
+	.features-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.features-list li {
+		font-size: 0.75rem;
+		line-height: 2;
+		color: var(--8bit-white);
+		margin-bottom: 12px;
+		padding-left: 24px;
+		position: relative;
+		font-family: var(--8bit-font) !important;
+		text-shadow: 1px 1px 0px #000000;
+	}
+
+	.features-list li::before {
+		content: '■';
+		color: var(--8bit-cyan);
+		position: absolute;
+		left: 0;
+		font-size: 0.75rem;
+	}
+
+	.features-list li strong {
+		color: var(--8bit-lime);
+	}
+
+	@media (max-width: 768px) {
+		.about-title {
+			font-size: 1.2rem;
+		}
+
+		.about-section {
+			padding: 16px;
+		}
+
+		.section-text {
+			font-size: 0.625rem;
+		}
+
+		.features-list li {
+			font-size: 0.625rem;
+		}
+	}
+</style>
+

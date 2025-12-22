@@ -1,0 +1,55 @@
+---
+// HampfreePostList.astro - Список постов в 8-bit стиле
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<section class="hampfree-content">
+	<ul class="post-list" id="postList">
+		{posts.map((post) => (
+			<li class="post-item" data-title={post.data.title.toLowerCase()} data-description={(post.data.description || '').toLowerCase()}>
+				<div class="post-icon">📊</div>
+				<div class="post-content">
+					<a href={`/blog/${post.id}/`} class="post-title">
+						{post.data.title.toUpperCase()}
+					</a>
+					<div class="post-meta">
+						{new Date(post.data.pubDate).toLocaleDateString('ru-RU', {
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric'
+						})} | {(post.data.category || 'general').toUpperCase()}
+					</div>
+					<p class="post-excerpt">
+						{post.data.description || 'Описание отсутствует'}
+					</p>
+				</div>
+			</li>
+		))}
+	</ul>
+</section>
+
+<script>
+	const searchInput = document.getElementById('searchInput');
+	const postItems = document.querySelectorAll('#postList .post-item');
+	
+	if (searchInput && postItems.length > 0) {
+		searchInput.addEventListener('input', (e) => {
+			const searchTerm = e.target.value.toLowerCase();
+			
+			postItems.forEach((item) => {
+				const title = item.getAttribute('data-title') || '';
+				const description = item.getAttribute('data-description') || '';
+				
+				if (title.includes(searchTerm) || description.includes(searchTerm)) {
+					item.style.display = 'flex';
+				} else {
+					item.style.display = 'none';
+				}
+			});
+		});
+	}
+</script>
+

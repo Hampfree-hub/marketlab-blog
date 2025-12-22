@@ -1,0 +1,179 @@
+---
+// src/layouts/BlogPostTerminal.astro
+import TerminalLayout from './TerminalLayout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage, category } = Astro.props;
+
+// Генерируем "метаданные файла" для лора
+const fileSize = Math.floor(Math.random() * 500) + 100; // KB
+const filePermissions = "-rw-r--r--";
+const fileOwner = "emily";
+const fileGroup = "staff";
+---
+
+<TerminalLayout title={`${title} | MarketLab OS`}>
+	<article class="system-report">
+		<!-- HEADER: Информация о файле -->
+		<header class="report-header">
+			<div class="file-meta">
+				<div class="meta-line"><span class="label">FILE:</span> {title}</div>
+				<div class="meta-line"><span class="label">PATH:</span> root/reports/{category || 'general'}/{title.toLowerCase().replace(/\s+/g, '_')}.dat</div>
+				<div class="meta-line"><span class="label">SIZE:</span> {fileSize} KB</div>
+				<div class="meta-line"><span class="label">OWNER:</span> {fileOwner}:{fileGroup}</div>
+				<div class="meta-line"><span class="label">MODIFIED:</span> <FormattedDate date={pubDate} /></div>
+			</div>
+			<div class="report-id">
+				[REPORT_ID: {Math.random().toString(36).substring(7).toUpperCase()}]
+			</div>
+		</header>
+
+		<div class="report-divider">================================================================================</div>
+
+		<!-- HERO IMAGE (optional, but styled as terminal output) -->
+		{heroImage && (
+			<div class="report-hero">
+				<img src={heroImage} alt={title} class="pixelated-img" />
+				<div class="img-caption">[DECODED_VISUAL_DATA_STREAM]</div>
+			</div>
+		)}
+
+		<!-- CONTENT: Основной текст статьи -->
+		<div class="report-body">
+			<slot />
+		</div>
+
+		<div class="report-divider">================================================================================</div>
+
+		<!-- FOOTER: Системный статус -->
+		<footer class="report-footer">
+			<div class="status-line">END OF FILE. [CHECKSUM: OK]</div>
+			<div class="nav-back">
+				<a href="/" class="cmd-btn">cd ..</a>
+			</div>
+		</footer>
+	</article>
+</TerminalLayout>
+
+<style is:global>
+	.system-report {
+		background: rgba(0, 255, 65, 0.02);
+		border: 1px solid var(--term-dim);
+		padding: 30px;
+		margin-top: 20px;
+		max-width: 100%;
+		overflow-x: hidden;
+	}
+
+	.report-header {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.9rem;
+		color: var(--term-blue);
+		margin-bottom: 20px;
+	}
+
+	.meta-line { margin-bottom: 4px; }
+	.meta-line .label { color: var(--term-dim); margin-right: 10px; }
+
+	.report-divider {
+		color: var(--term-dim);
+		margin: 20px 0;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	.report-hero {
+		margin-bottom: 30px;
+		text-align: center;
+	}
+
+	.pixelated-img {
+		max-width: 100%;
+		border: 1px solid var(--term-dim);
+		image-rendering: pixelated;
+	}
+
+	.img-caption {
+		font-size: 0.7rem;
+		color: var(--term-dim);
+		margin-top: 5px;
+	}
+
+	/* Стили для контента внутри отчета */
+	.report-body {
+		line-height: 1.6;
+		color: var(--term-green);
+	}
+
+	.report-body h2, .report-body h3 {
+		color: var(--term-amber);
+		margin-top: 2em;
+		margin-bottom: 1em;
+		border-left: 3px solid var(--term-amber);
+		padding-left: 15px;
+	}
+
+	.report-body p { margin-bottom: 1.5em; }
+
+	.report-body ul, .report-body ol {
+		margin-left: 20px;
+		margin-bottom: 1.5em;
+		list-style: none;
+	}
+
+	.report-body li::before {
+		content: "[+] ";
+		color: var(--term-blue);
+		margin-right: 10px;
+	}
+
+	.report-body blockquote {
+		background: rgba(0, 217, 255, 0.05);
+		border-left: 3px solid var(--term-blue);
+		padding: 15px;
+		margin: 20px 0;
+		font-style: italic;
+	}
+
+	.report-body a {
+		color: var(--term-blue);
+		text-decoration: underline;
+	}
+
+	.report-body a:hover {
+		background: var(--term-blue);
+		color: var(--term-bg);
+	}
+
+	.report-footer {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 40px;
+		font-size: 0.8rem;
+		color: var(--term-dim);
+	}
+
+	.cmd-btn {
+		color: var(--term-amber);
+		text-decoration: none;
+		border: 1px solid var(--term-amber);
+		padding: 5px 15px;
+		transition: all 0.2s;
+	}
+
+	.cmd-btn:hover {
+		background: var(--term-amber);
+		color: var(--term-bg);
+		box-shadow: 0 0 10px var(--term-amber);
+	}
+
+	@media (max-width: 768px) {
+		.report-header { flex-direction: column; gap: 20px; }
+		.system-report { padding: 15px; }
+	}
+</style>
+

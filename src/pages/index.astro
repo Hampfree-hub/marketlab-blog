@@ -1,75 +1,15 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+// src/pages/index.astro - Главная страница компьютера Эмили
+import Hampfree8BitLayout from '../layouts/Hampfree8BitLayout.astro';
+import HampfreePostList from '../components/HampfreePostList.astro';
+import HampfreeSidebar from '../components/HampfreeSidebar.astro';
+import EmilySystemBanner from '../components/EmilySystemBanner.astro';
 ---
 
-<!doctype html>
-<html lang="ru">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main style="padding-top: 2.5em;">
-			<section class="hero">
-				<h1>Добро пожаловать в {SITE_TITLE}</h1>
-				<p class="subtitle">{SITE_DESCRIPTION}</p>
-				<a href="/blog/" class="cta-button">Читать блог</a>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
-
-<style>
-	.hero {
-		text-align: center;
-		padding: 4em 1em;
-		max-width: 720px;
-		margin: 0 auto;
-	}
-
-	.hero h1 {
-		font-size: 3.052em;
-		margin-bottom: 0.5em;
-		color: var(--text-primary);
-	}
-
-	.hero .subtitle {
-		font-size: 1.25em;
-		color: var(--text-secondary);
-		margin-bottom: 2em;
-		line-height: 1.6;
-	}
-
-	.cta-button {
-		display: inline-block;
-		padding: 1em 2em;
-		background: var(--green-forest);
-		color: white;
-		text-decoration: none;
-		border-radius: 8px;
-		font-weight: 600;
-		transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-	}
-
-	.cta-button:hover {
-		background: var(--accent);
-		filter: brightness(1.15);
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(107, 200, 107, 0.3);
-	}
-
-	@media (max-width: 720px) {
-		.hero h1 {
-			font-size: 2.369em;
-		}
-
-		.hero .subtitle {
-			font-size: 1.125em;
-		}
-	}
-</style>
+<Hampfree8BitLayout title="Emily Computer | MarketLab OS">
+	<main class="hampfree-main">
+		<EmilySystemBanner />
+		<HampfreePostList />
+		<HampfreeSidebar />
+	</main>
+</Hampfree8BitLayout>

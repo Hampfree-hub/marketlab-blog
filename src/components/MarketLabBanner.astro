@@ -1,0 +1,311 @@
+---
+// MarketLabBanner.astro
+// Интерактивный баннер для LAB REPORT с Canvas-анимацией реактора
+// Пример HTML-визуала вместо Figma-дизайна
+---
+
+<section class="mlab-banner" id="mlabBanner">
+  <canvas id="mlabCanvas" aria-hidden="true"></canvas>
+
+  <div class="mlab-banner__content">
+    <div class="mlab-banner__badge">LAB REPORT</div>
+    <h1 class="mlab-banner__title">MarketLab Core: Включение реактора</h1>
+    <p class="mlab-banner__text">
+      Эмили запускает новый эксперимент. Поток данных усиливается, уровень шума растёт, 
+      а Лаборатория адаптируется в реальном времени.
+    </p>
+    <button class="mlab-banner__button">
+      ОТКРЫТЬ СЕКТОР
+    </button>
+  </div>
+</section>
+
+<style>
+  .mlab-banner {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    border: 1px solid var(--term-green);
+    background: var(--term-bg);
+    isolation: isolate;
+    min-height: 300px;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  :global(.light-theme) .mlab-banner {
+    border-color: var(--term-blue);
+    background: var(--term-bg);
+  }
+
+  /* Canvas — фон с анимацией */
+  #mlabCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  /* Контент поверх */
+  .mlab-banner__content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    color: var(--term-green);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .mlab-banner__badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border: 1px solid var(--term-green);
+    background: transparent;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--term-amber);
+    margin-bottom: 1rem;
+  }
+
+  .mlab-banner__title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin: 0 0 1rem;
+    font-weight: bold;
+    line-height: 1.3;
+    color: var(--term-green);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .mlab-banner__text {
+    max-width: 540px;
+    margin: 0 0 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--term-green);
+    font-family: 'JetBrains Mono', monospace;
+    opacity: 0.9;
+  }
+
+  .mlab-banner__button {
+    position: relative;
+    padding: 10px 20px;
+    border: 1px solid var(--term-green);
+    cursor: pointer;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--term-green);
+    background: transparent;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: normal;
+    transition: all 0.15s ease;
+  }
+
+  .mlab-banner__button:hover {
+    background: var(--term-green);
+    color: var(--term-bg);
+    transform: translateY(-1px);
+  }
+
+  .mlab-banner__button:active {
+    transform: translateY(0);
+  }
+
+  :global(.light-theme) .mlab-banner__content {
+    color: var(--term-blue);
+  }
+
+  :global(.light-theme) .mlab-banner__badge {
+    border-color: var(--term-blue);
+    color: var(--term-blue);
+  }
+
+  :global(.light-theme) .mlab-banner__title,
+  :global(.light-theme) .mlab-banner__text {
+    color: var(--term-blue);
+  }
+
+  :global(.light-theme) .mlab-banner__button {
+    border-color: var(--term-blue);
+    color: var(--term-blue);
+  }
+
+  :global(.light-theme) .mlab-banner__button:hover {
+    background: var(--term-blue);
+    color: var(--term-bg);
+  }
+
+  /* Адаптив */
+  @media (max-width: 720px) {
+    .mlab-banner {
+      min-height: 300px;
+      margin: 1rem auto;
+      border-width: 3px;
+    }
+    
+    .mlab-banner__content {
+      padding: 1.5rem 1rem;
+    }
+    
+    .mlab-banner__text {
+      max-width: none;
+    }
+    
+    .mlab-banner__button {
+      padding: 10px 16px;
+      font-size: 0.75rem;
+    }
+    
+    .mlab-banner__title {
+      font-size: clamp(1.25rem, 4vw, 1.5rem);
+    }
+    
+    .mlab-banner__text {
+      font-size: 0.875rem;
+    }
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById('mlabCanvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d', { alpha: true });
+
+    let w, h, centerX, centerY, particles;
+    let isPageVisible = true;
+    let animationId;
+
+    // Адаптивное качество для производительности
+    const QUALITY = {
+      desktop: { particleMultiplier: 1.0, pixelSize: 2 },
+      tablet: { particleMultiplier: 0.6, pixelSize: 2.5 },
+      mobile: { particleMultiplier: 0.3, pixelSize: 3 }
+    };
+
+    function getQuality() {
+      if (window.innerWidth < 480) return QUALITY.mobile;
+      if (window.innerWidth < 768) return QUALITY.tablet;
+      return QUALITY.desktop;
+    }
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      w = rect.width;
+      h = rect.height;
+      const quality = getQuality();
+      // Пиксельный рендеринг: используем низкое разрешение для pixelated эффекта
+      canvas.width = Math.floor(w / quality.pixelSize);
+      canvas.height = Math.floor(h / quality.pixelSize);
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      // Отключаем сглаживание для пиксельной графики
+      ctx.imageSmoothingEnabled = false;
+      // Реактор в правом нижнем углу - более агрессивное позиционирование
+      centerX = Math.floor(canvas.width * 0.75); // 75% от ширины (ближе к центру для большего размера)
+      centerY = Math.floor(canvas.height * 0.70); // 70% от высоты (выше, чтобы был виден полностью)
+      initParticles();
+    }
+
+    function initParticles() {
+      // Частицы больше не нужны
+      particles = [];
+    }
+
+    function drawBackground() {
+      // Адаптивный фон в зависимости от темы
+      const isLight = document.documentElement.classList.contains('light-theme');
+      ctx.fillStyle = isLight ? '#ffffff' : '#05080f'; // Белый для светлой, темный для темной
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function drawScanlines() {
+      // Упрощенная системная рябь - одна строка, которая плывёт сверху вниз
+      // Разделяем баннер на 3 части, 2/3 - область ряби
+      const isLight = document.documentElement.classList.contains('light-theme');
+      const time = Date.now() * 0.02; // Медленнее для плавности
+      
+      // Область ряби: нижние 2/3 баннера
+      const scanlineAreaTop = Math.floor(canvas.height / 3);
+      const scanlineAreaHeight = Math.floor(canvas.height * 2 / 3);
+      
+      // Одна горизонтальная полоса, которая движется сверху вниз
+      const scanlineHeight = 1;
+      const scanlineY = scanlineAreaTop + (time % scanlineAreaHeight);
+      
+      ctx.fillStyle = isLight ? 
+        'rgba(0, 0, 170, 0.15)' : 
+        'rgba(0, 255, 65, 0.2)';
+      
+      // Рисуем одну полосу
+      ctx.fillRect(0, Math.floor(scanlineY), canvas.width, scanlineHeight);
+      
+      // Едва заметный след за полосой (fade effect)
+      for (let i = 1; i <= 3; i++) {
+        const fadeY = scanlineY - i * 2;
+        if (fadeY >= scanlineAreaTop) {
+          const alpha = (isLight ? 0.05 : 0.08) / i;
+          ctx.fillStyle = isLight ? 
+            `rgba(0, 0, 170, ${alpha})` : 
+            `rgba(0, 255, 65, ${alpha})`;
+          ctx.fillRect(0, Math.floor(fadeY), canvas.width, scanlineHeight);
+        }
+      }
+    }
+
+    function loop() {
+      if (!canvas.isConnected) {
+        if (animationId) cancelAnimationFrame(animationId);
+        return;
+      }
+      
+      // Рисуем только если страница видна (экономия батареи)
+      if (isPageVisible) {
+        drawBackground();
+        drawScanlines();
+      }
+      
+      animationId = requestAnimationFrame(loop);
+    }
+
+    // Останавливаем анимацию, если страница в фоне (экономия батареи)
+    document.addEventListener('visibilitychange', () => {
+      isPageVisible = document.visibilityState === 'visible';
+      if (isPageVisible && !animationId) {
+        loop();
+      }
+    });
+
+    // Пересчитываем качество при ресайзе
+    window.addEventListener('resize', () => {
+      resize();
+    });
+
+    // Инициализация только когда элемент виден (Intersection Observer)
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            resize();
+            if (!animationId) {
+              loop();
+            }
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      observer.observe(canvas);
+    } else {
+      // Fallback для старых браузеров
+      resize();
+      loop();
+    }
+  }
+</script>
+

@@ -1,0 +1,183 @@
+---
+// Hampfree8BitPost.astro - Layout для отдельного поста в 8-bit стиле
+import type { CollectionEntry } from 'astro:content';
+import Hampfree8BitLayout from './Hampfree8BitLayout.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate } = Astro.props;
+---
+
+<Hampfree8BitLayout title={`${title} | HampfreeBlog`}>
+	<article class="hampfree-post">
+		<header class="post-header">
+			<h1 class="post-title-main">{title.toUpperCase()}</h1>
+			<div class="post-meta-main">
+				<span>{new Date(pubDate).toLocaleDateString('ru-RU', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				})}</span>
+			</div>
+		</header>
+		
+		<div class="post-content-main">
+			<slot />
+		</div>
+		
+		<footer class="post-footer">
+			<a href="/" class="back-link">← BACK TO HOME</a>
+		</footer>
+	</article>
+</Hampfree8BitLayout>
+
+<style>
+	.hampfree-post {
+		border: 4px solid var(--8bit-white);
+		padding: 30px;
+		background: var(--8bit-black);
+		margin-bottom: 40px;
+		box-shadow: 0 0 20px var(--8bit-white);
+		transition: all 0.05s linear;
+	}
+
+	.hampfree-post:hover {
+		box-shadow: 0 0 30px var(--8bit-white);
+	}
+	
+	.post-header {
+		margin-bottom: 32px;
+		padding-bottom: 24px;
+		border-bottom: 4px solid var(--8bit-lime);
+	}
+	
+	.post-title-main {
+		font-size: 1.5rem;
+		color: var(--8bit-lime);
+		margin-bottom: 16px;
+		line-height: 1.6;
+		text-shadow: 3px 3px 0px #000000;
+		font-family: var(--8bit-font) !important;
+	}
+	
+	.post-meta-main {
+		font-size: 0.625rem;
+		color: var(--8bit-cyan);
+		opacity: 0.9;
+		font-family: var(--8bit-font) !important;
+		text-shadow: 2px 2px 0px #000000;
+	}
+	
+	.post-content-main {
+		font-size: 0.75rem;
+		line-height: 2;
+		color: var(--8bit-white);
+		font-family: var(--8bit-font) !important;
+		text-shadow: 1px 1px 0px #000000;
+	}
+	
+	.post-content-main :global(h2) {
+		font-size: 1rem;
+		color: var(--8bit-yellow);
+		margin-top: 32px;
+		margin-bottom: 16px;
+		border-bottom: 4px solid var(--8bit-yellow);
+		padding-bottom: 8px;
+		text-shadow: 3px 3px 0px #000000;
+		font-family: var(--8bit-font) !important;
+	}
+	
+	.post-content-main :global(h3) {
+		font-size: 0.875rem;
+		color: var(--8bit-pink);
+		margin-top: 24px;
+		margin-bottom: 12px;
+		text-shadow: 3px 3px 0px #000000;
+		font-family: var(--8bit-font) !important;
+	}
+	
+	.post-content-main :global(p) {
+		margin-bottom: 16px;
+		font-family: var(--8bit-font) !important;
+	}
+	
+	.post-content-main :global(ul),
+	.post-content-main :global(ol) {
+		margin-left: 24px;
+		margin-bottom: 16px;
+	}
+	
+	.post-content-main :global(li) {
+		margin-bottom: 8px;
+		font-family: var(--8bit-font) !important;
+	}
+	
+	.post-content-main :global(code) {
+		background: var(--8bit-black);
+		border: 4px solid var(--8bit-cyan);
+		padding: 4px 8px;
+		font-size: 0.625rem;
+		color: var(--8bit-lime);
+		font-family: var(--8bit-font) !important;
+		box-shadow: 0 0 10px var(--8bit-cyan);
+	}
+	
+	.post-content-main :global(pre) {
+		background: var(--8bit-black);
+		border: 4px solid var(--8bit-cyan);
+		padding: 16px;
+		overflow-x: auto;
+		margin: 24px 0;
+		box-shadow: 0 0 15px var(--8bit-cyan);
+	}
+	
+	.post-content-main :global(pre code) {
+		background: transparent;
+		border: none;
+		padding: 0;
+		box-shadow: none;
+	}
+	
+	.post-footer {
+		margin-top: 40px;
+		padding-top: 24px;
+		border-top: 4px solid var(--8bit-white);
+	}
+	
+	.back-link {
+		display: inline-block;
+		padding: 12px 24px;
+		border: 4px solid var(--8bit-white);
+		background: var(--8bit-black);
+		color: var(--8bit-white);
+		text-decoration: none;
+		font-size: 0.625rem;
+		transition: all 0.05s linear;
+		font-family: var(--8bit-font) !important;
+		box-shadow: 0 0 10px var(--8bit-white);
+		text-shadow: 2px 2px 0px #000000;
+	}
+	
+	.back-link:hover {
+		background: var(--8bit-pink);
+		border-color: var(--8bit-pink);
+		color: var(--8bit-black);
+		transform: translate(-2px, -2px);
+		box-shadow: 0 0 40px var(--8bit-pink);
+		text-shadow: none;
+	}
+	
+	@media (max-width: 768px) {
+		.hampfree-post {
+			padding: 20px;
+		}
+		
+		.post-title-main {
+			font-size: 1rem;
+		}
+
+		.post-content-main {
+			font-size: 0.625rem;
+		}
+	}
+</style>

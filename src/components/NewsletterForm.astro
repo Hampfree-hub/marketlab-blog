@@ -1,0 +1,180 @@
+---
+// NewsletterForm.astro - Шаблон формы подписки на рассылку
+// Позже интегрируем с beehiiv API
+---
+
+<section class="newsletter-form-section">
+	<div class="newsletter-form-container">
+		<h3 class="newsletter-form-title">Подписаться на рассылку Market Lab</h3>
+		<p class="newsletter-form-description">
+			Получайте дайджест восстановленных материалов, торговые эксперименты и технические индикаторы
+		</p>
+		
+		<form class="newsletter-form" id="newsletter-form" method="POST" action="#" aria-label="Форма подписки на рассылку">
+			<div class="newsletter-form-group">
+				<label for="newsletter-email" class="newsletter-form-label">
+					Email
+				</label>
+				<input 
+					type="email" 
+					id="newsletter-email" 
+					name="email" 
+					class="newsletter-form-input" 
+					placeholder="your@email.com"
+					required
+					aria-required="true"
+					aria-describedby="newsletter-email-description"
+				/>
+				<span id="newsletter-email-description" class="newsletter-form-hint">
+					Мы не будем спамить. Только полезные материалы.
+				</span>
+			</div>
+			
+			<button type="submit" class="newsletter-form-submit nes8bit-btn nes8bit-btn-primary">
+				Подписаться
+			</button>
+		</form>
+		
+		<p class="newsletter-form-privacy">
+			Нажимая "Подписаться", вы соглашаетесь с нашей 
+			<a href="/privacy" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a>
+		</p>
+	</div>
+</section>
+
+<style>
+	.newsletter-form-section {
+		background: var(--nes-white);
+		border: 4px solid var(--nes-black);
+		padding: 30px;
+		margin: 30px 0;
+		box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.newsletter-form-container {
+		text-align: center;
+	}
+
+	.newsletter-form-title {
+		font-family: var(--nes-font);
+		font-size: 1.2rem;
+		color: var(--nes-black);
+		margin: 0 0 10px 0;
+		text-transform: uppercase;
+	}
+
+	.newsletter-form-description {
+		font-family: 'Arial', sans-serif;
+		font-size: 0.9rem;
+		color: var(--nes-gray);
+		margin: 0 0 20px 0;
+		line-height: 1.6;
+	}
+
+	.newsletter-form {
+		margin: 20px 0;
+	}
+
+	.newsletter-form-group {
+		margin-bottom: 20px;
+		text-align: left;
+	}
+
+	.newsletter-form-label {
+		display: block;
+		font-family: var(--nes-font);
+		font-size: 0.7rem;
+		color: var(--nes-black);
+		margin-bottom: 8px;
+		text-transform: uppercase;
+	}
+
+	.newsletter-form-input {
+		width: 100%;
+		padding: 12px;
+		border: 3px solid var(--nes-black);
+		background: var(--nes-white);
+		font-family: 'Arial', sans-serif;
+		font-size: 1rem;
+		color: var(--nes-black);
+		box-sizing: border-box;
+		box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.1);
+		transition: all 0.2s ease;
+	}
+
+	.newsletter-form-input:focus {
+		outline: none;
+		border-color: var(--nes-blue);
+		box-shadow: 
+			inset 2px 2px 0px rgba(0, 0, 0, 0.1),
+			0 0 0 3px rgba(0, 153, 204, 0.3);
+	}
+
+	.newsletter-form-hint {
+		display: block;
+		font-family: 'Arial', sans-serif;
+		font-size: 0.8rem;
+		color: var(--nes-gray);
+		margin-top: 5px;
+	}
+
+	.newsletter-form-submit {
+		width: 100%;
+		margin-top: 10px;
+	}
+
+	.newsletter-form-privacy {
+		font-family: 'Arial', sans-serif;
+		font-size: 0.75rem;
+		color: var(--nes-gray);
+		margin: 15px 0 0 0;
+		line-height: 1.5;
+	}
+
+	.newsletter-form-privacy a {
+		color: var(--nes-blue);
+		text-decoration: underline;
+	}
+
+	.newsletter-form-privacy a:hover {
+		color: var(--nes-red);
+	}
+
+	/* Мобильная адаптация */
+	@media (max-width: 768px) {
+		.newsletter-form-section {
+			padding: 20px;
+		}
+		
+		.newsletter-form-title {
+			font-size: 1rem;
+		}
+	}
+</style>
+
+<script>
+	// Заглушка для будущей интеграции с beehiiv API
+	document.getElementById('newsletter-form')?.addEventListener('submit', function(e) {
+		e.preventDefault();
+		
+		const email = document.getElementById('newsletter-email')?.value;
+		
+		if (email) {
+			// TODO: Интеграция с beehiiv API
+			console.log('Подписка на рассылку:', email);
+			
+			// Временное сообщение
+			alert('Спасибо за подписку! Интеграция с beehiiv будет добавлена позже.');
+			
+			// Очищаем форму
+			this.reset();
+		}
+	});
+</script>
+
+
+
+

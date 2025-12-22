@@ -1,0 +1,531 @@
+/*
+  HampfreeBlog - 8-Bit Retro Arcade Style
+  Пиксельный стиль 80х для блога - AUTHENTIC ARCADE
+*/
+
+/* 8-Bit Color Palette - ТОЛЬКО эти цвета */
+:root {
+	/* Основные цвета */
+	--8bit-black: #000000;
+	--8bit-white: #ffffff;
+	
+	/* Неоновые акценты */
+	--8bit-lime: #00ff00;
+	--8bit-pink: #ff0099;
+	--8bit-cyan: #00ffff;
+	--8bit-yellow: #ffff00;
+	
+	/* Шрифт - ТОЛЬКО Press Start 2P */
+	--8bit-font: 'Press Start 2P', monospace;
+}
+
+/* Импорт шрифта */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Глобальные стили */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border-radius: 0 !important;
+}
+
+body.hampfree8bit {
+	background-color: var(--8bit-black);
+	font-family: var(--8bit-font) !important;
+	color: var(--8bit-white);
+	line-height: 1.8;
+	image-rendering: pixelated;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: crisp-edges;
+	padding: 20px;
+	min-height: 100vh;
+	position: relative;
+}
+
+/* Принудительно применяем шрифт ко всем элементам */
+body.hampfree8bit,
+body.hampfree8bit * {
+	font-family: var(--8bit-font) !important;
+}
+
+/* CRT эффекты отключены */
+body.emily-computer::before,
+body.emily-computer::after {
+	display: none;
+}
+
+/* Fixed Control Panel */
+.global-control-panel {
+	position: fixed;
+	right: 8px;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 10001;
+	pointer-events: auto;
+}
+
+@media (max-width: 1024px) {
+	.global-control-panel {
+		position: fixed;
+		right: 10px;
+		top: auto;
+		bottom: 20px;
+		transform: none;
+	}
+}
+
+/* Контейнер */
+.hampfree-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 15px;
+	padding-right: 70px;
+	border: 4px solid var(--8bit-white);
+	background: var(--8bit-black);
+	position: relative;
+	z-index: 1;
+	box-shadow: 0 0 20px var(--8bit-cyan);
+}
+
+@media (max-width: 1024px) {
+	.hampfree-container {
+		padding-right: 20px;
+	}
+}
+
+/* Хедер с логотипом - Emily Computer Style */
+.hampfree-header {
+	text-align: center;
+	padding: 20px 15px;
+	margin-bottom: 30px;
+	border: 4px solid var(--8bit-pink);
+	background: var(--8bit-black);
+	position: relative;
+	box-shadow: 0 0 20px var(--8bit-pink);
+	transition: all 0.05s linear;
+}
+
+.hampfree-header:hover {
+	box-shadow: 0 0 40px var(--8bit-pink);
+}
+
+.emily-header {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.system-info {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 0.75rem;
+	color: var(--8bit-cyan);
+	opacity: 0.9;
+}
+
+.system-label {
+	font-weight: normal;
+	letter-spacing: 2px;
+	text-shadow: 2px 2px 0px #000000;
+}
+
+.system-version {
+	color: var(--8bit-yellow);
+	text-shadow: 2px 2px 0px #000000;
+}
+
+.system-status {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	font-size: 0.75rem;
+	color: var(--8bit-lime);
+	text-shadow: 2px 2px 0px #000000;
+}
+
+.status-dot {
+	width: 10px;
+	height: 10px;
+	background: var(--8bit-lime);
+	border: 2px solid var(--8bit-white);
+	animation: blink 0.5s infinite;
+	box-shadow: 0 0 10px var(--8bit-lime);
+}
+
+@keyframes blink {
+	0%, 50% { opacity: 1; }
+	51%, 100% { opacity: 0.3; }
+}
+
+.hampfree-logo {
+	font-size: 3rem;
+	font-weight: normal;
+	margin-bottom: 20px;
+	text-shadow: 
+		3px 3px 0px #000000,
+		4px 4px 0px var(--8bit-pink),
+		8px 8px 0px var(--8bit-lime);
+	animation: blink 0.5s infinite;
+}
+
+.hampfree-logo .logo-hampfree {
+	color: var(--8bit-lime);
+}
+
+.hampfree-logo .logo-blog {
+	color: var(--8bit-pink);
+}
+
+/* Навигация */
+.hampfree-nav {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin-bottom: 30px;
+	padding: 12px;
+	border: 4px solid var(--8bit-white);
+	background: var(--8bit-black);
+	box-shadow: 0 0 20px var(--8bit-white);
+	transition: all 0.05s linear;
+}
+
+.hampfree-nav:hover {
+	box-shadow: 0 0 30px var(--8bit-white);
+}
+
+.hampfree-nav a {
+	padding: 12px 24px;
+	background: var(--8bit-black);
+	border: 4px solid var(--8bit-white);
+	color: var(--8bit-white);
+	text-decoration: none;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	transition: all 0.05s linear;
+	min-width: 120px;
+	text-align: center;
+	display: inline-block;
+	text-shadow: 2px 2px 0px #000000;
+	box-shadow: 0 0 10px var(--8bit-white);
+}
+
+.hampfree-nav a:hover {
+	background: var(--8bit-lime);
+	color: var(--8bit-black);
+	border-color: var(--8bit-lime);
+	transform: translate(-2px, -2px);
+	box-shadow: 0 0 40px var(--8bit-lime);
+	text-shadow: none;
+}
+
+.hampfree-nav a:active {
+	transform: translate(0, 0);
+	box-shadow: 0 0 20px var(--8bit-lime);
+}
+
+/* Главная секция */
+.hampfree-main {
+	display: grid;
+	grid-template-columns: 1fr 300px;
+	gap: 24px;
+	margin-bottom: 30px;
+}
+
+.hampfree-content {
+	border: 4px solid var(--8bit-white);
+	padding: 20px;
+	background: var(--8bit-black);
+	box-shadow: 0 0 20px var(--8bit-white);
+	transition: all 0.05s linear;
+}
+
+.hampfree-content:hover {
+	box-shadow: 0 0 30px var(--8bit-white);
+}
+
+.hampfree-sidebar {
+	border: 4px solid var(--8bit-cyan);
+	padding: 16px;
+	background: var(--8bit-black);
+	box-shadow: 0 0 20px var(--8bit-cyan);
+	transition: all 0.05s linear;
+}
+
+.hampfree-sidebar:hover {
+	box-shadow: 0 0 30px var(--8bit-cyan);
+}
+
+/* Список статей */
+.post-list {
+	list-style: none;
+}
+
+.post-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+	padding: 16px;
+	margin-bottom: 20px;
+	border: 4px solid var(--8bit-white);
+	background: var(--8bit-black);
+	transition: all 0.05s linear;
+	box-shadow: 0 0 15px var(--8bit-white);
+}
+
+.post-item:hover {
+	border-color: var(--8bit-lime);
+	background: rgba(0, 255, 0, 0.1);
+	transform: translate(-4px, -4px);
+	box-shadow: 0 0 40px var(--8bit-lime);
+}
+
+.post-icon {
+	width: 36px;
+	height: 36px;
+	flex-shrink: 0;
+	background: var(--8bit-yellow);
+	border: 4px solid var(--8bit-white);
+	image-rendering: pixelated;
+	font-size: 1.2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 0 10px var(--8bit-yellow);
+}
+
+.post-content {
+	flex: 1;
+}
+
+.post-title {
+	font-size: 0.875rem;
+	color: var(--8bit-lime);
+	margin-bottom: 12px;
+	text-decoration: none;
+	display: block;
+	text-shadow: 3px 3px 0px #000000;
+	transition: all 0.05s linear;
+}
+
+.post-title:hover {
+	color: var(--8bit-yellow);
+	text-shadow: 3px 3px 0px #000000, 0 0 20px var(--8bit-yellow);
+}
+
+.post-meta {
+	font-size: 0.625rem;
+	color: var(--8bit-cyan);
+	margin-bottom: 12px;
+	opacity: 0.9;
+	text-shadow: 2px 2px 0px #000000;
+}
+
+.post-excerpt {
+	font-size: 0.75rem;
+	color: var(--8bit-white);
+	line-height: 1.8;
+	opacity: 0.9;
+	text-shadow: 1px 1px 0px #000000;
+}
+
+/* Боковая панель */
+.sidebar-title {
+	font-size: 0.875rem;
+	color: var(--8bit-cyan);
+	margin-bottom: 16px;
+	border-bottom: 4px solid var(--8bit-cyan);
+	padding-bottom: 12px;
+	text-shadow: 3px 3px 0px #000000;
+}
+
+.category-list {
+	list-style: none;
+}
+
+.category-item {
+	padding: 10px;
+	margin-bottom: 8px;
+	border: 4px solid var(--8bit-cyan);
+	background: var(--8bit-black);
+	font-size: 0.625rem;
+	color: var(--8bit-white);
+	transition: all 0.05s linear;
+	box-shadow: 0 0 10px var(--8bit-cyan);
+	text-shadow: 2px 2px 0px #000000;
+}
+
+.category-item:hover {
+	background: var(--8bit-cyan);
+	color: var(--8bit-black);
+	border-color: var(--8bit-yellow);
+	box-shadow: 0 0 30px var(--8bit-cyan);
+	text-shadow: none;
+}
+
+/* Футер - Terminal Prompt (стилистический элемент) */
+.footer-prompt-container {
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+
+.footer-prompt {
+	font-family: var(--8bit-font);
+	font-size: 0.75rem;
+	color: var(--8bit-lime);
+	text-align: left;
+	padding: 12px;
+	border: 4px solid var(--8bit-cyan);
+	background: var(--8bit-black);
+	box-shadow: 0 0 15px var(--8bit-cyan);
+	text-shadow: 2px 2px 0px #000000;
+	transition: all 0.05s linear;
+}
+
+.footer-prompt:hover {
+	box-shadow: 0 0 25px var(--8bit-cyan);
+}
+
+.prompt-text {
+	color: var(--8bit-lime);
+}
+
+.typing-cursor {
+	color: var(--8bit-yellow);
+	animation: blink 0.5s infinite;
+	font-size: 1rem;
+	display: inline-block;
+}
+
+.footer-social {
+	display: flex;
+	justify-content: center;
+	gap: 16px;
+	margin-top: 20px;
+}
+
+.footer-social a {
+	width: 48px;
+	height: 48px;
+	border: 4px solid var(--8bit-white);
+	background: var(--8bit-black);
+	color: var(--8bit-white);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	font-size: 1.2rem;
+	transition: all 0.05s linear;
+	box-shadow: 0 0 10px var(--8bit-white);
+}
+
+.footer-social a:hover {
+	background: var(--8bit-pink);
+	border-color: var(--8bit-pink);
+	color: var(--8bit-black);
+	transform: translate(-2px, -2px);
+	box-shadow: 0 0 40px var(--8bit-pink);
+}
+
+/* Поиск */
+.search-box {
+	margin-bottom: 24px;
+	padding: 12px;
+	border: 4px solid var(--8bit-white);
+	background: var(--8bit-black);
+	box-shadow: 0 0 10px var(--8bit-white);
+	transition: all 0.05s linear;
+}
+
+.search-box:hover {
+	box-shadow: 0 0 20px var(--8bit-white);
+}
+
+.search-input {
+	width: 100%;
+	padding: 10px;
+	border: 4px solid var(--8bit-white);
+	background: var(--8bit-black);
+	color: var(--8bit-lime);
+	font-family: var(--8bit-font) !important;
+	font-size: 0.625rem;
+	outline: none;
+	box-shadow: 0 0 10px var(--8bit-white);
+	transition: all 0.05s linear;
+}
+
+.search-input:focus {
+	border-color: var(--8bit-lime);
+	background: rgba(0, 255, 0, 0.1);
+	box-shadow: 0 0 30px var(--8bit-lime);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+	.hampfree-main {
+		grid-template-columns: 1fr;
+	}
+	
+	.hampfree-sidebar {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+		flex-wrap: wrap;
+		padding: 12px;
+	}
+	
+	.sidebar-title {
+		width: 100%;
+		font-size: 0.75rem;
+	}
+	
+	.category-list {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	
+	.category-item {
+		flex: 1;
+		min-width: 150px;
+		margin-bottom: 0;
+		font-size: 0.5rem;
+		padding: 8px;
+	}
+	
+	.hampfree-logo {
+		font-size: 2rem;
+	}
+	
+	.hampfree-nav {
+		gap: 6px;
+		padding: 10px;
+	}
+	
+	.hampfree-nav a {
+		font-size: 0.625rem;
+		padding: 10px 16px;
+		min-width: 90px;
+	}
+	
+	.post-item {
+		flex-direction: column;
+		padding: 12px;
+	}
+	
+	.hampfree-content {
+		padding: 15px;
+	}
+	
+	.post-title {
+		font-size: 0.75rem;
+	}
+	
+	.post-excerpt {
+		font-size: 0.625rem;
+	}
+}

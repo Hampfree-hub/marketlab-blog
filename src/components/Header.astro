@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+import ThemeToggle from './ThemeToggle.astro';
 
 // BASE_URL уже содержит '/marketlab-academy', добавляем '/' перед logo.svg
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
@@ -34,19 +35,39 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 			<HeaderLink href="/rss.xml">RSS</HeaderLink>
 		</div>
 		<div class="header-right">
+			<ThemeToggle />
+<<<<<<< HEAD
+			<div class="language-switcher" role="group" aria-label="Выбор языка">
+				<button class="lang-button active" data-lang="ru" aria-label="Русский" aria-pressed="true">RU</button>
+				<button class="lang-button" data-lang="en" aria-label="English" aria-pressed="false">EN</button>
+				<button class="lang-button" data-lang="es" aria-label="Español" aria-pressed="false">ES</button>
+=======
 			<div class="language-switcher">
 				<button class="lang-button active" aria-label="Русский">RU</button>
 				<button class="lang-button" aria-label="English">EN</button>
 				<button class="lang-button" aria-label="Español">ES</button>
+>>>>>>> c522c6a257b6d8fa670661b54ff171fba27829dc
 			</div>
 			<div class="social-links">
-				<a href="https://dzen.ru/hampfree_algo_trading" target="_blank" rel="noopener noreferrer" class="social-button" data-label="Дзен">
+				<a href="https://dzen.ru/hampfree_algo_trading" target="_blank" rel="noopener noreferrer" class="social-button" data-label="Дзен" aria-label="Дзен">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<!-- Дзен - буква D -->
+						<text x="12" y="17" font-size="14" font-weight="900" text-anchor="middle" fill="currentColor" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif">D</text>
+					</svg>
 					<span class="social-tooltip">Дзен</span>
 				</a>
-				<a href="https://vk.com/hampfree_market_lab" target="_blank" rel="noopener noreferrer" class="social-button" data-label="VK">
+				<a href="https://vk.com/hampfree_market_lab" target="_blank" rel="noopener noreferrer" class="social-button" data-label="VK" aria-label="VK">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<!-- VK - буквы VK -->
+						<text x="12" y="17" font-size="12" font-weight="900" text-anchor="middle" fill="currentColor" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif">VK</text>
+					</svg>
 					<span class="social-tooltip">VK</span>
 				</a>
-				<a href="https://finbazar.ru/profile/Hampfree" target="_blank" rel="noopener noreferrer" class="social-button" data-label="Bazar">
+				<a href="https://finbazar.ru/profile/Hampfree" target="_blank" rel="noopener noreferrer" class="social-button" data-label="Bazar" aria-label="Bazar">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<!-- Bazar - буква B -->
+						<text x="12" y="17" font-size="14" font-weight="900" text-anchor="middle" fill="currentColor" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif">B</text>
+					</svg>
 					<span class="social-tooltip">Bazar</span>
 				</a>
 			</div>
@@ -60,17 +81,27 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		padding: 0 1em;
 		background: var(--bg-primary);
 		box-shadow: var(--box-shadow);
-		transition: background-color 0.3s ease, box-shadow 0.3s ease;
+		position: sticky;
+		top: 0;
+		z-index: 1000;
+		transition: background-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+		            box-shadow var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	}
 	h2 {
 		margin: 0;
 		font-size: 1em;
+		display: flex;
+		align-items: center;
+		line-height: 1;
 	}
 
 	.logo-link {
 		text-decoration: none;
 		display: flex;
 		align-items: center;
+		line-height: 1;
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	}
 
 	.logo-img {
@@ -82,7 +113,7 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		border-radius: 0;
 		outline: none !important;
 		box-shadow: none !important;
-		transition: transform 0.2s ease, filter 0.2s ease;
+		transition: transform var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), filter var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 		display: block;
 		object-fit: contain;
 		flex-shrink: 0;
@@ -113,17 +144,18 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		color: var(--text-primary);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
-		transition: color 0.2s ease, border-color 0.2s ease;
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+		            border-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	}
 	
 	nav a:hover {
-		color: var(--accent);
+		color: var(--green-primary, var(--accent));
 	}
 	
 	nav a.active {
 		text-decoration: none;
-		border-bottom-color: var(--accent);
-		color: var(--accent);
+		border-bottom-color: var(--green-primary, var(--accent));
+		color: var(--green-primary, var(--accent));
 	}
 
 	.internal-links {
@@ -147,19 +179,23 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		padding: 1em 0.5em;
 		background: transparent;
 		border: none;
+		border-bottom: 4px solid transparent;
 		color: var(--text-primary);
 		cursor: pointer;
 		font-size: 1em;
-		font-family: 'Lato', sans-serif;
-		transition: color 0.2s ease;
+		font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+		            border-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+		line-height: 1;
+		height: 100%;
 	}
 
 	.dropdown-button:hover {
-		color: var(--accent);
+		color: var(--green-primary, var(--accent));
 	}
 
 	.dropdown-button svg {
-		transition: transform 0.2s ease;
+		transition: transform var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	}
 
 	.dropdown:hover .dropdown-button svg,
@@ -173,14 +209,17 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		left: 0;
 		background: var(--bg-primary);
 		border-radius: 8px;
-		box-shadow: 
-			0 4px 12px rgba(0, 0, 0, 0.15),
-			0 8px 24px rgba(0, 0, 0, 0.2);
+		box-shadow: var(--box-shadow);
 		min-width: 180px;
 		opacity: 0;
 		visibility: hidden;
 		transform: translateY(-10px);
-		transition: all 0.2s ease;
+		transition: opacity var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+		            visibility var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+		            transform var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            background-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            border-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            box-shadow var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 		z-index: 100;
 		margin-top: 0.5em;
 	}
@@ -197,7 +236,9 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		color: var(--text-primary);
 		text-decoration: none;
 		border-bottom: 1px solid var(--bg-secondary);
-		transition: all 0.2s ease;
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+		            background-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            border-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 		transform: translateY(0);
 	}
 
@@ -216,7 +257,7 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 
 	.dropdown-menu a:hover {
 		background: var(--bg-secondary);
-		color: var(--accent);
+		color: var(--green-primary, var(--accent));
 		border-bottom-color: transparent;
 	}
 
@@ -224,6 +265,12 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		display: flex;
 		align-items: center;
 		gap: 0.75em;
+		flex-shrink: 0;
+		line-height: 1;
+	}
+	
+	/* Переключатель темы */
+	:global(.theme-toggle) {
 		flex-shrink: 0;
 	}
 
@@ -244,8 +291,8 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		font-size: 0.75em;
 		font-weight: 400;
 		cursor: pointer;
-		transition: color 0.2s ease;
-		font-family: 'Lato', sans-serif;
+		transition: color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+		font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 		position: relative;
 	}
 
@@ -261,7 +308,7 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 	}
 
 	.lang-button:hover {
-		color: var(--accent);
+		color: var(--green-primary, var(--accent));
 	}
 
 	.lang-button.active {
@@ -276,58 +323,203 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 	}
 	
 	.social-button {
-		width: 24px;
-		height: 24px;
-		min-width: 24px;
-		min-height: 24px;
-		max-width: 24px;
-		max-height: 24px;
-		aspect-ratio: 1;
-		border-radius: 6px;
-		display: block;
+		width: 28px !important;
+		height: 28px !important;
+		min-width: 28px !important;
+		min-height: 28px !important;
+		max-width: 28px !important;
+		max-height: 28px !important;
+		border-radius: 50% !important;
+		display: flex !important;
+		align-items: center;
+		justify-content: center;
 		position: relative;
-		transition: all 0.3s ease;
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
-		text-decoration: none;
+		transition: background var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            border-color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            color var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            transform var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)),
+		            box-shadow var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+		text-decoration: none !important;
 		flex-shrink: 0;
 		box-sizing: border-box;
-		padding: 0;
-		margin: 0;
+		padding: 0 !important;
+		margin: 0 !important;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+		overflow: hidden;
+		aspect-ratio: 1 / 1 !important;
 	}
 	
-	/* Минималистичные квадратные пузырьки без символов */
+	/* Защита от глобальных стилей для ссылок */
+	.social-button,
+	.social-button:hover,
+	.social-button:focus,
+	.social-button:active {
+		text-decoration: none !important;
+		color: inherit !important;
+	}
+	
+	/* Светлая тема - более тёмная тень для кнопок */
+	.light-theme .social-button {
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+	}
+	
+	/* Тёмная тема - более светлая тень */
+	.dark-theme .social-button {
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+	}
+	
+	.social-button svg {
+		width: 16px;
+		height: 16px;
+		min-width: 16px;
+		min-height: 16px;
+		max-width: 16px;
+		max-height: 16px;
+		flex-shrink: 0;
+		display: block;
+		vertical-align: middle;
+		/* Убираем отдельную анимацию - символ движется вместе с кнопкой */
+	}
+	
+	/* Базовые стили для всех кнопок соцсетей (светлая тема по умолчанию) */
+	/* Дзен - едва заметный серый с обводкой */
 	.social-button[href*="dzen"] {
-		background: rgba(0, 0, 0, 0.4);
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		background: rgba(74, 74, 74, 0.08); /* Едва заметный серый фон */
+		border: 1px solid rgba(74, 74, 74, 0.25); /* Слабая серая обводка */
+		color: #4A4A4A; /* Серый текст */
 	}
 	
+	.social-button[href*="dzen"] svg text {
+		fill: currentColor; /* Использует color кнопки */
+		transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+	}
+	
+	/* VK - едва заметный синий с обводкой */
 	.social-button[href*="vk"] {
-		background: rgba(70, 128, 194, 0.4);
-		border: 1px solid rgba(70, 128, 194, 0.3);
+		background: rgba(70, 128, 194, 0.08); /* Едва заметный синий фон */
+		border: 1px solid rgba(70, 128, 194, 0.3); /* Слабая синяя обводка */
+		color: rgba(70, 128, 194, 0.9); /* Синий текст */
 	}
 	
+	.social-button[href*="vk"] svg text {
+		fill: currentColor; /* Использует color кнопки */
+		transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+	}
+	
+	/* Bazar - едва заметный зелёный с обводкой */
 	.social-button[href*="finbazar"] {
-		background: rgba(152, 251, 152, 0.4);
-		border: 1px solid rgba(152, 251, 152, 0.3);
+		background: rgba(74, 154, 74, 0.08); /* Едва заметный зелёный фон */
+		border: 1px solid rgba(74, 154, 74, 0.3); /* Слабая зелёная обводка */
+		color: rgba(74, 154, 74, 0.9); /* Зелёный текст */
 	}
 	
-	/* Тёмная тема */
+	.social-button[href*="finbazar"] svg text {
+		fill: currentColor; /* Использует color кнопки */
+		transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+	}
+	
+	/* Тёмная тема (автоматическая) - более яркие цвета */
 	@media (prefers-color-scheme: dark) {
-		.social-button[href*="dzen"] {
-			background: rgba(255, 255, 255, 0.15);
-			border: 1px solid rgba(255, 255, 255, 0.2);
+		:root:not(.light-theme) .social-button[href*="dzen"] {
+			background: rgba(255, 255, 255, 0.15) !important; /* Светлый фон для тёмной темы */
+			border: 1px solid rgba(255, 255, 255, 0.3) !important;
+			color: #E0E0E0 !important; /* Светлый текст */
 		}
 		
-		.social-button[href*="vk"] {
-			background: rgba(70, 128, 194, 0.5);
-			border: 1px solid rgba(70, 128, 194, 0.4);
+		:root:not(.light-theme) .social-button[href*="dzen"] svg text {
+			fill: #E0E0E0 !important;
+			transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)) !important;
 		}
 		
-		.social-button[href*="finbazar"] {
-			background: rgba(152, 251, 152, 0.5);
-			border: 1px solid rgba(152, 251, 152, 0.4);
+		:root:not(.light-theme) .social-button[href*="vk"] {
+			background: rgba(70, 128, 194, 0.8);
+			border: 1px solid rgba(70, 128, 194, 0.6);
+			color: #FFFFFF;
 		}
+		
+		:root:not(.light-theme) .social-button[href*="vk"] svg text {
+			fill: #FFFFFF;
+			transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+		}
+		
+		:root:not(.light-theme) .social-button[href*="finbazar"] {
+			background: rgba(107, 200, 107, 0.8);
+			border: 1px solid rgba(107, 200, 107, 0.6);
+			color: #FFFFFF;
+		}
+		
+		:root:not(.light-theme) .social-button[href*="finbazar"] svg text {
+			fill: #FFFFFF;
+			transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+		}
+	}
+	
+	/* Ручное переключение темы - тёмная */
+	.dark-theme .social-button[href*="dzen"] {
+		background: rgba(255, 255, 255, 0.15) !important; /* Светлый фон для тёмной темы */
+		border: 1px solid rgba(255, 255, 255, 0.3) !important;
+		color: #E0E0E0 !important; /* Светлый текст */
+	}
+	
+	.dark-theme .social-button[href*="dzen"] svg text {
+		fill: #E0E0E0 !important; /* Светлый текст для SVG */
+		transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)) !important;
+	}
+	
+	.dark-theme .social-button[href*="vk"] {
+		background: rgba(70, 128, 194, 0.8);
+		border: 1px solid rgba(70, 128, 194, 0.6);
+		color: #FFFFFF;
+	}
+	
+	.dark-theme .social-button[href*="vk"] svg text {
+		fill: #FFFFFF;
+		transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+	}
+	
+	.dark-theme .social-button[href*="finbazar"] {
+		background: rgba(107, 200, 107, 0.8);
+		border: 1px solid rgba(107, 200, 107, 0.6);
+		color: #FFFFFF;
+	}
+	
+	.dark-theme .social-button[href*="finbazar"] svg text {
+		fill: #FFFFFF;
+		transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+	}
+	
+	/* Светлая тема - едва заметные кнопки с обводкой */
+	.light-theme .social-button[href*="dzen"] {
+		background: rgba(74, 74, 74, 0.08) !important; /* Едва заметный серый фон */
+		border: 1px solid rgba(74, 74, 74, 0.25) !important; /* Слабая серая обводка */
+		color: #4A4A4A !important; /* Серый текст */
+	}
+	
+	.light-theme .social-button[href*="dzen"] svg text {
+		fill: #4A4A4A !important; /* Серый текст для SVG */
+		transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)) !important;
+	}
+	
+	.light-theme .social-button[href*="vk"] {
+		background: rgba(70, 128, 194, 0.08) !important; /* Едва заметный синий фон */
+		border: 1px solid rgba(70, 128, 194, 0.3) !important; /* Слабая синяя обводка */
+		color: rgba(70, 128, 194, 0.9) !important; /* Синий текст */
+	}
+	
+	.light-theme .social-button[href*="vk"] svg text {
+		fill: rgba(70, 128, 194, 0.9) !important; /* Синий текст для SVG */
+		transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)) !important;
+	}
+	
+	.light-theme .social-button[href*="finbazar"] {
+		background: rgba(74, 154, 74, 0.08) !important; /* Едва заметный зелёный фон */
+		border: 1px solid rgba(74, 154, 74, 0.3) !important; /* Слабая зелёная обводка */
+		color: rgba(74, 154, 74, 0.9) !important; /* Зелёный текст */
+	}
+	
+	.light-theme .social-button[href*="finbazar"] svg text {
+		fill: rgba(74, 154, 74, 0.9) !important; /* Зелёный текст для SVG */
+		transition: fill var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)) !important;
 	}
 	
 	/* Подпись при наведении */
@@ -344,9 +536,11 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		white-space: nowrap;
 		opacity: 0;
 		visibility: hidden;
-		transition: all 0.2s ease;
+		transition: opacity var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+		            visibility var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1)), 
+		            transform var(--transition-smooth, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 		pointer-events: none;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		box-shadow: var(--box-shadow);
 		z-index: 1000;
 	}
 	
@@ -366,21 +560,74 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		transform: translateX(-50%) translateY(4px);
 	}
 	
-	/* Hover эффект - меняется интенсивность цвета */
-	.social-button[href*="dzen"]:hover {
-		background: rgba(0, 0, 0, 0.7);
-		transform: scale(1.05);
+	/* Скрываем tooltip на мобильных */
+	@media (max-width: 600px) {
+		.social-tooltip {
+			display: none;
+		}
 	}
 	
-	.social-button[href*="vk"]:hover {
-		background: rgba(70, 128, 194, 0.7);
-		transform: scale(1.05);
+	/* Hover эффект - плавное увеличение, усиление цвета и тень */
+	.social-button:hover {
+		transform: translateY(-1px) scale(1.05);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 	}
 	
-	.social-button[href*="finbazar"]:hover {
-		background: rgba(152, 251, 152, 0.7);
-		transform: scale(1.05);
+	/* Светлая тема - усиление цвета при hover */
+	.light-theme .social-button[href*="dzen"]:hover {
+		background: rgba(74, 74, 74, 0.25) !important; /* Усиленный серый фон */
+		border-color: rgba(74, 74, 74, 0.5) !important; /* Более яркая обводка */
+		color: #2A2A2A !important; /* Более тёмный текст */
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 	}
+	
+	.light-theme .social-button[href*="dzen"]:hover svg text {
+		fill: #2A2A2A !important;
+	}
+	
+	.light-theme .social-button[href*="vk"]:hover {
+		background: rgba(70, 128, 194, 0.25) !important; /* Усиленный синий фон */
+		border-color: rgba(70, 128, 194, 0.6) !important; /* Более яркая обводка */
+		color: rgba(70, 128, 194, 1) !important; /* Полностью непрозрачный синий */
+		box-shadow: 0 2px 8px rgba(70, 128, 194, 0.2);
+	}
+	
+	.light-theme .social-button[href*="vk"]:hover svg text {
+		fill: rgba(70, 128, 194, 1) !important;
+	}
+	
+	.light-theme .social-button[href*="finbazar"]:hover {
+		background: rgba(74, 154, 74, 0.25) !important; /* Усиленный зелёный фон */
+		border-color: rgba(74, 154, 74, 0.6) !important; /* Более яркая обводка */
+		color: rgba(74, 154, 74, 1) !important; /* Полностью непрозрачный зелёный */
+		box-shadow: 0 2px 8px rgba(74, 154, 74, 0.2);
+	}
+	
+	.light-theme .social-button[href*="finbazar"]:hover svg text {
+		fill: rgba(74, 154, 74, 1) !important;
+	}
+	
+	/* Тёмная тема - hover эффект */
+	.dark-theme .social-button:hover {
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+	}
+	
+	.dark-theme .social-button[href*="dzen"]:hover {
+		background: rgba(255, 255, 255, 0.3) !important; /* Более яркий фон */
+		border-color: rgba(255, 255, 255, 0.5) !important;
+	}
+	
+	.dark-theme .social-button[href*="vk"]:hover {
+		background: rgba(70, 128, 194, 0.95) !important;
+		border-color: rgba(70, 128, 194, 0.8) !important;
+	}
+	
+	.dark-theme .social-button[href*="finbazar"]:hover {
+		background: rgba(107, 200, 107, 0.95) !important;
+		border-color: rgba(107, 200, 107, 0.8) !important;
+	}
+	
+	/* Символ движется вместе с кнопкой (через scale кнопки), отдельной анимации нет */
 
 	.sr-only {
 		position: absolute;
@@ -452,12 +699,23 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		}
 		
 		.social-button {
-			width: 22px;
-			height: 22px;
-			min-width: 22px;
-			min-height: 22px;
-			max-width: 22px;
-			max-height: 22px;
+			width: 26px !important;
+			height: 26px !important;
+			min-width: 26px !important;
+			min-height: 26px !important;
+			max-width: 26px !important;
+			max-height: 26px !important;
+			border-radius: 50% !important;
+			aspect-ratio: 1 / 1 !important;
+		}
+		
+		.social-button svg {
+			width: 14px;
+			height: 14px;
+			min-width: 14px;
+			min-height: 14px;
+			max-width: 14px;
+			max-height: 14px;
 		}
 	}
 	
@@ -521,6 +779,14 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		
 		.social-button {
 			align-self: flex-start;
+			width: 26px !important;
+			height: 26px !important;
+			min-width: 26px !important;
+			min-height: 26px !important;
+			max-width: 26px !important;
+			max-height: 26px !important;
+			border-radius: 50% !important;
+			aspect-ratio: 1 / 1 !important;
 		}
 	}
 		
@@ -583,3 +849,69 @@ const logoPath = `${baseUrl}logo.svg?v=5`;
 		}
 	}
 </style>
+
+<script>
+	// Language switcher functionality
+	(function() {
+		// Get current language from HTML lang attribute or localStorage
+		function getCurrentLanguage() {
+			const htmlLang = document.documentElement.lang || 'ru';
+			const savedLang = localStorage.getItem('preferred-language');
+			return savedLang || htmlLang.toLowerCase().split('-')[0]; // 'ru', 'en', 'es'
+		}
+
+		// Update active button state
+		function updateActiveButton(lang) {
+			document.querySelectorAll('.lang-button').forEach(button => {
+				const buttonLang = button.getAttribute('data-lang');
+				if (buttonLang === lang) {
+					button.classList.add('active');
+					button.setAttribute('aria-pressed', 'true');
+				} else {
+					button.classList.remove('active');
+					button.setAttribute('aria-pressed', 'false');
+				}
+			});
+		}
+
+		// Update page language
+		function switchLanguage(lang) {
+			// Save preference
+			localStorage.setItem('preferred-language', lang);
+			
+			// Update HTML lang attribute
+			document.documentElement.lang = lang;
+			
+			// Update active button
+			updateActiveButton(lang);
+			
+			// Update all elements with data-lang attribute (like CookieBanner)
+			document.querySelectorAll('[data-lang]').forEach(el => {
+				const elLang = el.getAttribute('data-lang');
+				if (elLang === lang) {
+					el.style.display = '';
+				} else {
+					el.style.display = 'none';
+				}
+			});
+			
+			// Dispatch custom event for other components
+			window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+		}
+
+		// Initialize on page load
+		document.addEventListener('DOMContentLoaded', () => {
+			const currentLang = getCurrentLanguage();
+			updateActiveButton(currentLang);
+			
+			// Add click handlers to language buttons
+			document.querySelectorAll('.lang-button').forEach(button => {
+				button.addEventListener('click', (e) => {
+					e.preventDefault();
+					const lang = button.getAttribute('data-lang');
+					switchLanguage(lang);
+				});
+			});
+		});
+	})();
+</script>

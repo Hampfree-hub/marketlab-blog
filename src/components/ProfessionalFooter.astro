@@ -1,0 +1,192 @@
+---
+// ProfessionalFooter.astro - Профессиональный футер с 4 колонками
+---
+
+<footer class="professional-footer">
+	<div class="footer-container">
+		<!-- Колонка 1: О проекте -->
+		<div class="footer-column">
+			<h3 class="footer-title">MARKETLAB ACADEMY</h3>
+			<p class="footer-text">
+				Профессиональная платформа для изучения алгоритмического трейдинга, 
+				криптовалют и технического анализа. Превращаем рыночный хаос в исполняемые алгоритмы.
+			</p>
+		</div>
+
+		<!-- Колонка 2: Навигация -->
+		<div class="footer-column">
+			<h3 class="footer-title">НАВИГАЦИЯ</h3>
+			<ul class="footer-links">
+				<li><a href="/">Главная</a></li>
+				<li><a href="/blog">Блог</a></li>
+				<li><a href="/guides">Гайды</a></li>
+				<li><a href="/strategies">Стратегии</a></li>
+				<li><a href="/about">О проекте</a></li>
+			</ul>
+		</div>
+
+		<!-- Колонка 3: Ресурсы -->
+		<div class="footer-column">
+			<h3 class="footer-title">РЕСУРСЫ</h3>
+			<ul class="footer-links">
+				<li><a href="/blog/trading-rsi-strategy">RSI Стратегия</a></li>
+				<li><a href="/blog/trading-macd-guide">MACD Индикатор</a></li>
+				<li><a href="/blog/trading-risk-management">Риск-менеджмент</a></li>
+				<li><a href="/guides">Гайды по трейдингу</a></li>
+			</ul>
+		</div>
+
+		<!-- Колонка 4: Контакты -->
+		<div class="footer-column">
+			<h3 class="footer-title">СВЯЗЬ</h3>
+			<ul class="footer-links">
+				<li><a href="https://t.me/hampfree_market_lab" target="_blank" rel="noopener noreferrer">Telegram</a></li>
+				<li><a href="https://dzen.ru/hampfree_algo_trading" target="_blank" rel="noopener noreferrer">Дзен</a></li>
+				<li><a href="https://vk.com/hampfree_market_lab" target="_blank" rel="noopener noreferrer">VK</a></li>
+				<li><a href="https://github.com/Hampfree-hub" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Disclaimer -->
+	<div class="footer-disclaimer">
+		<p class="disclaimer-text">
+			<strong>DISCLAIMER:</strong> Информация на этом сайте предоставляется исключительно в образовательных целях. 
+			Торговля криптовалютами и другими финансовыми инструментами сопряжена с высокими рисками. 
+			Всегда проводите собственное исследование (DYOR) и никогда не инвестируйте больше, чем можете позволить себе потерять. 
+			Прошлые результаты не гарантируют будущую прибыльность.
+		</p>
+	</div>
+
+	<!-- Копирайт -->
+	<div class="footer-copyright">
+		<p>&copy; 2025 MarketLab Academy. Все права защищены. | Emily Computer System</p>
+	</div>
+</footer>
+
+<style>
+	.professional-footer {
+		background: var(--8bit-black);
+		border: 4px solid var(--8bit-white);
+		margin-top: 40px;
+		padding: 32px 20px 20px;
+		box-shadow: 0 0 20px var(--8bit-white);
+	}
+
+	.footer-container {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 32px;
+		margin-bottom: 32px;
+		padding-bottom: 32px;
+		border-bottom: 4px solid var(--8bit-cyan);
+	}
+
+	.footer-column {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.footer-title {
+		font-size: 0.875rem;
+		color: var(--8bit-lime);
+		margin: 0;
+		text-shadow: 3px 3px 0px #000000;
+		font-family: var(--8bit-font) !important;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+
+	.footer-text {
+		font-size: 0.625rem;
+		color: var(--8bit-white);
+		line-height: 1.8;
+		opacity: 0.9;
+		font-family: var(--8bit-font) !important;
+		text-shadow: 1px 1px 0px #000000;
+		margin: 0;
+	}
+
+	.footer-links {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.footer-links li {
+		margin: 0;
+	}
+
+	.footer-links a {
+		font-size: 0.625rem;
+		color: var(--8bit-cyan);
+		text-decoration: none;
+		transition: all 0.05s linear;
+		font-family: var(--8bit-font) !important;
+		text-shadow: 1px 1px 0px #000000;
+		display: inline-block;
+	}
+
+	.footer-links a:hover {
+		color: var(--8bit-lime);
+		text-shadow: 2px 2px 0px #000000, 0 0 10px var(--8bit-lime);
+		transform: translateX(4px);
+	}
+
+	.footer-disclaimer {
+		margin-bottom: 24px;
+		padding: 16px;
+		border: 4px solid var(--8bit-yellow);
+		background: rgba(255, 255, 0, 0.05);
+	}
+
+	.disclaimer-text {
+		font-size: 0.5rem;
+		color: var(--8bit-white);
+		line-height: 1.8;
+		margin: 0;
+		font-family: var(--8bit-font) !important;
+		text-shadow: 1px 1px 0px #000000;
+	}
+
+	.disclaimer-text strong {
+		color: var(--8bit-yellow);
+	}
+
+	.footer-copyright {
+		text-align: center;
+		padding-top: 20px;
+		border-top: 4px solid var(--8bit-white);
+	}
+
+	.footer-copyright p {
+		font-size: 0.5rem;
+		color: var(--8bit-white);
+		opacity: 0.8;
+		margin: 0;
+		font-family: var(--8bit-font) !important;
+		text-shadow: 1px 1px 0px #000000;
+	}
+
+	@media (max-width: 1024px) {
+		.footer-container {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 24px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.footer-container {
+			grid-template-columns: 1fr;
+			gap: 24px;
+		}
+
+		.professional-footer {
+			padding: 24px 16px 16px;
+		}
+	}
+</style>

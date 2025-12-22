@@ -1,0 +1,285 @@
+---
+// src/layouts/TerminalLayout.astro
+import BaseHead from '../components/BaseHead.astro';
+import RightControlPanel from '../components/RightControlPanel.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={title} description={description} />
+		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+	</head>
+	<body class="terminal-os">
+		<!-- CRT & Scanline Effects -->
+		<div class="crt-overlay"></div>
+		<div class="scanlines"></div>
+		
+		<!-- FIXED CONTROL PANEL -->
+		<div class="global-control-panel">
+			<RightControlPanel />
+		</div>
+		
+		<div class="terminal-container">
+			<!-- SYSTEM HEADER -->
+			<header class="system-header">
+				<div class="system-id">MARKETLAB OS v25.12.21</div>
+				<div class="system-status">
+					<span class="status-dot"></span> SYSTEM ONLINE
+				</div>
+			</header>
+
+			<!-- SYSTEM NAVIGATION -->
+			<nav class="system-nav" aria-label="Системная навигация">
+				<a href="/" class="nav-item">[ FILES ]</a>
+				<a href="/guides" class="nav-item">[ GUIDES ]</a>
+				<a href="/strategies" class="nav-item">[ STRATEGIES ]</a>
+				<a href="/about" class="nav-item">[ SYSTEM INFO ]</a>
+			</nav>
+
+			<slot />
+
+			<!-- SYSTEM FOOTER -->
+			<footer class="system-footer">
+				<div class="footer-path">root@emily-computer:~# <span class="typing-cursor-inline">_</span></div>
+				<div class="footer-copy">© 2025 MarketLab Academy. All rights reserved.</div>
+			</footer>
+		</div>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--term-bg: #05080f;
+		--term-green: #00ff41;
+		--term-amber: #ffb000;
+		--term-blue: #00d9ff;
+		--term-dim: #004411;
+		--term-glow: rgba(0, 255, 65, 0.2);
+	}
+
+	/* LIGHT THEME OVERRIDES - BIOS Windows стиль (сине-серая палитра) */
+	:global(.light-theme) {
+		--term-bg: #ffffff;
+		--term-green: #0000aa; /* Классический BIOS синий */
+		--term-amber: #0055ff; /* Яркий синий акцент */
+		--term-blue: #0000ff; /* Чистый синий */
+		--term-dim: #808080; /* Серый */
+		--term-glow: rgba(0, 0, 170, 0.08);
+	}
+
+	body {
+		background-color: var(--term-bg);
+		color: var(--term-green);
+		font-family: 'JetBrains Mono', 'Courier New', monospace;
+		margin: 0;
+		padding: 0;
+		overflow-x: hidden;
+		line-height: 1.5;
+		transition: background-color 0.3s ease, color 0.3s ease;
+	}
+
+	/* По умолчанию темная тема */
+	body:not(.light-theme):not(.dark-theme) {
+		background-color: var(--term-bg);
+		color: var(--term-green);
+	}
+
+	/* CRT & Scanline Effects */
+	.crt-overlay {
+		position: fixed;
+		top: 0; left: 0; right: 0; bottom: 0;
+		background: radial-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 100%),
+					linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%),
+					linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.01));
+		z-index: 10000;
+		pointer-events: none;
+		background-size: 100% 100%, 100% 2px, 3px 100%;
+		opacity: 1;
+		transition: opacity 0.3s ease;
+	}
+
+	:global(.light-theme) .crt-overlay {
+		opacity: 0.2; /* Почти невидимый в светлой теме */
+	}
+
+	.scanlines {
+		position: fixed;
+		top: 0; left: 0; width: 100%; height: 100%;
+		background: linear-gradient(
+			rgba(18, 16, 16, 0) 0%,
+			rgba(18, 16, 16, 0.05) 50%,
+			rgba(18, 16, 16, 0) 100%
+		);
+		background-size: 100% 4px;
+		z-index: 9999;
+		pointer-events: none;
+		animation: scanline 10s linear infinite;
+		opacity: 1;
+		transition: opacity 0.3s ease;
+	}
+
+	:global(.light-theme) .scanlines {
+		opacity: 0.15; /* Едва заметные в светлой теме */
+	}
+
+	@keyframes scanline {
+		0% { transform: translateY(0); }
+		100% { transform: translateY(100vh); }
+	}
+
+	/* Fixed Control Panel */
+	.global-control-panel {
+		position: fixed;
+		right: 8px;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 10001;
+		pointer-events: auto;
+	}
+
+	.terminal-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 40px 20px;
+		position: relative;
+		z-index: 1;
+		padding-right: 50px; /* Отступ для компактной панели управления */
+	}
+
+	@media (max-width: 1024px) {
+		.global-control-panel {
+			position: fixed;
+			right: 10px;
+			top: auto;
+			bottom: 20px;
+			transform: none;
+		}
+		.terminal-container {
+			padding-right: 20px;
+		}
+	}
+
+	/* System Elements */
+	.system-header {
+		display: flex;
+		justify-content: space-between;
+		border-bottom: 1px solid var(--term-dim);
+		padding-bottom: 10px;
+		margin-bottom: 20px;
+		font-size: 0.8rem;
+		opacity: 0.8;
+	}
+
+	.status-dot {
+		display: inline-block;
+		width: 8px;
+		height: 8px;
+		background: var(--term-green);
+		border-radius: 50%;
+		margin-right: 5px;
+		box-shadow: 0 0 5px var(--term-green);
+		animation: blink 1s step-end infinite;
+	}
+
+	@keyframes blink { 50% { opacity: 0; } }
+
+	.system-nav {
+		margin-bottom: 40px;
+		display: flex;
+		gap: 20px;
+		flex-wrap: wrap;
+	}
+
+	.nav-item {
+		color: var(--term-green);
+		text-decoration: none;
+		padding: 5px 15px;
+		border: 1px solid transparent;
+		transition: all 0.2s;
+		font-weight: bold;
+	}
+
+	.nav-item:hover {
+		background: var(--term-dim);
+		border-color: var(--term-green);
+		text-shadow: 0 0 8px var(--term-green);
+		transform: translateY(-2px);
+	}
+
+	.system-footer {
+		margin-top: 60px;
+		border-top: 1px solid var(--term-dim);
+		padding-top: 20px;
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.8rem;
+		opacity: 0.7;
+	}
+
+	.typing-cursor-inline {
+		animation: blink 1s step-end infinite;
+	}
+
+	/* Typography & Content Styles */
+	h1, h2, h3 {
+		color: var(--term-amber);
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		margin-top: 1.5em;
+		margin-bottom: 0.8em;
+	}
+
+	a {
+		color: var(--term-blue);
+		transition: all 0.2s;
+	}
+
+	a:hover {
+		text-shadow: 0 0 5px var(--term-blue);
+	}
+
+	code {
+		background: var(--term-dim);
+		padding: 2px 5px;
+		color: var(--term-blue);
+		font-family: inherit;
+	}
+
+	/* Global Scrollbar */
+	::-webkit-scrollbar { width: 10px; }
+	::-webkit-scrollbar-track { background: var(--term-bg); }
+	::-webkit-scrollbar-thumb { background: var(--term-dim); border: 2px solid var(--term-green); }
+
+	/* Accessibility: Focus States */
+	a:focus, button:focus {
+		outline: 2px solid var(--term-amber);
+		outline-offset: 4px;
+	}
+
+	@media (max-width: 1024px) {
+		.terminal-container {
+			padding-right: 20px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.system-footer { flex-direction: column; gap: 10px; }
+		.terminal-container { padding: 20px 10px; }
+		.global-control-panel {
+			right: 10px;
+			bottom: 10px;
+			top: auto;
+			transform: none;
+		}
+	}
+</style>
+
